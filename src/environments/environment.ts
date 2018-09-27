@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyA2y2JS6XO-jvjxa3nIAap7D8bptqb9tmA',
-    authDomain: 'vlife-86cb0.firebaseapp.com',
-    databaseURL: 'https://vlife-86cb0.firebaseio.com',
-    projectId: 'vlife-86cb0',
-    storageBucket: 'gs://vlife-86cb0.appspot.com',
-    messagingSenderId: '687885254403'
+    apiKey: "AIzaSyD4yxbRne-zq2BSlUp1o0ja6F6jLIGrX3Q",
+    authDomain: "autohub-557b1.firebaseapp.com",
+    databaseURL: "https://autohub-557b1.firebaseio.com",
+    projectId: "autohub-557b1",
+    storageBucket: "autohub-557b1.appspot.com",
+    messagingSenderId: "385445687853"
   }
 };
 

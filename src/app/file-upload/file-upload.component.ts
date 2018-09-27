@@ -21,7 +21,7 @@ export class FileUploadComponent implements OnInit {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        const filePath = 'images/space23.jpg';
+        const filePath = 'images2/space23.jpg';
         const ref = this.storage.ref(filePath);
         ref.putString(reader.result.toString(), 'data_url').then(function(snapshot) {
           console.log('Uploaded a base64 string!');

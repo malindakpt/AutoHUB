@@ -20,7 +20,7 @@ export class DbAccessComponent {
     
   }
 
-  public addDocument(event: any){
+  public addDocument(){
     this.afs.firestore.collection("autoHub").add({
       first: "Ada",
       last: "Lovelace",

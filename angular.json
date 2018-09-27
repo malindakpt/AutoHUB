@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "vlife": {
+    "autohub": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/vlife",
+            "outputPath": "dist/autohub",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "vlife:build"
+            "browserTarget": "autohub:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "vlife:build:production"
+              "browserTarget": "autohub:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "vlife:build"
+            "browserTarget": "autohub:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "vlife-e2e": {
+    "autohub-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +103,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "vlife:serve"
+            "devServerTarget": "autohub:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "vlife:serve:production"
+              "devServerTarget": "autohub:serve:production"
             }
           }
         },
@@ -123,5 +123,5 @@
       }
     }
   },
-  "defaultProject": "vlife"
+  "defaultProject": "autohub"
 }
