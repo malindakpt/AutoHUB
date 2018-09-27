@@ -6,11 +6,11 @@ export const environment = {
   production: false,
   firebase: {
     apiKey: 'AIzaSyA2y2JS6XO-jvjxa3nIAap7D8bptqb9tmA',
-    authDomain: '<your-project-authdomain>',
-    databaseURL: '<your-database-URL>',
+    authDomain: 'vlife-86cb0.firebaseapp.com',
+    databaseURL: 'https://vlife-86cb0.firebaseio.com',
     projectId: 'vlife-86cb0',
     storageBucket: 'gs://vlife-86cb0.appspot.com',
-    messagingSenderId: '<your-messaging-sender-id>'
+    messagingSenderId: '687885254403'
   }
 };
 
