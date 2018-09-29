@@ -12,25 +12,38 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { ErrorComponent } from './components/error/error.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from '../app/app.routes';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { AddNewComponent } from './components-sub/add-new/add-new.component';
+
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    FileUploadComponent,
-    DbAccessComponent,
-    MainLayoutComponent,
-    ErrorComponent
-  ],
   imports: [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserModule,
+    BrowserAnimationsModule,
+
+    MatButtonModule,
+    MatCheckboxModule,
+
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
+
+  declarations: [
+    AppComponent,
+    FileUploadComponent,
+    DbAccessComponent,
+    MainLayoutComponent,
+    ErrorComponent,
+    AddNewComponent
+  ],
+
   providers: [
     AngularFirestore
   ],
