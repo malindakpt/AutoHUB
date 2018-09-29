@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VProfileComponent implements OnInit {
 
+  public swiperConfig = {
+    direction: 'horizontal'
+  };
+  
   constructor() { }
 
   ngOnInit() {

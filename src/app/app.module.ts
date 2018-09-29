@@ -20,6 +20,15 @@ import { HeaderToolbarComponent } from './components/header-toolbar/header-toolb
 import { VProfileComponent } from './components-sub/v-profile/v-profile.component';
 import { AdContainerComponent } from './components-sub/ad-container/ad-container.component';
 
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
+
 
 @NgModule({
   imports: [
@@ -36,7 +45,9 @@ import { AdContainerComponent } from './components-sub/ad-container/ad-container
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+
+    SwiperModule
   ],
 
   declarations: [
@@ -53,7 +64,13 @@ import { AdContainerComponent } from './components-sub/ad-container/ad-container
   ],
 
   providers: [
-    AngularFirestore
+    AngularFirestore,
+    [
+      {
+        provide: SWIPER_CONFIG,
+        useValue: DEFAULT_SWIPER_CONFIG
+      }
+    ]
   ],
   bootstrap: [AppComponent]
 })
