@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
@@ -10,15 +9,22 @@ import { DbAccessComponent } from './db-access/db-access.component';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-
+import { ErrorComponent } from './components/error/error.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from '../app/app.routes';
 @NgModule({
   declarations: [
     AppComponent,
     FileUploadComponent,
     DbAccessComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    ErrorComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
