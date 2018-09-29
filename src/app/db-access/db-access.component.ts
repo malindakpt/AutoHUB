@@ -7,7 +7,7 @@ export interface Item { name: string; }
 @Component({
   selector: 'app-db-access',
   templateUrl: './db-access.component.html',
-  styleUrls: ['./db-access.component.css']
+  styleUrls: ['./db-access.component.scss']
 })
 export class DbAccessComponent {
   // private itemsCollection: AngularFirestoreCollection<Item>;

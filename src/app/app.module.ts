@@ -15,6 +15,7 @@ import { appRoutes } from '../app/app.routes';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { AddNewComponent } from './components-sub/add-new/add-new.component';
+import { AddUserComponent } from './components-sub/add-user/add-user.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AddNewComponent } from './components-sub/add-new/add-new.component';
     DbAccessComponent,
     MainLayoutComponent,
     ErrorComponent,
-    AddNewComponent
+    AddNewComponent,
+    AddUserComponent
   ],
 
   providers: [
