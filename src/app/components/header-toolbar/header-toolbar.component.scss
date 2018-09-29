@@ -1,0 +1,10 @@
+@import "../../scss/variabels";
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 50px;
+    background-color: $theme-color;
+    color: $font-color;
+}

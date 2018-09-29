@@ -16,6 +16,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { AddNewComponent } from './components-sub/add-new/add-new.component';
 import { AddUserComponent } from './components-sub/add-user/add-user.component';
+import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
+import { VProfileComponent } from './components-sub/v-profile/v-profile.component';
+import { AdContainerComponent } from './components-sub/ad-container/ad-container.component';
 
 
 @NgModule({
@@ -43,7 +46,10 @@ import { AddUserComponent } from './components-sub/add-user/add-user.component';
     MainLayoutComponent,
     ErrorComponent,
     AddNewComponent,
-    AddUserComponent
+    AddUserComponent,
+    HeaderToolbarComponent,
+    VProfileComponent,
+    AdContainerComponent
   ],
 
   providers: [
