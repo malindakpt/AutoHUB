@@ -8,10 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class VProfileComponent implements OnInit {
 
   public swiperConfig = {
-    direction: 'horizontal',
-    slidesPerView: 'auto',
     loop: true,
-    observer: true,
     navigation: true,
   };
 ;

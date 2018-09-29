@@ -1,5 +1,7 @@
+@import "../../scss/variabels";
+
 :host {
-    width:100%;
+    max-width: 725px;
     padding: 5px;
     .swiper-container{
         
@@ -11,5 +13,19 @@
                 height: 100%;
             }
         }
+    }
+    .info{
+        margin-top: 5px;
+        div:nth-child(1){
+            color: #808080c7;
+            width: 120px;
+           
+        }
+        div:nth-child(2){
+           color: black;
+        }
+    }
+    .theme-text{
+        color: $theme-color !important;
     }
 }
