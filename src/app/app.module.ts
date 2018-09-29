@@ -64,13 +64,11 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   ],
 
   providers: [
-    AngularFirestore,
-    [
-      {
+    AngularFirestore,[
+    {
         provide: SWIPER_CONFIG,
         useValue: DEFAULT_SWIPER_CONFIG
-      }
-    ]
+    }]
   ],
   bootstrap: [AppComponent]
 })

@@ -1,13 +1,22 @@
-<div  class="swiper-container" [swiper]="config">
+<div  class="swiper-container" [swiper]="swiperConfig"  [(index)]="index">
   <div class="swiper-wrapper">
     <div class="swiper-slide">
-      Swiper slide content1
+     <img src="../../../assets/images/car1.jpg">
     </div>
     <div class="swiper-slide">
-      Swiper slide content2
+      <img src="../../../assets/images/car2.jpg">
     </div>
     <div class="swiper-slide">
-      Swiper slide content3
+      <img src="../../../assets/images/car3.jpg">
     </div>
   </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+  
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
 </div>

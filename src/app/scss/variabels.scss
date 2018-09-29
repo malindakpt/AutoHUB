@@ -1,2 +1,12 @@
 $theme-color: #018786;
 $font-color: #ffffff;
+
+$phone-breakpoint: 740px;
+
+
+
+@mixin small-screen() {
+    @media only screen and (max-width: $phone-breakpoint) {
+        @content;
+    }
+}

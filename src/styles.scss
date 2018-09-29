@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~swiper/dist/css/swiper.min.css';
+@import "../src/app/scss/variabels.scss";
 
 @font-face {
     font-family: 'roboto';
@@ -10,6 +11,8 @@
     src: url('../src/app/scss/fonts/Roboto/RobotoCondensed-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
     // src: url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
   }
+
+
 
 
   html{
