@@ -9,12 +9,14 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { DbAccessComponent } from './db-access/db-access.component';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FileUploadComponent,
-    DbAccessComponent
+    DbAccessComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule,
