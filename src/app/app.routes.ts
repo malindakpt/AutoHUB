@@ -1,6 +1,4 @@
-import { MainLayoutComponent } from "./components/main-layout/main-layout.component";
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { ErrorComponent } from "./components/error/error.component";
 import { VAddComponent } from "src/app/components-sub/v-add/v-add.component";
 import { VProfileComponent } from "./components-sub/v-profile/v-profile.component";

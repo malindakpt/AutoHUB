@@ -1,3 +1,25 @@
-<p>
-  v-add works!
-</p>
+<div class="flex-j-center">
+<form>
+  <mat-form-field>
+    <input matInput placeholder="Chassis No" [(ngModel)]="vehicle.chassisNo" name="Chassis">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Year" [(ngModel)]="vehicle.manufactYear" name="manufactYear" type="number">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput placeholder="Manufactured Country" [(ngModel)]="vehicle.manufactCountry" name="manufactCountry">
+    </mat-form-field>
+
+
+    <div>
+        <button mat-raised-button color="warn">Clear</button>
+        <button mat-raised-button color="primary" (click)="addVehicle()">Add</button>
+    </div>
+
+  <!-- <mat-form-field>
+    <textarea matInput placeholder="Leave a comment"></textarea>
+  </mat-form-field> -->
+</form>
+</div>

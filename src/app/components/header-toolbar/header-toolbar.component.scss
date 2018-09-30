@@ -7,4 +7,15 @@
     height: 50px;
     background-color: $theme-color;
     color: $font-color;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+
+    .menu-bar{
+       div{
+        margin-left: 20px;
+        cursor: pointer;
+       } 
+    }
 }
