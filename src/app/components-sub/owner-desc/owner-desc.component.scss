@@ -1,0 +1,18 @@
+@import "../../scss/variabels";
+
+:host {
+    width: 100%; 
+    .owner{
+        margin-bottom: 10px;
+        img{
+            width:40px;
+            height:40px;
+        }
+        div{
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            color: $owner-color;
+        }
+
+    }}

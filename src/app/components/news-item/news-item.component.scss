@@ -1,0 +1,13 @@
+@import "../../scss/variabels";
+
+:host {
+    width: 100%;
+    
+    .comment{
+        margin-left: 20px;
+        font-size: 13px;
+    }
+    img{
+        max-height: 200px;
+    }
+}

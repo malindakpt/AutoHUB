@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vehicle } from '../../entities/vehicle';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material';
-import { PopupComponent } from '../popup/popup.component';
+import { PopupComponent } from 'src/app/components-sub/popup/popup.component';
 
 @Component({
   selector: 'app-v-add',

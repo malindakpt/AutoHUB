@@ -9,8 +9,13 @@
     <div>
       Profile
     </div>
-    <div (click)="showMenu()">
-      <fa name="bars" size="lg"></fa>
+   
+    <div (click)="checkLogin()">
+      {{loginAction}}
     </div>
+  
+    <div (click)="showMenu()">
+        <fa name="bars" size="lg"></fa>
+      </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 @import "../../scss/variabels";
 
 :host {
-    width:250px;
+    width: 50%;
     @include small-screen {
       display: none;
     }
