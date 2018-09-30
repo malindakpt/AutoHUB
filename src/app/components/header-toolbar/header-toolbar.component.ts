@@ -16,25 +16,23 @@ export class HeaderToolbarComponent implements OnInit {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authenticationService.authStatus.subscribe(sts=>{
+    this.authenticationService.authStatus.subscribe(sts => {
       this.loginAction = sts ? "Logout" : "Login";
     });
   }
 
-  public checkLogin(): void{
-    this.authenticationService.isLoggedIn().then(sts => {
-      if(sts){
-        this.authenticationService.logout();
-      } else {
-        this.authenticationService.login();
-      }
-    });
+  public checkLogin(): void {
+    if (this.loginAction == "Login") {
+      this.authenticationService.login();
+    } else {
+      this.authenticationService.logout();
+    }
   }
 
-  showMenu(): void {
+  public showMenu(): void {
     this.bottomSheet.open(
       BottomMenuComponent,
-      {panelClass: "bottom-menu"});
+      { panelClass: "bottom-menu" });
   }
 
 }

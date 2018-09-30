@@ -8,10 +8,10 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
-    public authStatus: BehaviorSubject<any>;
 
+    public authStatus: Observable<any>;
     constructor(private socialAuthService: AuthService) {
-        this.authStatus = new BehaviorSubject<any>(false);
+        this.authStatus =  this.socialAuthService.authState;
     }
 
     public login(): void {
@@ -19,7 +19,6 @@ export class AuthenticationService {
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
                 console.log("FB sign in data : ", userData);
-                this.authStatus.next(true);
             }
         );
     }
@@ -27,21 +26,22 @@ export class AuthenticationService {
     public logout(): void {
         this.socialAuthService.signOut().then(
             (userData) => {
-                this.authStatus.next(false);
+                console.log("FB logout");
             }
         );
     }
 
-    public isLoggedIn(): Promise<any> {
-        var promise = new Promise((resolve, reject) => {
-            FB.getLoginStatus(function (response) {
-                if(response.status == 'connected'){
-                    resolve(true);
-                } else{
-                    resolve(false);
-                }
-            });
-        });
-        return promise;
-    }
+    // public isLoggedIn(): Promise<any> {
+    //     console.log(this.socialAuthService.authState);
+    //     var promise = new Promise((resolve, reject) => {
+    //         FB.getLoginStatus(function (response) {
+    //             if(response.status == 'connected'){
+    //                 resolve(true);
+    //             } else{
+    //                 resolve(false);
+    //             }
+    //         });
+    //     });
+    //     return promise;
+    // }
 }
