@@ -23,6 +23,7 @@ import { AdContainerComponent } from './components-sub/ad-container/ad-container
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { VAddComponent } from './components-sub/v-add/v-add.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -34,7 +35,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     ),
     BrowserModule,
     BrowserAnimationsModule,
@@ -60,7 +61,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     AddUserComponent,
     HeaderToolbarComponent,
     VProfileComponent,
-    AdContainerComponent
+    AdContainerComponent,
+    VAddComponent
   ],
 
   providers: [
