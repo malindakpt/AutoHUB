@@ -11,13 +11,21 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 export class HeaderToolbarComponent implements OnInit {
 
   public loginAction = "Login";
+  public imageURL: string;
   constructor(
     private bottomSheet: MatBottomSheet,
-    private authenticationService: AuthenticationService) { }
+    public authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.authStatus.subscribe(sts => {
-      this.loginAction = sts ? "Logout" : "Login";
+      
+      if(sts){
+        this.loginAction =  "Logout";
+        this.imageURL = sts.image;
+        console.log(this.imageURL);
+      } else {
+        this.loginAction = "Login";
+      }
     });
   }
 

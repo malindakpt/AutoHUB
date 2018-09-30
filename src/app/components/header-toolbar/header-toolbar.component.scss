@@ -13,9 +13,17 @@
     z-index: 10;
 
     .menu-bar{
+        align-items: center;
        div{
         margin-left: 20px;
         cursor: pointer;
+
+
+        img{
+            height:40px;
+            border-radius: 100%;
+            margin-top: 4px;
+        }
        } 
     }
 }

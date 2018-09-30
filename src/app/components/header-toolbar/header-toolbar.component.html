@@ -1,7 +1,8 @@
 <div class="mat-elevation-z6 header font-size-40">
   <div>
-      <b>AutoHUB</b>
+    <b>AutoHUB</b>
   </div>
+
   <div class="flex-j-sb font-size-25 menu-bar">
     <div>
       News
@@ -9,13 +10,15 @@
     <div>
       Profile
     </div>
-   
+    <div *ngIf="authenticationService.userData">
+      <img [src]="authenticationService.userData.image">
+    </div>
     <div (click)="checkLogin()">
       {{loginAction}}
     </div>
-  
+
     <div (click)="showMenu()">
-        <fa name="bars" size="lg"></fa>
-      </div>
+      <fa name="bars" size="lg"></fa>
+    </div>
   </div>
 </div>
