@@ -31,6 +31,7 @@ import { NewsItemComponent } from './components/news-item/news-item.component';
 import { OwnerDescComponent } from './components-sub/owner-desc/owner-desc.component';
 
 
+
 import {
   SocialLoginModule,
   AuthServiceConfig,

@@ -5,10 +5,10 @@ import { VProfileComponent } from "./components-sub/v-profile/v-profile.componen
 import { NewsItemComponent } from './components/news-item/news-item.component';
 
 export const appRoutes: Routes = [
-    { path: '', redirectTo: '/news', pathMatch: 'full' },
+    { path: '', redirectTo: '/add', pathMatch: 'full' },
     { path: 'news', component: NewsItemComponent },
     { path: 'v-profile', component: VProfileComponent },
-    { path: 'v-add', component: VAddComponent },
+    { path: 'add', component: VAddComponent },
     { path: 'error', component: ErrorComponent },
     { path: '**', redirectTo: '/error', pathMatch: 'full' }
 ];
