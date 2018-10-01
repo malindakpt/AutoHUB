@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-photo-upload',
@@ -9,21 +9,17 @@ export class PhotoUploadComponent implements OnInit {
 
   public oFReader;
   public rFilter;
-
+  @Output() imageChange = new EventEmitter();
   @ViewChild('prev') prev: ElementRef;
-  // @ViewChild('img') img: ElementRef;
-  // @ViewChild("tref", { read: ElementRef }) tref: ElementRef;
 
-   ngOnInit() {
+  ngOnInit() {
       this.oFReader = new FileReader();
       this.rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
       const that = this;
-
       this.oFReader.onload = function (oFREvent) {
           that.createSmallImage(oFREvent);
       };
   }
-
 
   public createSmallImage(oFREvent) {
       const temp = new Image();
@@ -54,9 +50,9 @@ export class PhotoUploadComponent implements OnInit {
           }
 
           ctx.drawImage(temp, 0, 0, temp.width, temp.height, 0, 0, canvas.width, canvas.height);
-
-          that.prev.nativeElement.src = canvas.toDataURL();
-          console.log("prev:", canvas.toDataURL());
+          const imgString = canvas.toDataURL();
+          that.prev.nativeElement.src = imgString;
+          that.imageChange.emit(imgString);
       }
       temp.src = oFREvent.target.result;
   }

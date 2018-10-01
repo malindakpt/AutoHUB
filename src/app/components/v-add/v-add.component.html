@@ -14,8 +14,13 @@
 
 
 
+<div class="img-container">
+  <app-photo-upload (imageChange)="photo1Change($event)"></app-photo-upload>
+  <app-photo-upload (imageChange)="photo2Change($event)"></app-photo-upload>
+  <app-photo-upload (imageChange)="photo3Change($event)"></app-photo-upload>
+  <app-photo-upload (imageChange)="photo4Change($event)"></app-photo-upload>
+</div>
 
-    <app-photo-upload></app-photo-upload>
 
     <div>
       <button mat-raised-button color="warn">Clear</button>
