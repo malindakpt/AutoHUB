@@ -1,0 +1,15 @@
+div{
+  display: flex;
+  align-items: center;
+
+  input{
+    width: 110px;
+    color: white;
+  }
+  label{
+    background-image: url("/src/assets/images/upload-image.PNG");
+    background-repeat: no-repeat;
+    width:32px;
+    height: 32px;
+  }
+}

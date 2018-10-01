@@ -11,39 +11,12 @@
     <mat-form-field>
       <input matInput placeholder="Manufactured Country" [(ngModel)]="vehicle.manufactCountry" name="manufactCountry">
     </mat-form-field>
-    <input id="img" type="file" name="file0" size="50" (change)="onFileChange(0);" />
-    <img #prev style="width:600px;height:450px;" src="/src/assets/images/car2.jpg" />
-    <!-- <br />
-    <br />
-    <input id="img1" type="file" name="file1" size="50" onchange="loadImageFile(1);" />
-    <img id="prev1" style="width:100px;height:70px;" src="img/noImageSmall.jpg" />
-    <br />
-    <br />
-    <input id="img2" type="file" name="file2" size="50" onchange="loadImageFile(2);" />
-    <img id="prev2" style="width:100px;height:70px;" src="img/noImageSmall.jpg" />
-    <br />
-    <br />
-    <input id="img3" type="file" name="file3" size="50" onchange="loadImageFile(3);" />
-    <img id="prev3" style="width:100px;height:70px;" src="img/noImageSmall.jpg" />
-    <br /> -->
-    <!-- <div>
-      <label for="photo1" class="custom-file-upload">
-        Photo 1
-      </label>
-      <input id="photo1" style="display: none" type="file" (change)="onImageChange($event)">
-      <label for="photo2" class="custom-file-upload">
-        Photo 2
-      </label>
-      <input id="photo2" style="display: none" type="file" (change)="onFileChange($event)">
-      <label for="photo3" class="custom-file-upload">
-        Photo 3
-      </label>
-      <input id="photo3" style="display: none" type="file" (change)="onFileChange($event)">
-      <label for="photo4" class="custom-file-upload">
-        Photo 4
-      </label>
-      <input id="photo4" style="display: none" type="file" (change)="onFileChange($event)">
-    </div> -->
+
+
+
+
+    <app-photo-upload></app-photo-upload>
+
     <div>
       <button mat-raised-button color="warn">Clear</button>
       <button mat-raised-button color="primary" (click)="addVehicle()">Add</button>

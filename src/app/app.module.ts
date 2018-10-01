@@ -40,6 +40,7 @@ import {
   LinkedinLoginProvider,
 } from "angular-6-social-login";
 import { AuthenticationService } from './services/auth.service';
+import { PhotoUploadComponent } from './components-sub/photo-upload/photo-upload.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -110,7 +111,8 @@ export function getAuthServiceConfigs() {
     PopupComponent,
     BottomMenuComponent,
     NewsItemComponent,
-    OwnerDescComponent
+    OwnerDescComponent,
+    PhotoUploadComponent
   ],
 
   providers: [
