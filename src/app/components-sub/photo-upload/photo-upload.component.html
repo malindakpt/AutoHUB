@@ -1,9 +1,9 @@
 
 <div>
-  <img #prev style="width:80px;height:60px;" src="/src/assets/images/no-image.jpg" />
+  <img [attr.id]="'prev' + id" style="width:80px;height:60px;" src="/src/assets/images/no-image.jpg" />
   <div>
-    <label for="img"></label>
-    <input id="img" style="display: none" type="file" (change)="onFileChange();">
+    <label [attr.for]="id"></label>
+    <input [attr.id]="id" style="display: none" type="file" (change)="onFileChange();">
   </div>
 </div>
 

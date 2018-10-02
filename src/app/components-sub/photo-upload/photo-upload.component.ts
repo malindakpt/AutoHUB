@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-photo-upload',
@@ -10,7 +10,8 @@ export class PhotoUploadComponent implements OnInit {
   public oFReader;
   public rFilter;
   @Output() imageChange = new EventEmitter();
-  @ViewChild('prev') prev: ElementRef;
+  @Input() id;
+ // @ViewChild('prev' + this.id) prev: ElementRef;
 
   ngOnInit() {
       this.oFReader = new FileReader();
@@ -51,14 +52,14 @@ export class PhotoUploadComponent implements OnInit {
 
           ctx.drawImage(temp, 0, 0, temp.width, temp.height, 0, 0, canvas.width, canvas.height);
           const imgString = canvas.toDataURL();
-          that.prev.nativeElement.src = imgString;
+        (<HTMLInputElement>document.getElementById('prev' + that.id)).src = imgString;
           that.imageChange.emit(imgString);
       }
       temp.src = oFREvent.target.result;
   }
 
   public onFileChange() {
-      const oFile = (<HTMLInputElement>document.getElementById('img')).files[0];
+      const oFile = (<HTMLInputElement>document.getElementById(this.id)).files[0];
       this.oFReader.readAsDataURL(oFile);
   }
 

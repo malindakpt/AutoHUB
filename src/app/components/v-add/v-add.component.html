@@ -15,16 +15,13 @@
 
 
 <div class="img-container">
-  <app-photo-upload (imageChange)="photo1Change($event)"></app-photo-upload>
-  <app-photo-upload (imageChange)="photo2Change($event)"></app-photo-upload>
-  <app-photo-upload (imageChange)="photo3Change($event)"></app-photo-upload>
-  <app-photo-upload (imageChange)="photo4Change($event)"></app-photo-upload>
+  <app-photo-upload [id]="i" *ngFor="let str of vCount; let i = index" (imageChange)="onPhotoChange(i, $event)"></app-photo-upload>
 </div>
 
 
     <div>
       <button mat-raised-button color="warn">Clear</button>
-      <button mat-raised-button color="primary" (click)="addVehicle()">Add</button>
+      <button mat-raised-button color="primary" (click)="complete()">Add</button>
     </div>
 
 

@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material';
 import {PopupComponent} from '../../components-sub/popup/popup.component';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {finalize} from 'rxjs/operators';
 
 @Component({
     selector: 'app-v-add',
@@ -12,27 +13,14 @@ import {AngularFireStorage} from '@angular/fire/storage';
 })
 export class VAddComponent implements OnInit {
     public vehicle: Vehicle;
-
-
-    // public img;
-    public img1;
-    public img2;
-    public img3;
-    public img4;
-
-    public simg0;
-    public simg1;
-    public simg2;
-    public simg3;
-    public simg4;
-
+    public vCount = ['', '', '', ''];
+    public photos = ['', '', '', ''];
     public oFReader;
     public rFilter;
+    public uploadCount = 0;
 
-    public photo1;
-  public photo2;
-  public photo3;
-  public photo4;
+
+  public downloadURL;
 
     @ViewChild('prev') prev: ElementRef;
     @ViewChild('img') img: ElementRef;
@@ -49,27 +37,33 @@ export class VAddComponent implements OnInit {
     ngOnInit() {
     }
 
-    public photo1Change(data): void {
-
-      this.photo1 = data;
+    public onPhotoChange(idx: number, data: string): void {
+      this.photos[idx] = data;
     }
-  public photo2Change(data): void {
-      this.photo2 = data;
-  }
-  public photo3Change(data): void {
-    this.photo3 = data;
-  }
-  public photo4Change(data): void {
-    this.photo4 = data;
-  }
 
-  public uploadPhotos(): void{
-    const filePath = 'images2/car.jpg';
-    const ref = this.storage.ref(filePath);
-    ref.putString(this.photo1, 'data_url').then(function(snapshot) {
-      console.log('Uploaded a base64 string!');
-    });
-  }
+    public complete(): void {
+      this.uploadCount = 0;
+        for (let i = 0; i < this.vehicle.photos.length; i++) {
+          this.uploadPhoto(i, this.photos[i], this.vehicle.chassisNo);
+        }
+    }
+
+    public uploadPhoto(idx: number, imgProp: string, chassis: string): void {
+      const filePath = 'images/' + chassis + '#' + idx + '.jpg';
+      const ref = this.storage.ref(filePath);
+      const task = ref.putString(imgProp, 'data_url');
+      task.snapshotChanges().pipe(
+        finalize(() =>
+          ref.getDownloadURL().subscribe(data => {
+            this.vehicle.photos[idx] = data;
+            ++this.uploadCount;
+            if (this.uploadCount === this.photos.length) {
+              this.addVehicle();
+            }
+          })
+        )
+      ).subscribe();
+    }
 
     public addVehicle() {
         const that = this;
