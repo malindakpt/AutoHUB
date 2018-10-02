@@ -1,0 +1,26 @@
+<div class="flex-j-center">
+<form>
+  <mat-form-field>
+    <mat-select placeholder="Select a Cateogory">
+      <mat-option *ngFor="let cat of category" [value]="cat.value">
+        {{cat.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Add the story description"></textarea>
+  </mat-form-field>
+
+  <div class="img-container">
+    <app-photo-upload></app-photo-upload>
+    <app-photo-upload></app-photo-upload>
+    <app-photo-upload></app-photo-upload>
+    <app-photo-upload></app-photo-upload>
+  </div>
+  <div class="btn-holder">
+    <button mat-raised-button color="warn">Clear</button>
+    <button mat-raised-button color="primary" (click)="complete()">Add</button>
+  </div>
+</form>
+</div>

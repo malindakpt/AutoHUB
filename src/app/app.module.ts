@@ -13,7 +13,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from '../app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule, MatSnackBarModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule, MatSnackBarModule, MatSelectModule } from '@angular/material';
 import { AddNewComponent } from './components-sub/add-new/add-new.component';
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
 import { VProfileComponent } from './components-sub/v-profile/v-profile.component';
@@ -41,6 +41,7 @@ import {
 } from "angular-6-social-login";
 import { AuthenticationService } from './services/auth.service';
 import { PhotoUploadComponent } from './components-sub/photo-upload/photo-upload.component';
+import { AddNewsComponent } from './components/add-news/add-news.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -86,6 +87,7 @@ export function getAuthServiceConfigs() {
     MatBottomSheetModule,
     MatListModule,
     MatCardModule,
+    MatSelectModule,
 
 
     AngularFireModule.initializeApp(environment.firebase),
@@ -112,7 +114,8 @@ export function getAuthServiceConfigs() {
     BottomMenuComponent,
     NewsItemComponent,
     OwnerDescComponent,
-    PhotoUploadComponent
+    PhotoUploadComponent,
+    AddNewsComponent
   ],
 
   providers: [
