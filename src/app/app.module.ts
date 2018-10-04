@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
@@ -42,6 +42,10 @@ import {
 import { AuthenticationService } from './services/auth.service';
 import { PhotoUploadComponent } from './components-sub/photo-upload/photo-upload.component';
 import { AddNewsComponent } from './components/add-news/add-news.component';
+import { AppInit } from './app.init';
+import { ProfileComponent } from './components/profile/profile.component';
+import { DataService } from './services/data.service';
+import { NetworkService } from './services/network.service';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -115,12 +119,21 @@ export function getAuthServiceConfigs() {
     NewsItemComponent,
     OwnerDescComponent,
     PhotoUploadComponent,
-    AddNewsComponent
+    AddNewsComponent,
+    ProfileComponent
   ],
 
   providers: [
     AuthenticationService,
+    DataService,
+    NetworkService,
     AngularFirestore, [
+      {
+        provide: APP_INITIALIZER,
+        useFactory: AppInit.initialize,
+        multi: true,
+        deps: [AuthenticationService]
+      },
       {
         provide: SWIPER_CONFIG,
         useValue: DEFAULT_SWIPER_CONFIG

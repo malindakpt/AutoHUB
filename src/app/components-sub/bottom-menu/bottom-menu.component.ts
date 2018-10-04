@@ -9,7 +9,8 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 export class BottomMenuComponent implements OnInit {
   ngOnInit(): void {
   }
-  constructor(private bottomSheetRef: MatBottomSheetRef<BottomMenuComponent>) {}
+  constructor(
+    private bottomSheetRef: MatBottomSheetRef<BottomMenuComponent>) {}
 
   openLink(event: MouseEvent): void {
     this.bottomSheetRef.dismiss();

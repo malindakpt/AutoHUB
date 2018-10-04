@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
+import { Vehicle } from '../../entities/vehicle';
 export interface Food {
   value: string;
   viewValue: string;
@@ -9,14 +11,13 @@ export interface Food {
   styleUrls: ['./add-news.component.scss']
 })
 export class AddNewsComponent implements OnInit {
-  public  category: Food[] = [
-    {value: 'steak-0', viewValue: 'Common Item'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
-  constructor() { }
+  public  myVehicles: Vehicle[] = [];
+  constructor(
+    private dataService: DataService
+  ) { }
 
   ngOnInit() {
+    this.myVehicles = this.dataService.getMyVehicles();
   }
 
 }

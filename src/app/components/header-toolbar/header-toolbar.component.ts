@@ -14,7 +14,7 @@ export class HeaderToolbarComponent implements OnInit {
   public imageURL: string;
   constructor(
     private bottomSheet: MatBottomSheet,
-    public authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.authStatus.subscribe(sts => {

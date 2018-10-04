@@ -6,9 +6,15 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
+export interface UserData {
+    email:  string;
+    id: string;
+    image: string;
+    name: string;
+}
 @Injectable()
 export class AuthenticationService {
-    public userData: any;
+    public userData: UserData;
     public authStatus: Observable<any>;
     public imageURL: string;
     constructor(private socialAuthService: AuthService) {
@@ -32,23 +38,9 @@ export class AuthenticationService {
     public logout(): void {
         this.socialAuthService.signOut().then(
             (userData) => {
-                this.userData = false;
+                this.userData = null;
                 console.log("FB logout");
             }
         );
     }
-
-    // public isLoggedIn(): Promise<any> {
-    //     console.log(this.socialAuthService.authState);
-    //     var promise = new Promise((resolve, reject) => {
-    //         FB.getLoginStatus(function (response) {
-    //             if(response.status == 'connected'){
-    //                 resolve(true);
-    //             } else{
-    //                 resolve(false);
-    //             }
-    //         });
-    //     });
-    //     return promise;
-    // }
 }
