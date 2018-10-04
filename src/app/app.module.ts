@@ -38,14 +38,13 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
   LinkedinLoginProvider,
-} from "angular-6-social-login";
+} from 'angular-6-social-login';
 import { AuthenticationService } from './services/auth.service';
 import { PhotoUploadComponent } from './components-sub/photo-upload/photo-upload.component';
 import { AddNewsComponent } from './components/add-news/add-news.component';
 import { AppInit } from './app.init';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DataService } from './services/data.service';
-import { NetworkService } from './services/network.service';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -54,11 +53,11 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 
 // Configs 
 export function getAuthServiceConfigs() {
-  let config = new AuthServiceConfig(
+  const config = new AuthServiceConfig(
     [
       {
         id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider("2222140768058662")
+        provider: new FacebookLoginProvider('2222140768058662')
       },
       // {
       //   id: GoogleLoginProvider.PROVIDER_ID,
@@ -126,7 +125,6 @@ export function getAuthServiceConfigs() {
   providers: [
     AuthenticationService,
     DataService,
-    NetworkService,
     AngularFirestore, [
       {
         provide: APP_INITIALIZER,

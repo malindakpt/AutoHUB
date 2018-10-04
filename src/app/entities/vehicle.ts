@@ -6,7 +6,7 @@ export class Vehicle {
     public manufactCountry: string;
     public photos = ['', '', '', ''];
 
-    constructor(obj: Object){
+    constructor(obj: Object) {
         Object.assign(this, obj);
     }
 }

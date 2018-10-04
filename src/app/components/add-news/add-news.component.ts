@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Vehicle } from '../../entities/vehicle';
-export interface Food {
-  value: string;
-  viewValue: string;
-}
+
 @Component({
   selector: 'app-add-news',
   templateUrl: './add-news.component.html',
@@ -12,6 +9,7 @@ export interface Food {
 })
 export class AddNewsComponent implements OnInit {
   public  myVehicles: Vehicle[] = [];
+
   constructor(
     private dataService: DataService
   ) { }

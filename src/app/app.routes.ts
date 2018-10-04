@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { ErrorComponent } from "./components/error/error.component";
-import { VAddComponent } from "./components/v-add/v-add.component";
-import { VProfileComponent } from "./components-sub/v-profile/v-profile.component";
+import { ErrorComponent } from './components/error/error.component';
+import { VAddComponent } from './components/v-add/v-add.component';
+import { VProfileComponent } from './components-sub/v-profile/v-profile.component';
 import { NewsItemComponent } from './components/news-item/news-item.component';
 import { AddNewsComponent } from './components/add-news/add-news.component';
 

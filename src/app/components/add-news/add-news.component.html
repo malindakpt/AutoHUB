@@ -1,9 +1,9 @@
 <div class="flex-j-center">
-<form>
+  <form>
   <mat-form-field>
-    <mat-select placeholder="Select a Cateogory">
-      <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.">
-        {{cat.viewValue}}
+    <mat-select placeholder="Common News">
+      <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.regNo">
+        {{vehi.regNo}}
       </mat-option>
     </mat-select>
   </mat-form-field>
