@@ -4,23 +4,18 @@ import {
     FacebookLoginProvider
 } from 'angular-6-social-login';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import {UserState} from './userState';
 
-export interface UserData {
-    email:  string;
-    id: string;
-    image: string;
-    name: string;
-}
+
 @Injectable()
 export class AuthenticationService {
-    public userData: UserData;
     public authStatus: Observable<any>;
     public imageURL: string;
     constructor(private socialAuthService: AuthService) {
         this.authStatus =  this.socialAuthService.authState;
         this.socialAuthService.authState.subscribe(sts => {
-            this.userData =  sts;
+            UserState.user =  sts;
           });
     }
 
@@ -28,7 +23,7 @@ export class AuthenticationService {
         const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData: any) => {
-                this.userData = userData;
+                UserState.user = userData;
                 console.log('FB sign in data : ', userData);
                 this.imageURL = userData.image;
             }
@@ -38,7 +33,7 @@ export class AuthenticationService {
     public logout(): void {
         this.socialAuthService.signOut().then(
             (userData) => {
-                this.userData = null;
+                UserState.user = null;
                 console.log('FB logout');
             }
         );

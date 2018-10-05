@@ -12,12 +12,10 @@
     <textarea matInput placeholder="Add the story description"></textarea>
   </mat-form-field>
 
-  <div class="img-container">
-    <app-photo-upload></app-photo-upload>
-    <app-photo-upload></app-photo-upload>
-    <app-photo-upload></app-photo-upload>
-    <app-photo-upload></app-photo-upload>
-  </div>
+    <div class="img-container">
+      <app-photo-upload [id]="i" *ngFor="let str of photoCount; let i = index" (imageChange)="onPhotoChange(i, $event)"></app-photo-upload>
+    </div>
+
   <div class="btn-holder">
     <button mat-raised-button color="warn">Clear</button>
     <button mat-raised-button color="primary" (click)="complete()">Add</button>

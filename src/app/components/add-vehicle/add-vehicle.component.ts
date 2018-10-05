@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { AuthenticationService } from '../../services/auth.service';
 import { Entities } from '../../enum/entities.enum';
+import {UserState} from '../../services/userState';
 
 @Component({
   selector: 'app-v-add',
@@ -35,7 +36,7 @@ export class AddVehicleComponent implements OnInit {
     public snackBar: MatSnackBar,
     private authService: AuthenticationService) {
     this.vehicle = new Vehicle({});
-    this.vehicle.owner = this.authService.userData.id;
+    this.vehicle.owner = UserState.user.id;
   }
 
   ngOnInit() {

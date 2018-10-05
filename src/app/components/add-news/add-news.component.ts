@@ -27,4 +27,8 @@ export class AddNewsComponent implements OnInit {
     this.dataService.addNews(UserState.getUniqueID(), this.news, this.photos);
   }
 
+  public onPhotoChange(idx: number, data: string): void {
+    this.photos[idx] = data;
+  }
+
 }

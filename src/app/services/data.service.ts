@@ -7,6 +7,7 @@ import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {resolve} from 'q';
 import {News} from '../entities/news';
+import {UserState} from './userState';
 
 @Injectable()
 export class DataService {
@@ -22,7 +23,7 @@ export class DataService {
   public getMyVehicles(): any {
     if (!this.myVehicles) {
       this.myVehicles = new Array<Vehicle>();
-      this.requestMyVehicles(this.authService.userData.id);
+      this.requestMyVehicles(UserState.user.id);
     }
     return this.myVehicles;
   }
