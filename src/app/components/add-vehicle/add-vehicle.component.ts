@@ -10,12 +10,12 @@ import { Entities } from '../../enum/entities.enum';
 
 @Component({
   selector: 'app-v-add',
-  templateUrl: './v-add.component.html',
-  styleUrls: ['./v-add.component.scss']
+  templateUrl: './add-vehicle.component.html',
+  styleUrls: ['./add-vehicle.component.scss']
 })
-export class VAddComponent implements OnInit {
+export class AddVehicleComponent implements OnInit {
   public vehicle: Vehicle;
-  public vCount = ['', '', '', ''];
+  public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public oFReader;
   public rFilter;

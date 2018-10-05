@@ -3,10 +3,15 @@ import {Vehicle} from '../entities/vehicle';
 import {AuthenticationService} from './auth.service';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Entities} from '../enum/entities.enum';
+import {finalize} from 'rxjs/operators';
+import {AngularFireStorage} from '@angular/fire/storage';
+import {resolve} from 'q';
+import {News} from '../entities/news';
 
 @Injectable()
 export class DataService {
   constructor(
+    private storage: AngularFireStorage,
     private authService: AuthenticationService,
     private fs: AngularFirestore,
   ) {
@@ -22,6 +27,15 @@ export class DataService {
     return this.myVehicles;
   }
 
+  public addNews(id: string, news: News, images: Array<string>): void {
+    this.uploadPhotos(news.photos, images, id).then((status: boolean) => {
+      this.addNewsBody();
+    });
+  }
+
+  private addNewsBody(): void {
+
+  }
 
   public requestMyVehicles(userID: string) {
     const that = this;
@@ -40,5 +54,28 @@ export class DataService {
       .catch(function (error) {
         console.log('Error getting documents: ', error);
       });
+  }
+
+
+  private uploadPhotos(imgRefArr: Array<any>, imgArr: Array<any>, id: string): Promise<any> {
+    return new Promise(() => {
+      let uploadCount = 0;
+      for (const [idx, itm] of imgArr) {
+        const filePath = 'images/' + id + '#' + idx + '.jpg';
+        const ref = this.storage.ref(filePath);
+        const task = ref.putString(itm, 'data_url');
+        task.snapshotChanges().pipe(
+          finalize(() =>
+            ref.getDownloadURL().subscribe(data => {
+              imgArr[idx] = data;
+              ++uploadCount;
+              if (uploadCount === imgArr.length) {
+                resolve(true);
+              }
+            })
+          )
+        ).subscribe();
+      }
+    });
   }
 }

@@ -25,11 +25,11 @@ export class AuthenticationService {
     }
 
     public login(): void {
-        let socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+        const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData: any) => {
                 this.userData = userData;
-                console.log("FB sign in data : ", userData);
+                console.log('FB sign in data : ', userData);
                 this.imageURL = userData.image;
             }
         );
@@ -39,7 +39,7 @@ export class AuthenticationService {
         this.socialAuthService.signOut().then(
             (userData) => {
                 this.userData = null;
-                console.log("FB logout");
+                console.log('FB logout');
             }
         );
     }
