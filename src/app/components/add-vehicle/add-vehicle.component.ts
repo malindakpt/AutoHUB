@@ -5,8 +5,7 @@ import { MatSnackBar } from '@angular/material';
 import { PopupComponent } from '../../components-sub/popup/popup.component';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
-import { AuthenticationService } from '../../services/auth.service';
-import { Entities } from '../../enum/entities.enum';
+import { Entity } from '../../enum/entities.enum';
 import {UserState} from '../../services/userState';
 
 @Component({
@@ -18,23 +17,15 @@ export class AddVehicleComponent implements OnInit {
   public vehicle: Vehicle;
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
-  public oFReader;
-  public rFilter;
   public uploadCount = 0;
-
-
-  public downloadURL;
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
 
-
-
   constructor(
     private storage: AngularFireStorage,
     private fs: AngularFirestore,
-    public snackBar: MatSnackBar,
-    private authService: AuthenticationService) {
+    public snackBar: MatSnackBar) {
     this.vehicle = new Vehicle({});
     this.vehicle.owner = UserState.user.id;
   }
@@ -49,7 +40,7 @@ export class AddVehicleComponent implements OnInit {
   public complete(): void {
     this.uploadCount = 0;
     for (let i = 0; i < this.vehicle.photos.length; i++) {
-      this.uploadPhoto(i, this.photos[i], this.vehicle.chassisNo);
+      this.uploadPhoto(i, this.photos[i], this.vehicle.ID);
     }
   }
 
@@ -72,8 +63,8 @@ export class AddVehicleComponent implements OnInit {
 
   public addVehicle() {
     const that = this;
-    const vehicleRef = this.fs.firestore.collection(Entities.vehicles);
-    vehicleRef.doc(this.vehicle.chassisNo).set(Object.assign({}, this.vehicle)).then(function () {
+    const vehicleRef = this.fs.firestore.collection(Entity.vehicles);
+    vehicleRef.doc(this.vehicle.ID).set(Object.assign({}, this.vehicle)).then(function () {
       console.log('Document successfully written!');
       that.snackBar.openFromComponent(PopupComponent, {
         duration: 5000,

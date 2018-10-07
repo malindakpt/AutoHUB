@@ -1,3 +1,4 @@
-export enum Entities{
-    vehicles = 'vehicles'
+export enum Entity {
+  vehicles = 'vehicles',
+  news = 'news'
 }

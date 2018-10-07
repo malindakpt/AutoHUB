@@ -1,11 +1,9 @@
-export class News {
+import {Entity} from './entity';
 
-  public timeStamp;
+export class News extends Entity {
   public vehicleID;
   public desc;
   public photos = ['', '', '', ''];
 
-  constructor(obj: Object) {
-    Object.assign(this, obj);
-  }
+
 }

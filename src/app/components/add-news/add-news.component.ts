@@ -10,13 +10,13 @@ import {UserState} from '../../services/userState';
   styleUrls: ['./add-news.component.scss']
 })
 export class AddNewsComponent implements OnInit {
-  public  myVehicles: Vehicle[] = [];
-  public news: News;
+  public myVehicles: Vehicle[] = [];
+  public news = new News({});
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
   ) { }
 
   ngOnInit() {
@@ -24,6 +24,7 @@ export class AddNewsComponent implements OnInit {
   }
 
   public complete(): void {
+    this.news.ID = UserState.getUniqueID();
     this.dataService.addNews(UserState.getUniqueID(), this.news, this.photos);
   }
 
