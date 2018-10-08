@@ -10,8 +10,8 @@
     <div>
       Profile
     </div>
-    <div *ngIf="authenticationService.userData">
-      <img [src]="authenticationService.userData.image">
+    <div *ngIf="user">
+      <img [src]="user.image">
     </div>
     <div (click)="checkLogin()">
       {{loginAction}}

@@ -10,7 +10,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { ErrorComponent } from './components/error/error.component';
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { appRoutes } from '../app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule
@@ -46,6 +46,9 @@ import { AddNewsComponent } from './components/add-news/add-news.component';
 import { AppInit } from './app.init';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DataService } from './services/data.service';
+import { LoginComponent } from './components/login/login.component';
+import {AuthGuardService} from './services/auth.guard.service';
+import { SecureComponent } from './components/secure/secure.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -114,11 +117,14 @@ export function getAuthServiceConfigs() {
     OwnerDescComponent,
     PhotoUploadComponent,
     AddNewsComponent,
-    ProfileComponent
+    ProfileComponent,
+    LoginComponent,
+    SecureComponent
   ],
 
   providers: [
     AuthenticationService,
+    AuthGuardService,
     DataService,
     AngularFirestore, [
       {

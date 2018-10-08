@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomMenuComponent } from 'src/app/components-sub/bottom-menu/bottom-menu.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
+import {UserState} from '../../services/userState';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -10,27 +11,27 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 })
 export class HeaderToolbarComponent implements OnInit {
 
-  public loginAction = "Login";
+  public loginAction = 'Login';
   public imageURL: string;
+  public user = UserState.user;
   constructor(
     private bottomSheet: MatBottomSheet,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.authStatus.subscribe(sts => {
-      
-      if(sts){
-        this.loginAction =  "Logout";
+      if (sts) {
+        this.loginAction = 'Logout';
         this.imageURL = sts.image;
         console.log(this.imageURL);
       } else {
-        this.loginAction = "Login";
+        this.loginAction = 'Login';
       }
     });
   }
 
   public checkLogin(): void {
-    if (this.loginAction == "Login") {
+    if (this.loginAction === 'Login') {
       this.authenticationService.login();
     } else {
       this.authenticationService.logout();
@@ -40,7 +41,7 @@ export class HeaderToolbarComponent implements OnInit {
   public showMenu(): void {
     this.bottomSheet.open(
       BottomMenuComponent,
-      { panelClass: "bottom-menu" });
+      { panelClass: 'bottom-menu' });
   }
 
 }
