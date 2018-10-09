@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Vehicle } from '../../entities/vehicle';
 import {News} from '../../entities/news';
-import {UserState} from '../../services/userState';
+import {UserState} from '../../config/userState';
 
 @Component({
   selector: 'app-add-news',

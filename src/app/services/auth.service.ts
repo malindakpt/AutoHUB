@@ -5,7 +5,7 @@ import {
 } from 'angular-6-social-login';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserState} from './userState';
+import { UserState} from '../config/userState';
 import { Router} from '@angular/router';
 
 
@@ -19,8 +19,10 @@ export class AuthenticationService {
         if (sts) {
           UserState.user = sts;
           this.router.navigate(['secure']);
+          console.log('Already logged in : ', sts);
         } else {
           this.router.navigate(['login']);
+          console.log('Not logged in : ', sts);
         }
       });
     }

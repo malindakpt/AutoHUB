@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../services/auth.service';
-import {UserState} from '../../services/userState';
+import {UserState} from '../../config/userState';
 import {Router} from '@angular/router';
+import {Settings} from '../../config/settings';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,8 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  public showLogin = false;
+  private timer;
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router
@@ -17,6 +20,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.timer = setTimeout(() => {
+    this.showLogin = true; }, Settings.LOGIN_TIMEOUT);
   }
 
   public login(): void {

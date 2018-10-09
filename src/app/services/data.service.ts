@@ -7,7 +7,7 @@ import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {resolve} from 'q';
 import {News} from '../entities/news';
-import {UserState} from './userState';
+import {UserState} from '../config/userState';
 import {PopupComponent} from '../components-sub/popup/popup.component';
 import {MatSnackBar} from '@angular/material';
 

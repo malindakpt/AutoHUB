@@ -3,6 +3,7 @@
 <h1>AutoHUB</h1>
 </div>
 
-<div class="flex-j-center">
-  <img src="../../../assets/images/login-button.png" (click)="login()" >
+<div class="flex-j-center container">
+  <img *ngIf="showLogin" class="login-btn" src="../../../assets/images/login-button.png" (click)="login()" >
+  <img *ngIf="!showLogin" class="loading2" src="../../../assets/images/loading-icon2.gif">
 </div>

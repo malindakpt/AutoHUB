@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import {UserState} from './services/userState';
+import {UserState} from './config/userState';
 
 @Component({
   selector: 'app-root',

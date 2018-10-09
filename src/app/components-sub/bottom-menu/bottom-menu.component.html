@@ -3,15 +3,19 @@
       <span mat-line>Add Vehicle 2</span>
     </a> -->
 
-    <a routerLink="/add" mat-list-item  (click)="openLink($event)">
+    <a routerLink="/secure/add" mat-list-item  (click)="openLink($event)">
       <span mat-line>Add Vehicle</span>
     </a>
 
-    <a routerLink="/add-news" mat-list-item  (click)="openLink($event)">
-      <span mat-line>Add News</span>
+    <a routerLink="/secure/news" mat-list-item  (click)="openLink($event)">
+      <span mat-line>News</span>
     </a>
 
-  <a routerLink="/news" mat-list-item  (click)="openLink($event)">
+  <a routerLink="/secure/add-news" mat-list-item  (click)="openLink($event)">
+    <span mat-line>Add News</span>
+  </a>
+
+  <a routerLink="/secure/news" mat-list-item  (click)="openLink($event)">
     <span mat-line>News</span>
     <span mat-line>Embed in a document</span>
   </a>

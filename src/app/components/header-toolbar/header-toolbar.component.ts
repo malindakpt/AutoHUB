@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomMenuComponent } from 'src/app/components-sub/bottom-menu/bottom-menu.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import {UserState} from '../../services/userState';
+import {UserState} from '../../config/userState';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -17,15 +17,6 @@ export class HeaderToolbarComponent implements OnInit {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    // this.authenticationService.authStatus.subscribe(sts => {
-    //   if (sts) {
-    //     this.loginAction = 'Logout';
-    //     this.imageURL = sts.image;
-    //     console.log(this.imageURL);
-    //   } else {
-    //     this.loginAction = 'Login';
-    //   }
-    // });
   }
 
   public logout(): void {

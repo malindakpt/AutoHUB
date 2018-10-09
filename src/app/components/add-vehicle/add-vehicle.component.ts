@@ -6,7 +6,7 @@ import { PopupComponent } from '../../components-sub/popup/popup.component';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Entity } from '../../enum/entities.enum';
-import {UserState} from '../../services/userState';
+import {UserState} from '../../config/userState';
 
 @Component({
   selector: 'app-v-add',

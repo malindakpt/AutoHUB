@@ -1,5 +1,5 @@
 import { AuthenticationService } from './services/auth.service';
-import {UserState} from './services/userState';
+import {UserState} from './config/userState';
 import {Router} from '@angular/router';
 
 export class AppInit {
