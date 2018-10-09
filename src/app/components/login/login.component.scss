@@ -6,13 +6,19 @@ h1 {
   width: 100%;
   position: fixed;
   color: white;
-  padding: 20px;
+  padding: 20px 0px 20px 0px;
   display: flex;
   justify-content: space-around;
+  margin-top: 100px;
+  height: 112px;
+  font-size: 85px;
 }
 
 img{
+  top: 30%;
   cursor: pointer;
-  width:150px;
-  height:30px;
+  width: 200px;
+  height: 37px;
+  position: fixed;
+  margin-top: 260px
 }
