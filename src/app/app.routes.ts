@@ -11,9 +11,10 @@ import {SecureComponent} from './components/secure/secure.component';
 export const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'error', component: ErrorComponent },
+    { path: 'error', component: ErrorComponent, canActivate: [AuthGuardService] },
     {
       path: 'secure', component: SecureComponent, canActivate: [AuthGuardService], children: [
+        { path: '', redirectTo: 'add-news', pathMatch: 'full' },
         { path: 'news', component: NewsItemComponent },
         { path: 'add-news', component: AddNewsComponent },
         { path: 'v-profile', component: VProfileComponent },

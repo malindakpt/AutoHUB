@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 
 export class AppInit {
     private static intv;
-    public static initialize(authService: AuthenticationService) {
+    public static initialize() {
       // authService.setAuthStatus();
         return (): Promise<any> => {
             return new Promise((resolve, reject) => {

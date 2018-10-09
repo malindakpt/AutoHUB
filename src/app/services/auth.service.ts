@@ -13,17 +13,26 @@ import { Router} from '@angular/router';
 export class AuthenticationService {
     public authStatus: Observable<any>;
     public imageURL: string;
-    constructor(private socialAuthService: AuthService) {
+    constructor(private socialAuthService: AuthService, private router: Router) {
       this.authStatus =  this.socialAuthService.authState;
+      this.socialAuthService.authState.subscribe((sts: any) => {
+        if (sts) {
+          UserState.user = sts;
+          this.router.navigate(['secure']);
+        } else {
+          this.router.navigate(['login']);
+        }
+      });
     }
 
     public login(): void {
         const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
         this.socialAuthService.signIn(socialPlatformProvider).then(
-            (userData: any) => {
-                UserState.user = userData;
-                console.log('FB sign in data : ', userData);
-                this.imageURL = userData.image;
+            (sts: any) => {
+                UserState.user = sts;
+                console.log('FB sign in data : ', sts);
+                this.imageURL = sts.image;
+                this.router.navigate(['secure']);
             }
         );
     }
@@ -32,9 +41,8 @@ export class AuthenticationService {
         this.socialAuthService.signOut().then(
             (userData) => {
                 UserState.user = null;
-                console.log('FB logout');
+                this.router.navigate(['login']);
             }
         );
     }
-
 }

@@ -14,13 +14,6 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router
   ) {
-    this.authenticationService.authStatus.subscribe((sts: any) => {
-      if (sts) {
-        console.log('Auth listener called');
-        UserState.user = sts;
-        router.navigate(['secure/add']);
-      }
-    });
   }
 
   ngOnInit() {

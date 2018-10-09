@@ -131,7 +131,7 @@ export function getAuthServiceConfigs() {
         provide: APP_INITIALIZER,
         useFactory: AppInit.initialize,
         multi: true,
-        deps: [AuthenticationService]
+        deps: []
       },
       {
         provide: SWIPER_CONFIG,

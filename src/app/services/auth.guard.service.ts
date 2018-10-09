@@ -1,24 +1,28 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {UserState} from './userState';
-import {CanActivate, Router} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import { AuthenticationService } from './auth.service';
 
 
 @Injectable()
 export class AuthGuardService implements CanActivate  {
   public authStatus: Observable<any>;
   public imageURL: string;
-  constructor(private router: Router) {
+  private subscribed = false;
+  constructor(private router: Router, private authService: AuthenticationService) {
   }
 
-  public canActivate(): boolean {
-    if (!UserState.user) {
-      this.router.navigate(['login']);
-      console.log('FB false');
-      return false;
-    }
-    console.log('FB true');
-    return true;
+  public canActivate(): Promise<any> {
+    return new Promise((resolve) => {
+      console.log(this.router.url);
+      this.authService.authStatus.subscribe((sts: any) => {
+          if (sts) {
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+      });
+    });
   }
 }

@@ -11,31 +11,25 @@ import {UserState} from '../../services/userState';
 })
 export class HeaderToolbarComponent implements OnInit {
 
-  public loginAction = 'Login';
-  public imageURL: string;
   public user = UserState.user;
   constructor(
     private bottomSheet: MatBottomSheet,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authenticationService.authStatus.subscribe(sts => {
-      if (sts) {
-        this.loginAction = 'Logout';
-        this.imageURL = sts.image;
-        console.log(this.imageURL);
-      } else {
-        this.loginAction = 'Login';
-      }
-    });
+    // this.authenticationService.authStatus.subscribe(sts => {
+    //   if (sts) {
+    //     this.loginAction = 'Logout';
+    //     this.imageURL = sts.image;
+    //     console.log(this.imageURL);
+    //   } else {
+    //     this.loginAction = 'Login';
+    //   }
+    // });
   }
 
-  public checkLogin(): void {
-    if (this.loginAction === 'Login') {
-      this.authenticationService.login();
-    } else {
-      this.authenticationService.logout();
-    }
+  public logout(): void {
+    this.authenticationService.logout();
   }
 
   public showMenu(): void {
