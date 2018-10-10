@@ -1,12 +1,11 @@
+<div class="news-container" *ngFor="let news of newsArr">
 <mat-card>
-  <app-owner-desc></app-owner-desc>
+  <app-owner-desc [name] =  "news.ownerName" [image] =  "news.ownerImage" [description] = getDuration(news.time)></app-owner-desc>
   <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
 
   <div class="flex-j-start">
-    Do you complete your Automobile engineering? Looking for an interview? Want to win your job search in first
-    attempt? BE/B.Tech in Automobile
+    {{ news.desc }}
   </div>
-
   <div>
 
 
@@ -22,9 +21,6 @@
       Hi how are you
     </div>
 
-
   </div>
-
-
-
 </mat-card>
+</div>

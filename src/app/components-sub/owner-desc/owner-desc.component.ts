@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-owner-desc',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OwnerDescComponent implements OnInit {
 
+  @Input() name;
+  @Input() image;
+  private _description;
   constructor() { }
 
   ngOnInit() {
   }
 
+
+  get description() {
+    return this._description;
+  }
+
+  @Input()
+  set description(value) {
+    this._description = value;
+  }
 }

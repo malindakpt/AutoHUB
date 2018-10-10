@@ -10,4 +10,8 @@ export class UserState {
       throw new Error('Error in getUniqueID: User is null');
     }
   }
+
+  public static getTime(): string {
+    return new Date().getTime() + '';
+  }
 }

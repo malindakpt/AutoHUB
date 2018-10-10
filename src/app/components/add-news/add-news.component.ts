@@ -24,6 +24,7 @@ export class AddNewsComponent implements OnInit {
   }
 
   public complete(): void {
+    this.news.time = UserState.getTime();
     this.news.ID = UserState.getUniqueID();
     this.dataService.addNews(UserState.getUniqueID(), this.news, this.photos);
   }

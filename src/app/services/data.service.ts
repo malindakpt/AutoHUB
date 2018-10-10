@@ -21,7 +21,8 @@ export class DataService {
   ) {
   }
 
-  public myVehicles: Vehicle[];
+  public myVehicles: Array<Vehicle>;
+  public newsList: Array<News>;
 
   public getMyVehicles(): any {
     if (!this.myVehicles) {
@@ -31,23 +32,20 @@ export class DataService {
     return this.myVehicles;
   }
 
+  public getNewsList(): Array<News> {
+    if (!this.newsList) {
+      this.newsList = new Array<News>();
+      this.requestNewsList();
+    }
+    return this.newsList;
+  }
+
   public addNews(id: string, news: News, images: Array<string>): void {
     this.uploadPhotos(news.photos, images, id).then((status) => {
+      news.ownerName = UserState.user.name;
+      news.ownerImage = UserState.user.image;
       this.addEntity(Entity.news, news);
     });
-
-    // const promise1 = new Promise(function(resolve, reject) {
-    //   setTimeout(function() {
-    //     resolve('foo123123');
-    //   }, 300);
-    // });
-    //
-    // promise1.then(function(value) {
-    //   console.log(value);
-    //   // expected output: "foo"
-    // });
-    //
-    // console.log(promise1);
   }
 
   private addEntity(entity: Entity, object: any): void {
@@ -85,6 +83,21 @@ export class DataService {
       });
   }
 
+  public requestNewsList(): void {
+    const that = this;
+    const newsList = [];
+    console.log('send request for get newsList');
+    this.fs.firestore.collection(Entity.news).orderBy('ID', 'desc').get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          newsList.push(new Vehicle(doc.data()));
+        });
+        Object.assign(that.newsList, newsList);
+      })
+      .catch(function (error) {
+        console.log('Error getting news documents: ', error);
+      });
+  }
 
   private uploadPhotos(imgRefArr: Array<any>, imgArr: Array<any>, id: string): Promise<any> {
    return new Promise((resolves, reject) => {
