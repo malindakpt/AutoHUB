@@ -8,7 +8,9 @@
       News
     </div>
     <div>
-      Profile
+      <a [routerLink]="['/secure/profile']">
+        profile
+      </a>
     </div>
     <div *ngIf="user">
       <img [src]="user.image">

@@ -17,7 +17,7 @@ export const appRoutes: Routes = [
         { path: '', redirectTo: 'news', pathMatch: 'full' },
         { path: 'news', component: NewsItemComponent },
         { path: 'add-news', component: AddNewsComponent },
-        { path: 'v-profile', component: VProfileComponent },
+        { path: 'profile', component: VProfileComponent },
         { path: 'add', component: AddVehicleComponent },
       ]
     },

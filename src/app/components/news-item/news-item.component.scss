@@ -5,9 +5,26 @@
 
   .news-container {
     margin-bottom: 10px;
+    width: 100%;
+    max-width: 600px;
+
+    .slide{
+      display: flex;
+      justify-content: center;
+      background-color: black;
+    }
     .comment {
       margin-left: 20px;
       font-size: 13px;
+    }
+    .add-comment {
+      mat-form-field{
+        width:100%;
+      }
+      margin-left: 20px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
     }
     img {
       max-height: 200px;

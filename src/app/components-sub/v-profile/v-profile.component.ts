@@ -11,7 +11,6 @@ export class VProfileComponent implements OnInit {
     loop: true,
     navigation: true,
   };
-;
 
   constructor() { }
 

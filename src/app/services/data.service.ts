@@ -44,11 +44,11 @@ export class DataService {
     this.uploadPhotos(news.photos, images, id).then((status) => {
       news.ownerName = UserState.user.name;
       news.ownerImage = UserState.user.image;
-      this.addEntity(Entity.news, news);
+      this.saveEntity(Entity.news, news);
     });
   }
 
-  private addEntity(entity: Entity, object: any): void {
+  public saveEntity(entity: Entity, object: any): void {
     const that = this;
     const ref = this.fs.firestore.collection(entity);
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
@@ -90,8 +90,10 @@ export class DataService {
     this.fs.firestore.collection(Entity.news).orderBy('ID', 'desc').get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          newsList.push(new Vehicle(doc.data()));
+          newsList.push(new News(doc.data()));
+          console.log('News:', new News(doc.data()));
         });
+
         Object.assign(that.newsList, newsList);
       })
       .catch(function (error) {
@@ -127,12 +129,6 @@ export class DataService {
         }
       );
     });
-
-
-    const p = new Promise(function(resolqweve, reject) {
-      resolve("hello world");
-    });
-    return p;
   }
 }
 

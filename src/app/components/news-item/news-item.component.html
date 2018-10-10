@@ -1,7 +1,25 @@
 <div class="news-container" *ngFor="let news of newsArr">
 <mat-card>
   <app-owner-desc [name] =  "news.ownerName" [image] =  "news.ownerImage" [description] = getDuration(news.time)></app-owner-desc>
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+
+  <div class="swiper-container" [swiper]="swiperConfig">
+    <div class="swiper-wrapper">
+      <div *ngIf="news.photos[0]" class="swiper-slide slide">
+        <img [src]="news.photos[0]">
+      </div>
+      <div *ngIf="news.photos[1]" class="swiper-slide slide">
+        <img [src]="news.photos[1]">
+      </div>
+      <div *ngIf="news.photos[2]" class="swiper-slide slide">
+        <img [src]="news.photos[2]">
+      </div>
+      <div *ngIf="news.photos[3]" class="swiper-slide slide">
+        <img [src]="news.photos[3]">
+      </div>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
 
   <div class="flex-j-start">
     {{ news.desc }}
@@ -9,16 +27,19 @@
   <div>
 
 
-    <div class="comment">
-      Hi how are you
+    <div class="add-comment">
+      <mat-form-field>
+        <textarea matInput placeholder="Leave a comment"  [(ngModel)]="news.addCommnet"></textarea>
+      </mat-form-field>
+      <div (click)="addComment(news.ID)">
+        <fa name="check" size="1x"></fa>
+      </div>
     </div>
 
-    <div class="comment">
-      Hi how are you
+    <div *ngIf="news.comments">
+    <div *ngFor="let comment of news.comments" class="comment">
+      {{comment}}
     </div>
-
-    <div class="comment">
-      Hi how are you
     </div>
 
   </div>
