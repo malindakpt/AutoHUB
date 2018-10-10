@@ -21,18 +21,20 @@
     <div class="swiper-button-next"></div>
   </div>
 
-  <div class="flex-j-start">
+  <div class="flex-j-start description">
     {{ news.desc }}
   </div>
   <div>
 
-
-    <div class="add-comment">
+    <div class="flex-j-end" *ngIf="!news.showComment" (click)="news.showComment=true">
+      <fa name="comments" size="1x"></fa>
+    </div>
+    <div *ngIf="news.showComment" class="add-comment">
       <mat-form-field>
         <textarea matInput placeholder="Leave a comment"  [(ngModel)]="news.addCommnet"></textarea>
       </mat-form-field>
       <div (click)="addComment(news.ID)">
-        <fa name="check" size="1x"></fa>
+        <fa name="save" size="2x"></fa>
       </div>
     </div>
 

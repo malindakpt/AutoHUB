@@ -9,6 +9,7 @@ export class News extends Entity {
   public ownerImage: string;
   public comments = [];
   public addCommnet;
+  public showComment;
 
   constructor(obj: any) {
     super(obj);

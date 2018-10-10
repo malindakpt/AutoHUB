@@ -25,6 +25,7 @@ export class NewsItemComponent implements OnInit {
     const news = this.newsArr.filter(value =>  value.ID === id )[0];
     news.comments.push(news.addCommnet);
     news.addCommnet = '';
+    news.showComment = false;
     this.dataService.saveEntity(Entity.news, news);
 
   }
