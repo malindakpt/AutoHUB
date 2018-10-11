@@ -12,6 +12,7 @@ export class VProfileComponent implements OnInit {
     navigation: true,
   };
 
+  public vehicleID = 'lkjlkj12312';
   constructor() { }
 
   ngOnInit() {

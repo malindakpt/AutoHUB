@@ -23,6 +23,7 @@ export class DataService {
 
   public myVehicles: Array<Vehicle>;
   public newsList: Array<News>;
+  public vehicleNewsList: Array<News>;
 
   public getMyVehicles(): any {
     if (!this.myVehicles) {
@@ -33,11 +34,15 @@ export class DataService {
   }
 
   public getNewsList(): Array<News> {
-    if (!this.newsList) {
-      this.newsList = new Array<News>();
-      this.requestNewsList();
-    }
+    this.newsList = new Array<News>();
+    this.requestNewsList();
     return this.newsList;
+  }
+
+  public getVehicleNewsList(ID: string): Array<News> {
+    this.vehicleNewsList = new Array<News>();
+    this.requestNewsListForVehicle(ID);
+    return this.vehicleNewsList;
   }
 
   public addNews(id: string, news: News, images: Array<string>): void {
@@ -83,15 +88,31 @@ export class DataService {
       });
   }
 
+  public requestNewsListForVehicle(vehicleID: string): void {
+    const that = this;
+    const newsList = [];
+    console.log('send request for get vehicle newsList');
+    this.fs.firestore.collection(Entity.news).where('vehicleID', '==', vehicleID).get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          newsList.push(new News(doc.data()));
+        });
+        console.log('Data fetched');
+        Object.assign(that.vehicleNewsList, newsList);
+      })
+      .catch(function (error) {
+        console.log('Error getting news documents: ', error);
+      });
+  }
+
   public requestNewsList(): void {
     const that = this;
     const newsList = [];
     console.log('send request for get newsList');
-    this.fs.firestore.collection(Entity.news).orderBy('ID', 'desc').get()
+    this.fs.firestore.collection(Entity.news).orderBy('time', 'desc').get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           newsList.push(new News(doc.data()));
-          console.log('News:', new News(doc.data()));
         });
 
         Object.assign(that.newsList, newsList);
@@ -100,7 +121,6 @@ export class DataService {
         console.log('Error getting news documents: ', error);
       });
   }
-
   private uploadPhotos(imgRefArr: Array<any>, imgArr: Array<any>, id: string): Promise<any> {
    return new Promise((resolves, reject) => {
       let uploadCount = 0;
