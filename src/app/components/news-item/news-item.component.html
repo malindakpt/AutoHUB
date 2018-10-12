@@ -25,6 +25,7 @@
     <div class="item"><div class="value">{{ getNewsType(news.type) }}</div><div class="title">Category</div></div>
     <div class="item"><div class="value">{{ news.odoMeter }}</div><div class="title">ODO Meter</div></div>
     <div class="item"><div class="value">{{ news.cost }}</div><div class="title">Total Cost</div></div>
+    <div class="item"><div class="value">{{ formatDate(news.time) }}</div><div class="title">Date</div></div>
   </div>
   <div>
     {{ news.desc }}

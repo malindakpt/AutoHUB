@@ -13,8 +13,10 @@ import { ErrorComponent } from './components/error/error.component';
 import {Router, RouterModule} from '@angular/router';
 import { appRoutes } from '../app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule
-  , MatSnackBarModule, MatSelectModule } from '@angular/material';
+import {
+  MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule
+  , MatSnackBarModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule
+} from '@angular/material';
 import { AddNewComponent } from './components-sub/add-new/add-new.component';
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
 import { VProfileComponent } from './components-sub/v-profile/v-profile.component';
@@ -90,6 +92,8 @@ export function getAuthServiceConfigs() {
     MatListModule,
     MatCardModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
 
     AngularFireModule.initializeApp(environment.firebase),

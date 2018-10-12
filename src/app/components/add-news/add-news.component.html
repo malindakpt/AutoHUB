@@ -1,7 +1,5 @@
 <div class="flex-j-center">
   <form>
-
-
     <mat-form-field>
       <mat-select placeholder="Selecct Activity Type" [(ngModel)] = 'news.type' name = 'serviceType'>
         <mat-option *ngFor="let type of serviceTypes" [value]="type.val">
@@ -27,12 +25,18 @@
     </mat-form-field>
 
     <mat-form-field>
-      <textarea matInput placeholder="Add Activity Description" [(ngModel)] = 'news.desc'  name = 'desc'></textarea>
+      <textarea matInput placeholder="Activity Description" [(ngModel)] = 'news.desc'  name = 'desc'></textarea>
     </mat-form-field>
 
     <div class="img-container">
       <app-photo-upload [id]="i" *ngFor="let str of photoCount; let i = index" (imageChange)="onPhotoChange(i, $event)"></app-photo-upload>
     </div>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date"  [(ngModel)]="date" name="datepick">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
   <div class="btn-holder">
     <button mat-raised-button color="warn">Clear</button>

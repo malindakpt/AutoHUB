@@ -11,6 +11,7 @@ export class PhotoUploadComponent implements OnInit {
   public rFilter;
   @Output() imageChange = new EventEmitter();
   @Input() id;
+  @Input() title;
 
   ngOnInit() {
       this.oFReader = new FileReader();

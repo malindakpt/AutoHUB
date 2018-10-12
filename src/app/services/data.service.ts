@@ -26,10 +26,8 @@ export class DataService {
   public vehicleNewsList: Array<News>;
 
   public getMyVehicles(): any {
-    if (!this.myVehicles) {
-      this.myVehicles = new Array<Vehicle>();
-      this.requestMyVehicles(UserState.user.id);
-    }
+    this.myVehicles = new Array<Vehicle>();
+    this.requestMyVehicles(UserState.user.id);
     return this.myVehicles;
   }
 

@@ -45,6 +45,11 @@ public getNewsType(no: number): string {
     return date.fromNow();
   }
 
+  public formatDate(snap: number): string {
+    const date = moment(Number(snap));
+    return date.format('MMM Do YY');
+  }
+
 
 
 }

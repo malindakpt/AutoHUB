@@ -1,6 +1,10 @@
 <div class="flex-j-center">
   <form>
     <mat-form-field>
+      <input matInput placeholder="Brand Model" [(ngModel)]="vehicle.model" name="model">
+    </mat-form-field>
+
+    <mat-form-field>
       <input matInput placeholder="Chassis No" [(ngModel)]="vehicle.ID" name="Chassis">
     </mat-form-field>
 
@@ -13,13 +17,26 @@
     </mat-form-field>
 
     <mat-form-field>
+      <mat-select placeholder="Fuel Type" [(ngModel)] = 'vehicle.fuelType' name = 'fuelTypes'>
+        <mat-option *ngFor="let item of fuelTypes" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
       <input matInput placeholder="Manufactured Country" [(ngModel)]="vehicle.manufactCountry" name="manufactCountry">
     </mat-form-field>
 
-
+    <mat-form-field>
+      <input matInput placeholder="Engine Model/CC" [(ngModel)]="vehicle.engine" name="engine">
+    </mat-form-field>
 
 <div class="img-container">
-  <app-photo-upload [id]="i" *ngFor="let str of photoCount; let i = index" (imageChange)="onPhotoChange(i, $event)"></app-photo-upload>
+  <app-photo-upload [id]="0" [title]="'Front Photo'" (imageChange)="onPhotoChange(0, $event)"></app-photo-upload>
+  <app-photo-upload [id]="1" [title]="'Back Photo'" (imageChange)="onPhotoChange(1, $event)"></app-photo-upload>
+  <app-photo-upload [id]="2" [title]="'Left Photo'" (imageChange)="onPhotoChange(2, $event)"></app-photo-upload>
+  <app-photo-upload [id]="3" [title]="'Right Photo'" (imageChange)="onPhotoChange(3, $event)"></app-photo-upload>
 </div>
 
 

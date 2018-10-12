@@ -22,6 +22,7 @@ export class AddNewsComponent implements OnInit {
   public news = new News({});
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
+  public date;
 
   constructor(
     private dataService: DataService,
@@ -29,11 +30,12 @@ export class AddNewsComponent implements OnInit {
 
   ngOnInit() {
     this.myVehicles = this.dataService.getMyVehicles();
+    this.date = new Date();
   }
 
 
   public complete(): void {
-    this.news.time = UserState.getTime();
+    this.news.time = new Date(this.date).getTime() + '';
     this.news.ID = UserState.getUniqueID();
     this.dataService.addNews(UserState.getUniqueID(), this.news, this.photos);
   }
