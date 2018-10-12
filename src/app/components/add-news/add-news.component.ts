@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Vehicle } from '../../entities/vehicle';
 import {News} from '../../entities/news';
 import {UserState} from '../../config/userState';
+import {NewsType} from '../../enum/news.-type.enum';
 
 @Component({
   selector: 'app-add-news',
@@ -11,6 +12,13 @@ import {UserState} from '../../config/userState';
 })
 export class AddNewsComponent implements OnInit {
   public myVehicles: Vehicle[] = [];
+  public newsTypes = NewsType;
+  public serviceTypes = [
+    { name: 'Common', val: NewsType.COMMON },
+    { name: 'Normal Service', val: NewsType.SERVICE },
+    { name: 'Maintanance/Upgrade', val: NewsType.MAINTANANCE },
+    { name: 'Repair', val: NewsType.REPAIR },
+  ];
   public news = new News({});
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
@@ -22,6 +30,7 @@ export class AddNewsComponent implements OnInit {
   ngOnInit() {
     this.myVehicles = this.dataService.getMyVehicles();
   }
+
 
   public complete(): void {
     this.news.time = UserState.getTime();

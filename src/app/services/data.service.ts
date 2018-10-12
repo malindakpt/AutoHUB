@@ -92,7 +92,7 @@ export class DataService {
     const that = this;
     const newsList = [];
     console.log('send request for get vehicle newsList');
-    this.fs.firestore.collection(Entity.news).where('vehicleID', '==', vehicleID).get()
+    this.fs.firestore.collection(Entity.news).where('vehicleID', '==', vehicleID).orderBy('time', 'desc').get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           newsList.push(new News(doc.data()));

@@ -3,6 +3,7 @@ import {News} from '../../entities/news';
 import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
 import {Entity} from '../../enum/entities.enum';
+import {NewsType} from '../../enum/news.-type.enum';
 
 @Component({
   selector: 'app-news-list',
@@ -13,6 +14,7 @@ export class NewsItemComponent implements OnInit {
 
   public newsArr: Array<News>;
   @Input() vehicleID: string;
+  public newsTypes = NewsType;
 
   constructor(private dataService: DataService) { }
   public swiperConfig = {
@@ -27,6 +29,9 @@ export class NewsItemComponent implements OnInit {
     }
 }
 
+public getNewsType(no: number): string {
+    return NewsType[no];
+}
   public addComment(id: string) {
     const news = this.newsArr.filter(value =>  value.ID === id )[0];
     news.comments.push(news.addCommnet);

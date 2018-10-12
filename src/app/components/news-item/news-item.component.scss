@@ -11,6 +11,18 @@
     .description{
       margin-top: 10px;
       color: #868686;
+      .item {
+        padding: 6px;
+        background-color: #ebebeb;
+        border-radius: 4px;
+        .title {
+          color: red;
+          font-size: 0.7em;
+        }
+        .value {
+          color: #000000;
+        }
+      }
     }
     .slide{
       display: flex;

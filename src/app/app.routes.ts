@@ -14,7 +14,7 @@ export const appRoutes: Routes = [
     { path: 'error', component: ErrorComponent, canActivate: [AuthGuardService] },
     {
       path: 'secure', component: SecureComponent, canActivate: [AuthGuardService], children: [
-        { path: '', redirectTo: 'news', pathMatch: 'full' },
+        { path: '', redirectTo: 'add-news', pathMatch: 'full' },
         { path: 'news', component: NewsItemComponent },
         { path: 'add-news', component: AddNewsComponent },
         { path: 'profile', component: VProfileComponent },
