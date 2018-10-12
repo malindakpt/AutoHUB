@@ -10,6 +10,7 @@ import {News} from '../entities/news';
 import {UserState} from '../config/userState';
 import {PopupComponent} from '../components-sub/popup/popup.component';
 import {MatSnackBar} from '@angular/material';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class DataService {
@@ -19,14 +20,26 @@ export class DataService {
     private fs: AngularFirestore,
     public snackBar: MatSnackBar
   ) {
+    this.onVehiclesUpdated = new Subject();
   }
 
   public myVehicles: Array<Vehicle>;
-  public newsList: Array<News>;
+
   private isNewsFetchInprogress = false;
+  private lastVisibleNews = {};
+  public newsList: Array<News>;
+
+  private isVehicleNewsFetchInprogress = false;
+  private lastVisibleVehicleNews = {};
   public vehicleNewsList: Array<News>;
+
   public vehicle: Vehicle;
-  private lastVisible = {}
+  public onVehiclesUpdated: Subject<any>;
+
+  public resetVehicleNews(): void {
+    this.lastVisibleVehicleNews = {};
+    this.vehicleNewsList = new Array<News>();
+  }
 
   public getMyVehicles(): any {
     this.myVehicles = new Array<Vehicle>();
@@ -49,7 +62,9 @@ export class DataService {
   }
 
   public getVehicleNewsList(ID: string): Array<News> {
-    this.vehicleNewsList = new Array<News>();
+    if (!this.vehicleNewsList) {
+      this.vehicleNewsList = new Array<News>();
+    }
     this.requestNewsListForVehicle(ID);
     return this.vehicleNewsList;
   }
@@ -107,6 +122,7 @@ export class DataService {
           myVehicles.push(new Vehicle(doc.data()));
         });
         Object.assign(that.myVehicles, myVehicles);
+        that.onVehiclesUpdated.next(myVehicles);
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
@@ -114,32 +130,43 @@ export class DataService {
   }
 
   public requestNewsListForVehicle(vehicleID: string): void {
+    if (this.isVehicleNewsFetchInprogress || !this.lastVisibleVehicleNews) {
+      return;
+    }
+    this.isVehicleNewsFetchInprogress = true;
     const that = this;
-    const newsList = [];
     console.log('send request for get vehicle newsList');
-    this.fs.firestore.collection(Entity.news).where('vehicleID', '==', vehicleID).orderBy('time', 'desc').get()
+    this.fs.firestore.collection(Entity.news)
+      .where('vehicleID', '==', vehicleID)
+      .orderBy('time', 'desc')
+      .startAfter(that.lastVisibleVehicleNews)
+      .limit(4).get()
       .then(function (querySnapshot) {
+        that.lastVisibleVehicleNews = querySnapshot.docs[querySnapshot.docs.length - 1];
         querySnapshot.forEach(function (doc) {
-          newsList.push(new News(doc.data()));
+          that.vehicleNewsList.push(new News(doc.data()));
         });
-        console.log('Data fetched');
-        Object.assign(that.vehicleNewsList, newsList);
+        that.isVehicleNewsFetchInprogress = false;
       })
       .catch(function (error) {
+        that.isVehicleNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
       });
   }
 
   public requestNewsList(): void {
-    if (this.isNewsFetchInprogress || !this.lastVisible) {
+    if (this.isNewsFetchInprogress || !this.lastVisibleNews) {
       return;
     }
     this.isNewsFetchInprogress = true;
     const that = this;
     console.log('send request for get newsList');
-    this.fs.firestore.collection(Entity.news).orderBy('time', 'desc').startAfter(that.lastVisible).limit(4).get()
+    this.fs.firestore.collection(Entity.news)
+      .orderBy('time', 'desc')
+      .startAfter(that.lastVisibleNews)
+      .limit(4).get()
       .then(function (querySnapshot) {
-        that.lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        that.lastVisibleNews = querySnapshot.docs[querySnapshot.docs.length - 1];
         querySnapshot.forEach(function (doc) {
           that.newsList.push(new News(doc.data()));
         });

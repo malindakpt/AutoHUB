@@ -1,5 +1,14 @@
 <div class="flex-j-center">
   <form>
+
+    <mat-form-field>
+      <mat-select placeholder="Vehicle Category" [(ngModel)] = 'vehicle.category' name = 'category'>
+        <mat-option *ngFor="let item of vehicleCategories" [value]="item">
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <mat-form-field>
       <input matInput placeholder="Brand Model" [(ngModel)]="vehicle.model" name="model">
     </mat-form-field>

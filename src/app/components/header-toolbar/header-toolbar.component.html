@@ -1,6 +1,11 @@
-<div class="mat-elevation-z6 header font-size-40">
-  <div>
-    <b>AutoHUB</b>
+<div class="mat-elevation-z6 header">
+  <div class="flex-j-start">
+    <div class="b-menu" (click)="showMenu()">
+      <fa name="bars" size="lg"></fa>
+    </div>
+    <div class="logo">
+      <b>AutoHUB</b>
+    </div>
   </div>
 
   <div class="flex-j-sb font-size-25 menu-bar">
@@ -17,12 +22,12 @@
     <div *ngIf="user">
       <img [src]="user.image">
     </div>
-    <div (click)="logout()">
-      Logout
-    </div>
 
-    <div (click)="showMenu()">
-      <fa name="bars" size="lg"></fa>
-    </div>
+
   </div>
 </div>
+
+
+<!--<div class="add-btn">-->
+  <!--<fa name="plus" size="lg"></fa>-->
+<!--</div>-->

@@ -19,9 +19,7 @@ export class HeaderToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  public logout(): void {
-    this.authenticationService.logout();
-  }
+
 
   public showMenu(): void {
     this.bottomSheet.open(

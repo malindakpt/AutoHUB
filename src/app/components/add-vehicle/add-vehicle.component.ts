@@ -19,6 +19,7 @@ export class AddVehicleComponent implements OnInit {
   public photos = ['', '', '', ''];
   public uploadCount = 0;
   public fuelTypes = [ 'Petrol', 'Hybrid', 'Disel', 'Electric' ];
+  public vehicleCategories = [ 'Car', 'Van', 'Bus', '3-wheeler', 'Motor Bike', 'Truck' ];
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;

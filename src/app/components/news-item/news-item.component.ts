@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {News} from '../../entities/news';
 import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
@@ -10,7 +10,7 @@ import {NewsType} from '../../enum/news.-type.enum';
   templateUrl: './news-item.component.html',
   styleUrls: ['./news-item.component.scss']
 })
-export class NewsItemComponent implements OnInit {
+export class NewsItemComponent implements OnInit, OnChanges{
 
   public swiperConfig = {
     loop: true,
@@ -33,6 +33,12 @@ export class NewsItemComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    if (!this.vehicleID) {
+      this.loadNews();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.loadNews();
   }
 
@@ -56,6 +62,7 @@ export class NewsItemComponent implements OnInit {
     const date = moment(Number(snap));
     return date.format('MMM Do YY');
   }
+
   public loadNews(): void {
     if (this.vehicleID) {
       this.newsArr = this.dataService.getVehicleNewsList(this.vehicleID);
@@ -63,6 +70,8 @@ export class NewsItemComponent implements OnInit {
       this.newsArr = this.dataService.getNewsList();
     }
   }
+
+
 
 
 }

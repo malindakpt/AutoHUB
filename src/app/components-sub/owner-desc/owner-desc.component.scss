@@ -3,7 +3,6 @@
 :host {
     width: 100%; 
     .owner{
-        margin-bottom: 10px;
         img{
             width:40px;
             height:40px;
@@ -19,5 +18,8 @@
     }
   mat-card-title.mat-card-title {
     margin-bottom: 4px;
+  }
+  mat-card-subtitle.mat-card-subtitle {
+    margin-bottom: 0px;
   }
 }

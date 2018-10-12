@@ -2,19 +2,23 @@
 <mat-card>
   <app-owner-desc [name] =  "news.ownerName" [image] =  "news.ownerImage" [description] = getDuration(news.time)></app-owner-desc>
 
-  <div *ngIf="false" class="swiper-container" [swiper]="swiperConfig">
+  <div *ngIf="true" class="swiper-container" [swiper]="swiperConfig">
     <div class="swiper-wrapper">
-      <div *ngIf="news.photos[0]" class="swiper-slide slide">
-        <img [src]="news.photos[0]">
+      <div *ngIf="news.photos[0]" class="swiper-slide slide" >
+        <div [style.background-image]="'url(' + news.photos[0] + ')'">
+      </div>
       </div>
       <div *ngIf="news.photos[1]" class="swiper-slide slide">
-        <img [src]="news.photos[1]">
+        <div [style.background-image]="'url(' + news.photos[1] + ')'">
+        </div>
       </div>
       <div *ngIf="news.photos[2]" class="swiper-slide slide">
-        <img [src]="news.photos[2]">
+        <div [style.background-image]="'url(' + news.photos[2] + ')'">
+        </div>
       </div>
       <div *ngIf="news.photos[3]" class="swiper-slide slide">
-        <img [src]="news.photos[3]">
+        <div [style.background-image]="'url(' + news.photos[3] + ')'">
+        </div>
       </div>
     </div>
     <div class="swiper-button-prev"></div>
@@ -27,7 +31,7 @@
     <div class="item"><div class="value">{{ news.cost }}</div><div class="title">Total Cost</div></div>
     <div class="item"><div class="value">{{ formatDate(news.time) }}</div><div class="title">Date</div></div>
   </div>
-  <div>
+  <div class="description-long">
     {{ news.desc }}
   </div>
   <div>

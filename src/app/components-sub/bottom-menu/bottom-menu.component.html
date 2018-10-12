@@ -1,37 +1,17 @@
 <mat-nav-list>
-    <!-- <a href="https://keep.google.com/" mat-list-item (click)="openLink($event)">
-      <span mat-line>Add Vehicle 2</span>
-    </a> -->
-
-    <a routerLink="/secure/add" mat-list-item  (click)="openLink($event)">
-      <span mat-line>Add Vehicle</span>
-    </a>
-
-    <a routerLink="/secure/news" mat-list-item  (click)="openLink($event)">
-      <span mat-line>News</span>
-    </a>
-
   <a routerLink="/secure/add-news" mat-list-item  (click)="openLink($event)">
-    <span mat-line>Add News</span>
+    <span mat-line><fa name="plus-square" size="lg"></fa>Add Activity</span>
+  </a>
+
+  <a routerLink="/secure/news" mat-list-item  (click)="openLink($event)">
+    <span mat-line><fa name="tasks" size="lg"></fa>Timeline</span>
   </a>
 
   <a routerLink="/secure/profile" mat-list-item  (click)="openLink($event)">
-    <span mat-line>Vehicle Profile</span>
-    <span mat-line>Embed in a document</span>
+    <span mat-line><fa name="car" size="lg"></fa>My Vehicles</span>
   </a>
-  
-    <a href="https://docs.google.com/" mat-list-item (click)="openLink($event)">
-      <span mat-line>News</span>
-      <span mat-line>Embed in a document</span>
-    </a>
-  
-    <a href="https://plus.google.com/" mat-list-item (click)="openLink($event)">
-      <span mat-line>Google Plus</span>
-      <span mat-line>Share with your friends</span>
-    </a>
-  
-    <!-- <a href="https://hangouts.google.com/" mat-list-item (click)="openLink($event)">
-      <span mat-line>Google Hangouts</span>
-      <span mat-line>Show to your coworkers</span>
-    </a> -->
-  </mat-nav-list>
+
+  <a mat-list-item  (click)="logout()">
+    <span mat-line><fa name="power-off" size="lg"></fa>Logout</span>
+  </a>
+</mat-nav-list>

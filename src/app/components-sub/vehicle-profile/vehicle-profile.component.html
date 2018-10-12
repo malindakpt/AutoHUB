@@ -1,4 +1,18 @@
-<div class="swiper-container" [swiper]="swiperConfig" [(index)]="index">
+<div class="flex-j-sb">
+<div>
+  <mat-form-field>
+    <mat-select placeholder="Select Vehicle" [(ngModel)] = 'selectedVehicle' name = 'vehicleID' (selectionChange)="vehiChanged()">
+      <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.ID">
+        {{vehi.regNo}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div><button class="add-btn" mat-stroked-button color="primary">Add Vehicle</button></div>
+</div>
+
+<div class="swiper-container" [swiper]="swiperConfig">
   <div class="swiper-wrapper">
     <div class="swiper-slide">
       <img src="../../../assets/images/car1.jpg">
@@ -54,6 +68,6 @@
 </div>
 
 <div>
-  <app-news-list [vehicleID]="vehicleID"></app-news-list>
+  <app-news-list [vehicleID]="selectedVehicle"></app-news-list>
 </div>
 

@@ -6,6 +6,7 @@ export class Vehicle extends Entity {
     public ownerImage: string;
     public regNo: string;
     public fuelType: string;
+    public category: string;
     public engine: string;
     public manufactYear: number;
     public manufactCountry: string;
