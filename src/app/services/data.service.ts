@@ -80,6 +80,8 @@ export class DataService {
   public saveEntity(entity: Entity, object: any): void {
     const that = this;
     const ref = this.fs.firestore.collection(entity);
+
+    this.busyOn();
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
       that.snackBar.openFromComponent(PopupComponent, {
@@ -87,15 +89,17 @@ export class DataService {
         data: {message: 'Success'},
         verticalPosition: 'top'
       });
-
+      that.busyOff();
     }).catch(function (error) {
       console.error('Error writing document: ', error);
+      that.busyOff();
     });
   }
 
   public requestVehicle (vID: string) {
     const that = this;
     console.log('send request for get Vehicle');
+    this.busyOn();
     this.fs.firestore.collection(Entity.vehicles).where('ID', '==', vID)
       .get()
       .then(function (querySnapshot) {
@@ -103,9 +107,11 @@ export class DataService {
           Object.assign(that.vehicle, doc.data());
           console.log('vehicle info fetched');
         });
+        that.busyOff();
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
+        that.busyOff();
       });
   }
 
@@ -113,6 +119,7 @@ export class DataService {
     const that = this;
     const myVehicles = [];
     console.log('send request for get myVehices');
+    this.busyOn();
     this.fs.firestore.collection(Entity.vehicles).where('owner', '==', userID)
 
       .get()
@@ -123,9 +130,11 @@ export class DataService {
         });
         Object.assign(that.myVehicles, myVehicles);
         that.onVehiclesUpdated.next(myVehicles);
+        that.busyOff();
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
+        that.busyOff();
       });
   }
 
@@ -136,6 +145,7 @@ export class DataService {
     this.isVehicleNewsFetchInprogress = true;
     const that = this;
     console.log('send request for get vehicle newsList');
+    this.busyOn();
     this.fs.firestore.collection(Entity.news)
       .where('vehicleID', '==', vehicleID)
       .orderBy('time', 'desc')
@@ -147,10 +157,12 @@ export class DataService {
           that.vehicleNewsList.push(new News(doc.data()));
         });
         that.isVehicleNewsFetchInprogress = false;
+        that.busyOff();
       })
       .catch(function (error) {
         that.isVehicleNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
+        that.busyOff();
       });
   }
 
@@ -161,6 +173,7 @@ export class DataService {
     this.isNewsFetchInprogress = true;
     const that = this;
     console.log('send request for get newsList');
+    this.busyOn();
     this.fs.firestore.collection(Entity.news)
       .orderBy('time', 'desc')
       .startAfter(that.lastVisibleNews)
@@ -171,10 +184,12 @@ export class DataService {
           that.newsList.push(new News(doc.data()));
         });
         that.isNewsFetchInprogress = false;
+        that.busyOff();
       })
       .catch(function (error) {
         that.isNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
+        that.busyOff();
       });
   }
   private uploadPhotos(imgRefArr: Array<any>, imgArr: Array<any>, id: string): Promise<any> {
@@ -205,6 +220,14 @@ export class DataService {
         }
       );
     });
+  }
+
+  private busyOn(): void {
+    document.getElementById('overlay').style.display = 'block';
+  }
+
+  private busyOff(): void {
+    document.getElementById('overlay').style.display = 'none';
   }
 }
 

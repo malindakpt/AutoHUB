@@ -1,3 +1,6 @@
+<div id="overlay">
+  <img class="loading-icon" src="../../../assets/images/loading3.gif">
+</div>
 <div class="mat-elevation-z6 header">
   <div class="flex-j-start">
     <div class="b-menu" (click)="showMenu()">
@@ -10,14 +13,14 @@
 
   <div class="flex-j-sb font-size-25 menu-bar">
     <div>
-      <a [routerLink]="['/secure/news']">
+      <div [routerLink]="['/secure/news']">
         News
-      </a>
+      </div>
     </div>
     <div>
-      <a [routerLink]="['/secure/profile']">
+      <div [routerLink]="['/secure/profile']">
         profile
-      </a>
+      </div>
     </div>
     <div *ngIf="user">
       <img [src]="user.image">

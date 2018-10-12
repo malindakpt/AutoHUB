@@ -10,11 +10,11 @@ import {NewsType} from '../../enum/news.-type.enum';
   templateUrl: './news-item.component.html',
   styleUrls: ['./news-item.component.scss']
 })
-export class NewsItemComponent implements OnInit, OnChanges{
+export class NewsItemComponent implements OnInit, OnChanges {
 
   public swiperConfig = {
     loop: true,
-    navigation: true,
+    navigation: true
   };
   public newsArr: Array<News>;
   @Input() vehicleID: string;
