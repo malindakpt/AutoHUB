@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-v-profile',
-  templateUrl: './v-profile.component.html',
-  styleUrls: ['./v-profile.component.scss']
+  selector: 'app-vehicle-profile',
+  templateUrl: './vehicle-profile.component.html',
+  styleUrls: ['./vehicle-profile.component.scss']
 })
-export class VProfileComponent implements OnInit {
+export class VehicleProfileComponent implements OnInit {
 
   public swiperConfig = {
     loop: true,

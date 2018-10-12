@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Vehicle } from '../../entities/vehicle';
 import {News} from '../../entities/news';
@@ -16,7 +16,7 @@ export class AddNewsComponent implements OnInit {
   public serviceTypes = [
     { name: 'Common', val: NewsType.COMMON },
     { name: 'Normal Service', val: NewsType.SERVICE },
-    { name: 'Maintanance/Upgrade', val: NewsType.MAINTANANCE },
+    { name: 'Maintenance/Upgrade', val: NewsType.MAINTENANCE },
     { name: 'Repair', val: NewsType.REPAIR },
   ];
   public news = new News({});
@@ -33,7 +33,6 @@ export class AddNewsComponent implements OnInit {
     this.date = new Date();
   }
 
-
   public complete(): void {
     this.news.time = new Date(this.date).getTime() + '';
     this.news.ID = UserState.getUniqueID();
@@ -43,5 +42,4 @@ export class AddNewsComponent implements OnInit {
   public onPhotoChange(idx: number, data: string): void {
     this.photos[idx] = data;
   }
-
 }

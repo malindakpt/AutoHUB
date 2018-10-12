@@ -19,7 +19,7 @@ import {
 } from '@angular/material';
 import { AddNewComponent } from './components-sub/add-new/add-new.component';
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
-import { VProfileComponent } from './components-sub/v-profile/v-profile.component';
+import { VehicleProfileComponent } from './components-sub/vehicle-profile/vehicle-profile.component';
 import { AdContainerComponent } from './components-sub/ad-container/ad-container.component';
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
@@ -113,7 +113,7 @@ export function getAuthServiceConfigs() {
     ErrorComponent,
     AddNewComponent,
     HeaderToolbarComponent,
-    VProfileComponent,
+    VehicleProfileComponent,
     AdContainerComponent,
     AddVehicleComponent,
     PopupComponent,
