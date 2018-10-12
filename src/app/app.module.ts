@@ -4,8 +4,6 @@ import { AppComponent } from './app.component';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import { DbAccessComponent } from './db-access/db-access.component';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
@@ -47,7 +45,6 @@ import { AuthenticationService } from './services/auth.service';
 import { PhotoUploadComponent } from './components-sub/photo-upload/photo-upload.component';
 import { AddNewsComponent } from './components/add-news/add-news.component';
 import { AppInit } from './app.init';
-import { ProfileComponent } from './components/profile/profile.component';
 import { DataService } from './services/data.service';
 import { LoginComponent } from './components/login/login.component';
 import {AuthGuardService} from './services/auth.guard.service';
@@ -107,8 +104,6 @@ export function getAuthServiceConfigs() {
 
   declarations: [
     AppComponent,
-    FileUploadComponent,
-    DbAccessComponent,
     MainLayoutComponent,
     ErrorComponent,
     AddNewComponent,
@@ -122,7 +117,6 @@ export function getAuthServiceConfigs() {
     OwnerDescComponent,
     PhotoUploadComponent,
     AddNewsComponent,
-    ProfileComponent,
     LoginComponent,
     SecureComponent
   ],

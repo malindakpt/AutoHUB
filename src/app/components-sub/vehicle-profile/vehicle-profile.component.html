@@ -1,44 +1,46 @@
+<div class="profile-container">
+
 <div class="flex-j-sb">
-<div>
-  <mat-form-field>
-    <mat-select placeholder="Select Vehicle" [(ngModel)] = 'selectedVehicle' name = 'vehicleID' (selectionChange)="vehiChanged()">
-      <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.ID">
-        {{vehi.regNo}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-
-<div><button class="add-btn" mat-stroked-button color="primary">Add Vehicle</button></div>
-</div>
-
-<div class="swiper-container" [swiper]="swiperConfig">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">
-      <img src="../../../assets/images/car1.jpg">
-    </div>
-    <div class="swiper-slide">
-      <img src="../../../assets/images/car2.jpg">
-    </div>
-    <div class="swiper-slide">
-      <img src="../../../assets/images/car3.jpg">
-    </div>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='vehicleID'
+                  (selectionChange)="vehiChanged()">
+        <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.ID">
+          {{vehi.regNo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  <!-- If we need pagination -->
-  <div class="swiper-pagination"></div>
 
-  <!-- If we need navigation buttons -->
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-
-  <!-- If we need scrollbar -->
-  <div class="swiper-scrollbar"></div>
+  <div>
+    <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
+  </div>
 </div>
 
+  <div class="swiper-container" [swiper]="swiperConfig">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide slide">
+        <div [style.background-image]="'url(' + vehicle.photos[0] + ')'">
+        </div>
+      </div>
+      <div class="swiper-slide slide">
+        <div [style.background-image]="'url(' + vehicle.photos[1] + ')'">
+        </div>
+      </div>
+      <div  class="swiper-slide slide">
+        <div [style.background-image]="'url(' + vehicle.photos[2] + ')'">
+        </div>
+      </div>
+      <div  class="swiper-slide slide">
+        <div [style.background-image]="'url(' + vehicle.photos[3] + ')'">
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
 
-
-
-<div class="font-size-30">
+<div class="vehicle-summary">
 
   <div class="flex-j-start info">
     <div>REG. NO:</div>
@@ -46,10 +48,10 @@
   </div>
   <div class="flex-j-start info">
     <div>MODEL:</div>
-    <div> {{ vehicle.model }} </div>
+    <div> {{ vehicle.model }}</div>
   </div>
   <div class="flex-j-start info">
-    <div>YEAR: </div>
+    <div>YEAR:</div>
     <div>{{ vehicle.manufactYear }}</div>
   </div>
   <div class="flex-j-start info">
@@ -71,3 +73,4 @@
   <app-news-list [vehicleID]="selectedVehicle"></app-news-list>
 </div>
 
+</div>

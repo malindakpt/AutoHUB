@@ -1,32 +1,47 @@
 @import "../../scss/variabels";
 
 :host {
-    max-width: 725px;
-    padding: 5px;
-    .swiper-container{
-        
-        .swiper-slide {
-            height: 50vh;
+  width: 100%;
 
-            img{
-                width: 100%;
-                height: 100%;
-            }
+  .profile-container {
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 600px;
+
+    .swiper-container {
+      margin-top: 5px;
+
+      .slide {
+        display: flex;
+        justify-content: center;
+        background-color: black;
+
+        div {
+          width: 600px;
+          height: 205px;
+          background-repeat: no-repeat;
+          background-position: center;
         }
+      }
     }
-    .info{
-        margin-top: 5px;
-        div:nth-child(1){
-            color: #808080c7;
-            width: 80px;
-           
-        }
-        div:nth-child(2){
-           color: black;
-        }
+
+    .vehicle-summary {
+      margin-bottom: 10px;
     }
-    .theme-text{
-        color: $theme-color !important;
+
+    .info {
+      margin-top: 5px;
+      div:nth-child(1) {
+        color: #808080c7;
+        width: 80px;
+
+      }
+      div:nth-child(2) {
+        color: black;
+      }
+    }
+    .theme-text {
+      color: $theme-color !important;
     }
 
     .add-btn {
@@ -34,4 +49,6 @@
       margin-right: -2px !important;
       margin-top: 10px;
     }
+
+  }
 }

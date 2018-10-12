@@ -34,8 +34,7 @@
   <div class="description-long">
     {{ news.desc }}
   </div>
-  <div>
-
+  <div class="comment-container">
     <div class="flex-j-end" *ngIf="!news.showComment" (click)="news.showComment=true">
       <fa name="comments" size="1x"></fa>
     </div>
@@ -53,7 +52,6 @@
       {{comment}}
     </div>
     </div>
-
   </div>
 </mat-card>
 </div>

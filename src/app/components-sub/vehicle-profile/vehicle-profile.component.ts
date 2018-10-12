@@ -11,7 +11,7 @@ import {News} from '../../entities/news';
 export class VehicleProfileComponent implements OnInit, OnDestroy {
 
   public swiperConfig = {
-    loop: true,
+    loop: false,
     navigation: true,
   };
 
