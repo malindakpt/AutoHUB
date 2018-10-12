@@ -28,7 +28,7 @@ export class AddVehicleComponent implements OnInit {
     private fs: AngularFirestore,
     public snackBar: MatSnackBar) {
     this.vehicle = new Vehicle({});
-    this.vehicle.owner = UserState.user.id;
+
   }
 
   ngOnInit() {
@@ -63,6 +63,8 @@ export class AddVehicleComponent implements OnInit {
   }
 
   public addVehicle() {
+    this.vehicle.ownerName = UserState.user.name;
+    this.vehicle.ownerImage = UserState.user.image;
     const that = this;
     const vehicleRef = this.fs.firestore.collection(Entity.vehicles);
     vehicleRef.doc(this.vehicle.ID).set(Object.assign({}, this.vehicle)).then(function () {

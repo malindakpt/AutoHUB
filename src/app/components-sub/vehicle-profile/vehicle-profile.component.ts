@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from '../../services/data.service';
 
 @Component({
   selector: 'app-vehicle-profile',
@@ -12,10 +13,13 @@ export class VehicleProfileComponent implements OnInit {
     navigation: true,
   };
 
+  public vehicle;
   public vehicleID = 'lkjlkj12312';
-  constructor() { }
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.vehicle = this.dataService.getVehicleInfo(this.vehicleID);
   }
 
 }

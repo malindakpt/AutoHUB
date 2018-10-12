@@ -23,7 +23,10 @@ export class DataService {
 
   public myVehicles: Array<Vehicle>;
   public newsList: Array<News>;
+  private isNewsFetchInprogress = false;
   public vehicleNewsList: Array<News>;
+  public vehicle: Vehicle;
+  private lastVisible = {}
 
   public getMyVehicles(): any {
     this.myVehicles = new Array<Vehicle>();
@@ -31,8 +34,16 @@ export class DataService {
     return this.myVehicles;
   }
 
+  public getVehicleInfo(id: string): Vehicle {
+    this.vehicle = new Vehicle({});
+    this.requestVehicle(id);
+    return this.vehicle;
+  }
+
   public getNewsList(): Array<News> {
-    this.newsList = new Array<News>();
+    if (!this.newsList) {
+      this.newsList = new Array<News>();
+    }
     this.requestNewsList();
     return this.newsList;
   }
@@ -65,6 +76,22 @@ export class DataService {
     }).catch(function (error) {
       console.error('Error writing document: ', error);
     });
+  }
+
+  public requestVehicle (vID: string) {
+    const that = this;
+    console.log('send request for get Vehicle');
+    this.fs.firestore.collection(Entity.vehicles).where('ID', '==', vID)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          Object.assign(that.vehicle, doc.data());
+          console.log('vehicle info fetched');
+        });
+      })
+      .catch(function (error) {
+        console.log('Error getting documents: ', error);
+      });
   }
 
   public requestMyVehicles(userID: string) {
@@ -104,18 +131,22 @@ export class DataService {
   }
 
   public requestNewsList(): void {
+    if (this.isNewsFetchInprogress || !this.lastVisible) {
+      return;
+    }
+    this.isNewsFetchInprogress = true;
     const that = this;
-    const newsList = [];
     console.log('send request for get newsList');
-    this.fs.firestore.collection(Entity.news).orderBy('time', 'desc').get()
+    this.fs.firestore.collection(Entity.news).orderBy('time', 'desc').startAfter(that.lastVisible).limit(4).get()
       .then(function (querySnapshot) {
+        that.lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
         querySnapshot.forEach(function (doc) {
-          newsList.push(new News(doc.data()));
+          that.newsList.push(new News(doc.data()));
         });
-
-        Object.assign(that.newsList, newsList);
+        that.isNewsFetchInprogress = false;
       })
       .catch(function (error) {
+        that.isNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
       });
   }

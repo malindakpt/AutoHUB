@@ -2,7 +2,8 @@ import {Entity} from './entity';
 
 export class Vehicle extends Entity {
     public model: string;
-    public owner: string;
+    public ownerName: string;
+    public ownerImage: string;
     public regNo: string;
     public fuelType: string;
     public engine: string;

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {News} from '../../entities/news';
 import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
@@ -12,26 +12,33 @@ import {NewsType} from '../../enum/news.-type.enum';
 })
 export class NewsItemComponent implements OnInit {
 
-  public newsArr: Array<News>;
-  @Input() vehicleID: string;
-  public newsTypes = NewsType;
-
-  constructor(private dataService: DataService) { }
   public swiperConfig = {
     loop: true,
     navigation: true,
   };
-  ngOnInit() {
-    if (this.vehicleID) {
-      this.newsArr = this.dataService.getVehicleNewsList(this.vehicleID);
-    } else {
-      this.newsArr = this.dataService.getNewsList();
-    }
-}
+  public newsArr: Array<News>;
+  @Input() vehicleID: string;
+  public newsTypes = NewsType;
 
-public getNewsType(no: number): string {
-    return NewsType[no];
-}
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const position = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollPosition = position + screen.height + 10;
+    const fullHeight = document.documentElement.offsetHeight;
+    if ( scrollPosition > fullHeight) {
+      this.loadNews();
+    }
+  }
+
+  constructor(private dataService: DataService) { }
+
+  ngOnInit() {
+    this.loadNews();
+  }
+
+  public getNewsType(no: number): string {
+      return NewsType[no];
+  }
   public addComment(id: string) {
     const news = this.newsArr.filter(value =>  value.ID === id )[0];
     news.comments.push(news.addCommnet);
@@ -49,7 +56,13 @@ public getNewsType(no: number): string {
     const date = moment(Number(snap));
     return date.format('MMM Do YY');
   }
-
+  public loadNews(): void {
+    if (this.vehicleID) {
+      this.newsArr = this.dataService.getVehicleNewsList(this.vehicleID);
+    } else {
+      this.newsArr = this.dataService.getNewsList();
+    }
+  }
 
 
 }
