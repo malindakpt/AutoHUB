@@ -97,6 +97,24 @@ export class DataService {
     });
   }
 
+  public getEntityDoc (entity: Entity, callBack: any) {
+    const that = this;
+    console.log('send request for get Entiyt');
+    this.busyOn();
+    this.fs.firestore.collection(entity).doc(UserState.user.id)
+      .get()
+      .then(function (doc) {
+          console.log('entiyt info fetched');
+          callBack(doc.data());
+       // });
+        that.busyOff();
+      })
+      .catch(function (error) {
+        console.log('Error getting documents: ', error);
+        that.busyOff();
+      });
+  }
+
   public requestVehicle (vID: string) {
     const that = this;
     console.log('send request for get Vehicle');

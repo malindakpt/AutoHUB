@@ -1,4 +1,5 @@
 export enum Entity {
   vehicles = 'vehicles',
-  news = 'news'
+  news = 'news',
+  settings = 'settings'
 }

@@ -3,7 +3,7 @@
 
     <mat-form-field>
       <mat-select placeholder="Vehicle Category" [(ngModel)] = 'vehicle.category' name = 'category'>
-        <mat-option *ngFor="let item of vehicleCategories" [value]="item">
+        <mat-option *ngFor="let item of categories" [value]="item">
           {{item}}
         </mat-option>
       </mat-select>

@@ -7,6 +7,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Entity } from '../../enum/entities.enum';
 import {UserState} from '../../config/userState';
+import {Settings} from '../../config/settings';
 
 @Component({
   selector: 'app-v-add',
@@ -19,7 +20,7 @@ export class AddVehicleComponent implements OnInit {
   public photos = ['', '', '', ''];
   public uploadCount = 0;
   public fuelTypes = [ 'Petrol', 'Hybrid', 'Disel', 'Electric' ];
-  public vehicleCategories = [ 'Car', 'Van', 'Bus', '3-wheeler', 'Motor Bike', 'Truck' ];
+  public categories = Settings.VEHICLE_CATEGORIES;
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;

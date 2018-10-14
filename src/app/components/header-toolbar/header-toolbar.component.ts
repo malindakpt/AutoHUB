@@ -5,6 +5,9 @@ import { AuthenticationService } from 'src/app/services/auth.service';
 import {UserState} from '../../config/userState';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {SettingsComponent} from '../../components-sub/settings/settings.component';
+import {Entity} from '../../enum/entities.enum';
+import {DataService} from '../../services/data.service';
+import {Settings, UserSettings} from '../../config/settings';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -17,9 +20,13 @@ export class HeaderToolbarComponent implements OnInit {
   constructor(
     private bottomSheet: MatBottomSheet,
     public dialog: MatDialog,
-    private authenticationService: AuthenticationService) { }
+    private dataService: DataService,
+    private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
+    this.dataService.getEntityDoc(Entity.settings, (entry: any) => {
+      UserSettings.NON_INTERESTS = entry.NON_INTERESTS;
+    });
   }
 
   public showSettings(): void {
