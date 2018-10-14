@@ -11,6 +11,7 @@
     justify-content: space-between;
     align-items: center;
     z-index: 10;
+    -webkit-transform: translateZ(0); // Fix flickering issue
 
     .logo {
       font-size: 30px;
@@ -24,9 +25,8 @@
     .menu-bar{
         align-items: center;
          div{
-          margin-left: 20px;
-          cursor: pointer;
-
+           cursor: pointer;
+           margin-right: 5px;
 
           img{
               height:40px;

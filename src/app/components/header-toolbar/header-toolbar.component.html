@@ -12,22 +12,24 @@
   </div>
 
   <div class="flex-j-sb font-size-25 menu-bar">
-    <div>
+    <!--<div>-->
       <div [routerLink]="['/secure/news']">
-        News
+        Timeline
       </div>
-    </div>
-    <div>
-      <div [routerLink]="['/secure/profile']">
-        profile
-      </div>
-    </div>
-    <div *ngIf="user">
-      <img [src]="user.image">
-    </div>
+    <!--</div>-->
 
+        <div class="b-menu" (click)="showSettings()">
+          <fa name="cog" size="lg"></fa>
+        </div>
 
-  </div>
+        <div class="b-menu" (click)="showMenu()">
+          <fa name="search" size="lg"></fa>
+        </div>
+
+        <div *ngIf="user">
+          <img [src]="user.image">
+        </div>
+
 </div>
 
 

@@ -11,6 +11,7 @@ import {UserState} from '../config/userState';
 import {PopupComponent} from '../components-sub/popup/popup.component';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
+import {Settings} from '../config/settings';
 
 @Injectable()
 export class DataService {
@@ -150,7 +151,7 @@ export class DataService {
       .where('vehicleID', '==', vehicleID)
       .orderBy('time', 'desc')
       .startAfter(that.lastVisibleVehicleNews)
-      .limit(4).get()
+      .limit(Settings.NEWS_FETCH_COUNT).get()
       .then(function (querySnapshot) {
         that.lastVisibleVehicleNews = querySnapshot.docs[querySnapshot.docs.length - 1];
         querySnapshot.forEach(function (doc) {
@@ -177,7 +178,7 @@ export class DataService {
     this.fs.firestore.collection(Entity.news)
       .orderBy('time', 'desc')
       .startAfter(that.lastVisibleNews)
-      .limit(4).get()
+      .limit(Settings.NEWS_FETCH_COUNT).get()
       .then(function (querySnapshot) {
         that.lastVisibleNews = querySnapshot.docs[querySnapshot.docs.length - 1];
         querySnapshot.forEach(function (doc) {

@@ -16,11 +16,18 @@
         justify-content: center;
         background-color: black;
 
-        a {
+        div{
           width: 600px;
           height: 205px;
           background-repeat: no-repeat;
           background-position: center;
+
+          fa{
+            color: white;
+            float: right;
+            margin-top: 178px;
+            margin-right: 7px;
+          }
         }
       }
     }

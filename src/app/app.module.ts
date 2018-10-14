@@ -13,7 +13,7 @@ import { appRoutes } from '../app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule
-  , MatSnackBarModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule
+  , MatSnackBarModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule
 } from '@angular/material';
 import { AddNewComponent } from './components-sub/add-new/add-new.component';
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
@@ -49,6 +49,7 @@ import { DataService } from './services/data.service';
 import { LoginComponent } from './components/login/login.component';
 import {AuthGuardService} from './services/auth.guard.service';
 import { SecureComponent } from './components/secure/secure.component';
+import { SettingsComponent } from './components-sub/settings/settings.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -91,6 +92,7 @@ export function getAuthServiceConfigs() {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
 
 
     AngularFireModule.initializeApp(environment.firebase),
@@ -118,7 +120,8 @@ export function getAuthServiceConfigs() {
     PhotoUploadComponent,
     AddNewsComponent,
     LoginComponent,
-    SecureComponent
+    SecureComponent,
+    SettingsComponent
   ],
 
   providers: [
@@ -144,7 +147,8 @@ export function getAuthServiceConfigs() {
 
   entryComponents: [
     PopupComponent,
-    BottomMenuComponent
+    BottomMenuComponent,
+    SettingsComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -15,6 +15,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
     navigation: true,
   };
 
+  public subsctiption;
   public myVehicles: Vehicle[] = [];
   public vehicle = new Vehicle({});
   public selectedVehicle;
@@ -22,7 +23,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.dataService.getMyVehicles();
-    this.dataService.onVehiclesUpdated.subscribe((v) => {
+    this.subsctiption = this.dataService.onVehiclesUpdated.subscribe((v) => {
       this.myVehicles = v;
       this.selectedVehicle = this.myVehicles[0].ID;
       this.vehiChanged();
@@ -30,7 +31,9 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dataService.onVehiclesUpdated.unsubscribe();
+    if (this.subsctiption) {
+      this.subsctiption.unsubscribe();
+    }
   }
 
   public vehiChanged() {

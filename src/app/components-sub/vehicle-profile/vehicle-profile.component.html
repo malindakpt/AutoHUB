@@ -1,76 +1,94 @@
 <div class="profile-container">
 
-<div class="flex-j-sb">
-  <div>
-    <mat-form-field>
-      <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='vehicleID'
-                  (selectionChange)="vehiChanged()">
-        <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.ID">
-          {{vehi.regNo}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+  <div class="flex-j-sb">
+    <div>
+      <mat-form-field>
+        <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='vehicleID'
+                    (selectionChange)="vehiChanged()">
+          <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.ID">
+            {{vehi.regNo}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div>
-    <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
+    <div  routerLink="/secure/add-news"  style="margin-top: 18px;">
+      <fa name="plus-square" size="lg"></fa>
+    </div>
+
+    <div>
+      <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
+    </div>
   </div>
-</div>
 
   <div class="swiper-container" [swiper]="swiperConfig">
     <div class="swiper-wrapper">
       <div class="swiper-slide slide">
-        <a [href]=vehicle.photos[0] target="_blank"   [style.background-image]="'url(' + vehicle.photos[0] + ')'">
-        </a>
+        <div [style.background-image]="'url(' + vehicle.photos[0] + ')'">
+          <a [href]=vehicle.photos[0] target="_blank">
+            <fa name="th-large" size="lg"></fa>
+          </a>
+        </div>
       </div>
       <div class="swiper-slide slide">
-        <a [href]=vehicle.photos[1] target="_blank"   [style.background-image]="'url(' + vehicle.photos[1] + ')'">
-        </a>
+        <div [style.background-image]="'url(' + vehicle.photos[1] + ')'">
+          <a [href]=vehicle.photos[1] target="_blank">
+            <fa name="th-large" size="lg"></fa>
+          </a>
+        </div>
       </div>
       <div class="swiper-slide slide">
-        <a  [href]=vehicle.photos[2] target="_blank"   [style.background-image]="'url(' + vehicle.photos[2] + ')'">
-        </a>
+        <div [style.background-image]="'url(' + vehicle.photos[2] + ')'">
+          <a [href]=vehicle.photos[2] target="_blank">
+            <fa name="th-large" size="lg"></fa>
+          </a>
+        </div>
       </div>
-      <div  class="swiper-slide slide">
-        <a [href]=vehicle.photos[3] target="_blank"   [style.background-image]="'url(' + vehicle.photos[3] + ')'">
-        </a>
+      <div class="swiper-slide slide">
+        <div [style.background-image]="'url(' + vehicle.photos[3] + ')'">
+          <a [href]=vehicle.photos[2] target="_blank">
+            <fa name="th-large" size="lg"></fa>
+          </a>
+        </div>
       </div>
     </div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
   </div>
 
-<div class="vehicle-summary">
+  <div class="vehicle-summary flex-j-sa">
+    <div>
+      <div class="flex-j-start info">
+        <div>REG. NO:</div>
+        <div>{{ vehicle.regNo }}</div>
+      </div>
+      <div class="flex-j-start info">
+        <div>MODEL:</div>
+        <div> {{ vehicle.model }}</div>
+      </div>
+      <div class="flex-j-start info">
+        <div>YEAR:</div>
+        <div>{{ vehicle.manufactYear }}</div>
+      </div>
+    </div>
+    <div>
+      <div class="flex-j-start info">
+        <div>MADE IN:</div>
+        <div>{{ vehicle.manufactCountry }}</div>
+      </div>
+      <div class="flex-j-start info">
+        <div>ENGINE:</div>
+        <div>{{ vehicle.engine }}</div>
+      </div>
+      <div class="flex-j-start info">
+        <div>FUEL</div>
+        <div>{{ vehicle.fuelType }}</div>
+      </div>
+    </div>
+  </div>
 
-  <div class="flex-j-start info">
-    <div>REG. NO:</div>
-    <div>{{ vehicle.regNo }}</div>
+  <div>
+    <app-news-list [vehicleID]="selectedVehicle"></app-news-list>
   </div>
-  <div class="flex-j-start info">
-    <div>MODEL:</div>
-    <div> {{ vehicle.model }}</div>
-  </div>
-  <div class="flex-j-start info">
-    <div>YEAR:</div>
-    <div>{{ vehicle.manufactYear }}</div>
-  </div>
-  <div class="flex-j-start info">
-    <div>MADE IN:</div>
-    <div>{{ vehicle.manufactCountry }}</div>
-  </div>
-  <div class="flex-j-start info">
-    <div>ENGINE:</div>
-    <div>{{ vehicle.engine }}</div>
-  </div>
-  <div class="flex-j-start info">
-    <div>FUEL</div>
-    <div>{{ vehicle.fuelType }}</div>
-  </div>
-
-</div>
-
-<div>
-  <app-news-list [vehicleID]="selectedVehicle"></app-news-list>
-</div>
 
 </div>

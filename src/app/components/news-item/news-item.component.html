@@ -5,20 +5,24 @@
   <div *ngIf="true" class="swiper-container" [swiper]="swiperConfig">
     <div class="swiper-wrapper">
       <div *ngIf="news.photos[0]" class="swiper-slide slide" >
-        <a [href]=news.photos[0] target="_blank" [style.background-image]="'url(' + news.photos[0] + ')'">
-      </a>
+        <div [style.background-image]="'url(' + news.photos[0] + ')'">
+          <a [href]=news.photos[0] target="_blank"> <fa name="th-large" size="lg"></fa></a>
+      </div>
       </div>
       <div *ngIf="news.photos[1]" class="swiper-slide slide">
-        <a [href]=news.photos[1] target="_blank"  [style.background-image]="'url(' + news.photos[1] + ')'">
-        </a>
+        <div  [style.background-image]="'url(' + news.photos[1] + ')'">
+          <a [href]=news.photos[1] target="_blank"> <fa name="th-large" size="lg"></fa></a>
+        </div>
       </div>
       <div *ngIf="news.photos[2]" class="swiper-slide slide">
-        <a [href]=news.photos[2] target="_blank"  [style.background-image]="'url(' + news.photos[2] + ')'">
-        </a>
+        <div  [style.background-image]="'url(' + news.photos[2] + ')'">
+          <a [href]=news.photos[2] target="_blank"> <fa name="th-large" size="lg"></fa></a>
+        </div>
       </div>
       <div *ngIf="news.photos[3]" class="swiper-slide slide">
-        <a [href]=news.photos[3] target="_blank"  [style.background-image]="'url(' + news.photos[3] + ')'">
-        </a>
+        <div  [style.background-image]="'url(' + news.photos[3] + ')'">
+          <a [href]=news.photos[3] target="_blank"> <fa name="th-large" size="lg"></fa></a>
+        </div>
       </div>
     </div>
     <div class="swiper-button-prev"></div>
