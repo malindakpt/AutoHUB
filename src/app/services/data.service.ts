@@ -11,7 +11,8 @@ import {UserState} from '../config/userState';
 import {PopupComponent} from '../components-sub/popup/popup.component';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
-import {Settings} from '../config/settings';
+import {Settings, UserSettings} from '../config/settings';
+import {NewsType} from '../enum/news.-type.enum';
 
 @Injectable()
 export class DataService {
@@ -194,6 +195,7 @@ export class DataService {
     console.log('send request for get newsList');
     this.busyOn();
     this.fs.firestore.collection(Entity.news)
+      .where('type', '==', NewsType.COMMON)
       .orderBy('time', 'desc')
       .startAfter(that.lastVisibleNews)
       .limit(Settings.NEWS_FETCH_COUNT).get()

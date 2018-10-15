@@ -1,0 +1,15 @@
+<mat-form-field>
+  <mat-select placeholder="Search by" [(ngModel)] = 'searchType' name = 'searchType'>
+    <mat-option *ngFor="let type of searchTypes" [value]="type">
+      {{type}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field *ngIf="searchType==searchTypes[0]">
+  <input matInput placeholder="CAA-1234" [(ngModel)]="regNo" name="model">
+</mat-form-field>
+
+<mat-form-field *ngIf="searchType==searchTypes[1]">
+  <input matInput placeholder="MFR123456789" [(ngModel)]="chassisNo" name="Chassis">
+</mat-form-field>

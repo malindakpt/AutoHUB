@@ -8,6 +8,7 @@ import {SettingsComponent} from '../../components-sub/settings/settings.componen
 import {Entity} from '../../enum/entities.enum';
 import {DataService} from '../../services/data.service';
 import {Settings, UserSettings} from '../../config/settings';
+import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search-vehicle.component';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -31,6 +32,16 @@ export class HeaderToolbarComponent implements OnInit {
 
   public showSettings(): void {
     const dialogRef = this.dialog.open(SettingsComponent, {
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  public showSearch(): void {
+    const dialogRef = this.dialog.open(SearchVehicleComponent, {
 
     });
 

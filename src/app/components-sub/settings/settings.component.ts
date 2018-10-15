@@ -34,6 +34,7 @@ export class SettingsComponent implements OnInit {
       }
     }
     console.log('Dislikes', catogs);
+    console.log('UserSettings.NON_INTERESTS', UserSettings.NON_INTERESTS);
     this.categoryModel = catogs;
   }
 

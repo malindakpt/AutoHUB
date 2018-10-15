@@ -5,6 +5,7 @@ export class News extends Entity {
   public vehicleID;
   public odoMeter;
   public type: NewsType;
+  public cat = 'NONE';
   public cost;
   public place;
   public desc;

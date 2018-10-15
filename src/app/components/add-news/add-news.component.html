@@ -1,7 +1,7 @@
 <div class="flex-j-center">
   <form>
     <mat-form-field>
-      <mat-select placeholder="Selecct Activity Type" [(ngModel)] = 'news.type' name = 'serviceType'>
+      <mat-select placeholder="Select Activity Type" [(ngModel)] = 'news.type' name = 'serviceType'>
         <mat-option *ngFor="let type of serviceTypes" [value]="type.val">
           {{type.name}}
         </mat-option>
@@ -9,7 +9,7 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="news.type && news.type !== newsTypes.COMMON">
-      <mat-select placeholder="Select Vehicle" [(ngModel)] = 'news.vehicleID' name = 'vehicleID'>
+      <mat-select placeholder="Select Vehicle" [(ngModel)] = 'selectedVehicle' name = 'vehicleID'>
         <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.ID">
           {{vehi.regNo}}
         </mat-option>

@@ -6,7 +6,6 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { ErrorComponent } from './components/error/error.component';
 import {Router, RouterModule} from '@angular/router';
 import { appRoutes } from '../app/app.routes';
@@ -15,7 +14,6 @@ import {
   MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule
   , MatSnackBarModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule
 } from '@angular/material';
-import { AddNewComponent } from './components-sub/add-new/add-new.component';
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
 import { VehicleProfileComponent } from './components-sub/vehicle-profile/vehicle-profile.component';
 import { AdContainerComponent } from './components-sub/ad-container/ad-container.component';
@@ -50,6 +48,7 @@ import { LoginComponent } from './components/login/login.component';
 import {AuthGuardService} from './services/auth.guard.service';
 import { SecureComponent } from './components/secure/secure.component';
 import { SettingsComponent } from './components-sub/settings/settings.component';
+import { SearchVehicleComponent } from './components-sub/search-vehicle/search-vehicle.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -106,9 +105,7 @@ export function getAuthServiceConfigs() {
 
   declarations: [
     AppComponent,
-    MainLayoutComponent,
     ErrorComponent,
-    AddNewComponent,
     HeaderToolbarComponent,
     VehicleProfileComponent,
     AdContainerComponent,
@@ -121,7 +118,8 @@ export function getAuthServiceConfigs() {
     AddNewsComponent,
     LoginComponent,
     SecureComponent,
-    SettingsComponent
+    SettingsComponent,
+    SearchVehicleComponent
   ],
 
   providers: [
@@ -148,7 +146,8 @@ export function getAuthServiceConfigs() {
   entryComponents: [
     PopupComponent,
     BottomMenuComponent,
-    SettingsComponent
+    SettingsComponent,
+    SearchVehicleComponent
   ],
   bootstrap: [AppComponent]
 })

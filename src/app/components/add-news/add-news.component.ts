@@ -23,6 +23,7 @@ export class AddNewsComponent implements OnInit {
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public date;
+  public selectedVehicle: Vehicle;
 
   constructor(
     private dataService: DataService,
@@ -36,6 +37,8 @@ export class AddNewsComponent implements OnInit {
   public complete(): void {
     this.news.time = new Date(this.date).getTime() + '';
     this.news.ID = UserState.getUniqueID();
+    this.news.vehicleID = this.selectedVehicle.ID;
+    this.news.cat = this.selectedVehicle.category;
     this.dataService.addNews(UserState.getUniqueID(), this.news, this.photos);
   }
 
