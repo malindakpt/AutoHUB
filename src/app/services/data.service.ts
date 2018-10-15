@@ -5,13 +5,12 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Entity} from '../enum/entities.enum';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {resolve} from 'q';
 import {News} from '../entities/news';
 import {UserState} from '../config/userState';
 import {PopupComponent} from '../components-sub/popup/popup.component';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
-import {Settings, UserSettings} from '../config/settings';
+import {Settings} from '../config/settings';
 import {NewsType} from '../enum/news.-type.enum';
 
 @Injectable()
@@ -26,6 +25,7 @@ export class DataService {
   }
 
   public myVehicles: Array<Vehicle>;
+  public searchedVehicle;
 
   private isNewsFetchInprogress = false;
   private lastVisibleNews = {};
@@ -47,6 +47,13 @@ export class DataService {
     this.myVehicles = new Array<Vehicle>();
     this.requestMyVehicles(UserState.user.id);
     return this.myVehicles;
+  }
+
+  public getSearchedVehicle(key: string, val: string): any {
+    this.searchedVehicle = new Vehicle({});
+    this.getEntity(Entity.vehicles, key, val, (vehi) => {
+      Object.assign(this.searchedVehicle, vehi);
+    });
   }
 
   public getVehicleInfo(id: string): Vehicle {
@@ -105,13 +112,33 @@ export class DataService {
     this.fs.firestore.collection(entity).doc(UserState.user.id)
       .get()
       .then(function (doc) {
-          console.log('entiyt info fetched');
-          callBack(doc.data());
-       // });
+        console.log('entiyt info fetched');
+        callBack(doc.data());
         that.busyOff();
       })
       .catch(function (error) {
         console.log('Error getting documents: ', error);
+        that.busyOff();
+      });
+  }
+
+  public getEntity (entity: Entity, key: string, val: string, callBack: any) {
+    const that = this;
+    console.log('send request for get Entiyt');
+    this.busyOn();
+    this.fs.firestore.collection(entity).where(key, '==', val)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          callBack(doc.data());
+          console.log('getEntity info fetched');
+        });
+        callBack(null);
+        that.busyOff();
+      })
+      .catch(function (error) {
+        console.log('Error getting documents: ', error);
+        callBack(null);
         that.busyOff();
       });
   }

@@ -14,7 +14,7 @@ export class AddNewsComponent implements OnInit {
   public myVehicles: Vehicle[] = [];
   public newsTypes = NewsType;
   public serviceTypes = [
-    { name: 'Common', val: NewsType.COMMON },
+    { name: 'News', val: NewsType.COMMON },
     { name: 'Normal Service', val: NewsType.SERVICE },
     { name: 'Maintenance/Upgrade', val: NewsType.MAINTENANCE },
     { name: 'Repair', val: NewsType.REPAIR },

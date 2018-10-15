@@ -12,4 +12,12 @@ export class Vehicle extends Entity {
     public manufactCountry: string;
     public photos = ['', '', '', ''];
     // Entiy ID is the chassis number
+
+
+  constructor(obj: any) {
+    super(obj);
+    if (obj.photos) {
+      this.photos = obj.photos;
+    }
+  }
 }

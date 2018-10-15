@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
-import {News} from '../../entities/news';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-profile',
@@ -19,14 +19,30 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   public myVehicles: Vehicle[] = [];
   public vehicle = new Vehicle({});
   public selectedVehicle;
-  constructor(private dataService: DataService) { }
+  public searchedVehicle;
+  constructor(
+    private dataService: DataService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.dataService.getMyVehicles();
-    this.subsctiption = this.dataService.onVehiclesUpdated.subscribe((v) => {
-      this.myVehicles = v;
-      this.selectedVehicle = this.myVehicles[0].ID;
-      this.vehiChanged();
+    this.activatedRoute.queryParams.subscribe((profile: Vehicle) => {
+      console.log('profile', profile);
+      if (profile.ID) {
+        this.vehicle = profile;
+        this.selectedVehicle = this.vehicle;
+        this.vehiChanged();
+        this.subsctiption = this.dataService.onVehiclesUpdated.subscribe((v) => {
+          this.myVehicles = v;
+        });
+        this.dataService.getMyVehicles();
+      } else {
+        this.subsctiption = this.dataService.onVehiclesUpdated.subscribe((v) => {
+          this.myVehicles = v;
+          this.selectedVehicle = this.myVehicles[0];
+          this.vehiChanged();
+        });
+        this.dataService.getMyVehicles();
+      }
     });
   }
 
@@ -38,7 +54,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
 
   public vehiChanged() {
     this.dataService.resetVehicleNews();
-    this.vehicle = this.dataService.getVehicleInfo(this.selectedVehicle);
+    this.vehicle = this.selectedVehicle;
   }
 
 }

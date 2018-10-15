@@ -3,9 +3,9 @@
   <div class="flex-j-sb">
     <div>
       <mat-form-field>
-        <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='vehicleID'
+        <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='selectedVehicle'
                     (selectionChange)="vehiChanged()">
-          <mat-option *ngFor="let vehi of myVehicles" [value]="vehi.ID">
+          <mat-option *ngFor="let vehi of myVehicles" [value]="vehi">
             {{vehi.regNo}}
           </mat-option>
         </mat-select>
@@ -88,7 +88,7 @@
   </div>
 
   <div>
-    <app-news-list [vehicleID]="selectedVehicle"></app-news-list>
+    <app-news-list [vehicle]="vehicle"></app-news-list>
   </div>
 
 </div>

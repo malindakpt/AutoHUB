@@ -4,6 +4,7 @@ import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
 import {Entity} from '../../enum/entities.enum';
 import {NewsType} from '../../enum/news.-type.enum';
+import {Vehicle} from '../../entities/vehicle';
 
 @Component({
   selector: 'app-news-list',
@@ -17,7 +18,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
     navigation: true
   };
   public newsArr: Array<News>;
-  @Input() vehicleID: string;
+  @Input() vehicle: Vehicle;
   public newsTypes = NewsType;
 
   @HostListener('window:scroll', ['$event'])
@@ -33,7 +34,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    if (!this.vehicleID) {
+    if (!this.vehicle) {
       this.loadNews();
     }
   }
@@ -64,10 +65,12 @@ export class NewsItemComponent implements OnInit, OnChanges {
   }
 
   public loadNews(): void {
-    if (this.vehicleID) {
-      this.newsArr = this.dataService.getVehicleNewsList(this.vehicleID);
-    } else {
+    if (!this.vehicle) {
       this.newsArr = this.dataService.getNewsList();
+    } else if (this.vehicle && this.vehicle.ID)  {
+      this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.ID);
+    } else {
+      // Do nothing
     }
   }
 

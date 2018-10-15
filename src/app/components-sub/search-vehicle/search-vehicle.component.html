@@ -5,11 +5,17 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
-
+<br>
 <mat-form-field *ngIf="searchType==searchTypes[0]">
-  <input matInput placeholder="CAA-1234" [(ngModel)]="regNo" name="model">
+  <input matInput placeholder="Eg. CAA1234" [(ngModel)]="regNo" name="model">
 </mat-form-field>
 
 <mat-form-field *ngIf="searchType==searchTypes[1]">
-  <input matInput placeholder="MFR123456789" [(ngModel)]="chassisNo" name="Chassis">
+  <input matInput placeholder="Eg. MFR123456789" [(ngModel)]="chassisNo" name="Chassis">
 </mat-form-field>
+<br>
+<div *ngIf="noResult" class="error">
+  No vehicles exist for your search
+  <br>
+</div>
+<button mat-button (click)="search()">Search</button>
