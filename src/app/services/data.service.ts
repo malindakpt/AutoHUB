@@ -167,7 +167,7 @@ export class DataService {
     const myVehicles = [];
     console.log('send request for get myVehices');
     this.busyOn();
-    this.fs.firestore.collection(Entity.vehicles).where('owner', '==', userID)
+    this.fs.firestore.collection(Entity.vehicles).where('ownerID', '==', userID)
 
       .get()
       .then(function (querySnapshot) {
@@ -240,20 +240,21 @@ export class DataService {
         that.busyOff();
       });
   }
-  private uploadPhotos(imgRefArr: Array<any>, imgArr: Array<any>, id: string): Promise<any> {
+
+  public uploadPhotos(imgURLArr: Array<any>, imgSrcArr: Array<any>, identifierID: string): Promise<any> {
    return new Promise((resolves, reject) => {
       let uploadCount = 0;
-      imgArr.forEach((itm: any, idx: number) => {
+     imgSrcArr.forEach((itm: any, idx: number) => {
           if (itm !== '') {
-            const filePath = 'images/' + id + '#' + idx + '.jpg';
+            const filePath = 'images/' + identifierID + '#' + idx + '.jpg';
             const ref = this.storage.ref(filePath);
             const task = ref.putString(itm, 'data_url');
             task.snapshotChanges().pipe(
               finalize(() =>
                 ref.getDownloadURL().subscribe(data => {
-                  imgRefArr[idx] = data;
+                  imgURLArr[idx] = data;
                   ++uploadCount;
-                  if (uploadCount === imgArr.length) {
+                  if (uploadCount === imgSrcArr.length) {
                     resolves(12);
                   }
                 })
@@ -261,7 +262,7 @@ export class DataService {
             ).subscribe();
           } else {
             ++uploadCount;
-            if (uploadCount === imgArr.length) {
+            if (uploadCount === imgSrcArr.length) {
               resolves(12);
             }
           }

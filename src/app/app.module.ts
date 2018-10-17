@@ -49,6 +49,8 @@ import {AuthGuardService} from './services/auth.guard.service';
 import { SecureComponent } from './components/secure/secure.component';
 import { SettingsComponent } from './components-sub/settings/settings.component';
 import { SearchVehicleComponent } from './components-sub/search-vehicle/search-vehicle.component';
+import {ROUTER_PROVIDERS} from '@angular/router/src/router_module';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -72,7 +74,7 @@ export function getAuthServiceConfigs() {
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
+      { useHash: true, enableTracing: false } // <-- debugging purposes only
     ),
 
     SocialLoginModule,
@@ -149,6 +151,12 @@ export function getAuthServiceConfigs() {
     SettingsComponent,
     SearchVehicleComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    //  [
+    //   ROUTER_PROVIDERS,
+    //   {provide: LocationStrategy, useClass: HashLocationStrategy}
+    // ]
+  ]
 })
 export class AppModule { }
