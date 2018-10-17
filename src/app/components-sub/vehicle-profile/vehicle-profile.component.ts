@@ -19,6 +19,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   public selectedVehicle;
   public showEdit: boolean;
   public photos = ['', '', '', ''];
+  public isSearchResult;
 
   constructor(
     private dataService: DataService,
@@ -31,19 +32,20 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((profile: Vehicle) => {
       if (profile.ID) {
+        this.isSearchResult = true;
         this.selectedVehicle = profile;
-        this.requestNews();
-
+        this.onVehicleChange();
         this.dataService.getMyVehicles().then((vehicles) => {
           this.myVehicles = vehicles;
         });
         this.dataService.getMyVehicles();
       } else {
+        this.isSearchResult = false;
         this.dataService.getMyVehicles().then((vehicles) => {
           this.myVehicles = vehicles;
           if (this.myVehicles.length > 0) {
             this.selectedVehicle = this.myVehicles[0];
-            this.requestNews();
+            this.onVehicleChange();
           }
         });
       }
@@ -57,7 +59,8 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
     this.showEdit = !this.showEdit;
     console.log(this.selectedVehicle);
   }
-  public requestNews() {
+  public onVehicleChange() {
+    this.isSearchResult = false;
     this.dataService.resetVehicleNews();
   }
 

@@ -14,7 +14,7 @@ import {Vehicle} from '../../entities/vehicle';
 export class NewsItemComponent implements OnInit, OnChanges {
 
   public swiperConfig = {
-    loop: true,
+    loop: false,
     navigation: true
   };
   public newsArr: Array<News>;

@@ -4,7 +4,7 @@
     <div>
       <mat-form-field>
         <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='selectedVehicle'
-                    (selectionChange)="requestNews()">
+                    (selectionChange)="onVehicleChange()">
           <mat-option *ngFor="let vehi of myVehicles" [value]="vehi">
             {{vehi.regNo}}
           </mat-option>
@@ -65,6 +65,9 @@
 
   <div *ngIf="selectedVehicle && !showEdit" class="vehicle-summary flex-j-sa">
     <div>
+      <div *ngIf="isSearchResult" class="flex-j-start info">
+        <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="selectedVehicle.ownerImage"></app-owner-desc>
+      </div>
       <div class="flex-j-start info">
         <div>REG. NO:</div>
         <div>{{ selectedVehicle.regNo }}</div>

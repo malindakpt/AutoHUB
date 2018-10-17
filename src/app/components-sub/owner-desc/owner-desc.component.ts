@@ -9,19 +9,9 @@ export class OwnerDescComponent implements OnInit {
 
   @Input() name;
   @Input() image;
-  private _description;
+  @Input() description;
   constructor() { }
 
   ngOnInit() {
-  }
-
-
-  get description() {
-    return this._description;
-  }
-
-  @Input()
-  set description(value) {
-    this._description = value;
   }
 }
