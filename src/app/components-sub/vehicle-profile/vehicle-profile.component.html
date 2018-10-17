@@ -4,7 +4,7 @@
     <div>
       <mat-form-field>
         <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='selectedVehicle'
-                    (selectionChange)="vehiChanged()">
+                    (selectionChange)="requestNews()">
           <mat-option *ngFor="let vehi of myVehicles" [value]="vehi">
             {{vehi.regNo}}
           </mat-option>
@@ -21,32 +21,32 @@
     </div>
   </div>
 
-  <div class="swiper-container" [swiper]="swiperConfig">
+  <div *ngIf="selectedVehicle" class="swiper-container" [swiper]="swiperConfig">
     <div class="swiper-wrapper">
       <div class="swiper-slide slide">
-        <div [style.background-image]="'url(' + vehicle.photos[0] + ')'">
-          <a [href]=vehicle.photos[0] target="_blank">
+        <div [style.background-image]="'url(' + selectedVehicle.photos[0] + ')'">
+          <a [href]=selectedVehicle.photos[0] target="_blank">
             <fa name="th-large" size="lg"></fa>
           </a>
         </div>
       </div>
       <div class="swiper-slide slide">
-        <div [style.background-image]="'url(' + vehicle.photos[1] + ')'">
-          <a [href]=vehicle.photos[1] target="_blank">
+        <div [style.background-image]="'url(' + selectedVehicle.photos[1] + ')'">
+          <a [href]=selectedVehicle.photos[1] target="_blank">
             <fa name="th-large" size="lg"></fa>
           </a>
         </div>
       </div>
       <div class="swiper-slide slide">
-        <div [style.background-image]="'url(' + vehicle.photos[2] + ')'">
-          <a [href]=vehicle.photos[2] target="_blank">
+        <div [style.background-image]="'url(' + selectedVehicle.photos[2] + ')'">
+          <a [href]=selectedVehicle.photos[2] target="_blank">
             <fa name="th-large" size="lg"></fa>
           </a>
         </div>
       </div>
       <div class="swiper-slide slide">
-        <div [style.background-image]="'url(' + vehicle.photos[3] + ')'">
-          <a [href]=vehicle.photos[2] target="_blank">
+        <div [style.background-image]="'url(' + selectedVehicle.photos[3] + ')'">
+          <a [href]=selectedVehicle.photos[2] target="_blank">
             <fa name="th-large" size="lg"></fa>
           </a>
         </div>
@@ -56,39 +56,46 @@
     <div class="swiper-button-next"></div>
   </div>
 
-  <div class="vehicle-summary flex-j-sa">
+  <div class="flex-j-end">
+    <button mat-button="" (click)="swapEditBtn()">Edit</button>
+  </div>
+  <div *ngIf="showEdit && selectedVehicle" class="img-container">
+    <app-add-vehicle [vehicle]="selectedVehicle"></app-add-vehicle>
+  </div>
+
+  <div *ngIf="selectedVehicle && !showEdit" class="vehicle-summary flex-j-sa">
     <div>
       <div class="flex-j-start info">
         <div>REG. NO:</div>
-        <div>{{ vehicle.regNo }}</div>
+        <div>{{ selectedVehicle.regNo }}</div>
       </div>
       <div class="flex-j-start info">
         <div>MODEL:</div>
-        <div> {{ vehicle.model }}</div>
+        <div> {{ selectedVehicle.model }}</div>
       </div>
       <div class="flex-j-start info">
         <div>YEAR:</div>
-        <div>{{ vehicle.manufactYear }}</div>
+        <div>{{ selectedVehicle.manufactYear }}</div>
       </div>
     </div>
     <div>
       <div class="flex-j-start info">
         <div>MADE IN:</div>
-        <div>{{ vehicle.manufactCountry }}</div>
+        <div>{{ selectedVehicle.manufactCountry }}</div>
       </div>
       <div class="flex-j-start info">
         <div>ENGINE:</div>
-        <div>{{ vehicle.engine }}</div>
+        <div>{{ selectedVehicle.engine }}</div>
       </div>
       <div class="flex-j-start info">
         <div>FUEL</div>
-        <div>{{ vehicle.fuelType }}</div>
+        <div>{{ selectedVehicle.fuelType }}</div>
       </div>
     </div>
   </div>
 
-  <div>
-    <app-news-list [vehicle]="vehicle"></app-news-list>
+  <div *ngIf="!showEdit">
+    <app-news-list [vehicle]="selectedVehicle"></app-news-list>
   </div>
 
 </div>

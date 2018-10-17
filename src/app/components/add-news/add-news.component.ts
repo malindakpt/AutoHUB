@@ -30,7 +30,9 @@ export class AddNewsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.myVehicles = this.dataService.getMyVehicles();
+    this.dataService.getMyVehicles().then(vehis => {
+      this.myVehicles = vehis;
+    });
     this.date = new Date();
   }
 

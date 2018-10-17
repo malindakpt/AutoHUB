@@ -12,6 +12,7 @@ export class PhotoUploadComponent implements OnInit {
   @Output() imageChange = new EventEmitter();
   @Input() id;
   @Input() title;
+  @Input() photo;
 
   ngOnInit() {
       this.oFReader = new FileReader();

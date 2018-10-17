@@ -14,7 +14,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Chassis No" [(ngModel)]="vehicle.ID" name="Chassis">
+      <input [disabled]="isEdit" matInput placeholder="Chassis No" [(ngModel)]="vehicle.ID" name="Chassis">
     </mat-form-field>
 
     <mat-form-field>
@@ -42,16 +42,16 @@
     </mat-form-field>
 
 <div class="img-container">
-  <app-photo-upload [id]="0" [title]="'Front Photo'" (imageChange)="onPhotoChange(0, $event)"></app-photo-upload>
-  <app-photo-upload [id]="1" [title]="'Back Photo'" (imageChange)="onPhotoChange(1, $event)"></app-photo-upload>
-  <app-photo-upload [id]="2" [title]="'Left Photo'" (imageChange)="onPhotoChange(2, $event)"></app-photo-upload>
-  <app-photo-upload [id]="3" [title]="'Right Photo'" (imageChange)="onPhotoChange(3, $event)"></app-photo-upload>
+  <app-photo-upload [id]="0" [title]="'Front Photo'" (imageChange)="onPhotoChange(0, $event)" [photo]="vehicle.photos[0]"></app-photo-upload>
+  <app-photo-upload [id]="1" [title]="'Back Photo'" (imageChange)="onPhotoChange(1, $event)" [photo]="vehicle.photos[1]"></app-photo-upload>
+  <app-photo-upload [id]="2" [title]="'Left Photo'" (imageChange)="onPhotoChange(2, $event)" [photo]="vehicle.photos[2]"></app-photo-upload>
+  <app-photo-upload [id]="3" [title]="'Right Photo'" (imageChange)="onPhotoChange(3, $event)" [photo]="vehicle.photos[3]"></app-photo-upload>
 </div>
 
 
     <div class="btn-holder">
       <button mat-raised-button color="warn">Clear</button>
-      <button mat-raised-button color="primary" (click)="complete()">Add</button>
+      <button mat-raised-button color="primary" (click)="complete()">{{ isEdit? 'Save' : 'Add'}}</button>
     </div>
 
 

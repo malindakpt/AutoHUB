@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Vehicle} from '../../entities/vehicle';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {MatSnackBar} from '@angular/material';
@@ -9,30 +9,33 @@ import {Settings} from '../../config/settings';
 import {DataService} from '../../services/data.service';
 
 @Component({
-  selector: 'app-v-add',
+  selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
   styleUrls: ['./add-vehicle.component.scss']
 })
-export class AddVehicleComponent implements OnInit {
-  public vehicle: Vehicle;
+export class AddVehicleComponent implements OnInit, OnChanges{
+  @Input() public vehicle: Vehicle;
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public uploadCount = 0;
   public fuelTypes = [ 'Petrol', 'Hybrid', 'Disel', 'Electric' ];
   public categories = Settings.VEHICLE_CATEGORIES;
+  public isEdit = false;
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
 
   constructor(
     private storage: AngularFireStorage,
-    private dataService: DataService,
-    private fs: AngularFirestore,
-    public snackBar: MatSnackBar) {
-    this.vehicle = new Vehicle({});
+    private dataService: DataService) {
   }
 
   ngOnInit() {
+    if (this.vehicle) {
+      this.isEdit = true;
+    } else {
+      this.vehicle = new Vehicle({});
+    }
   }
 
   public onPhotoChange(idx: number, data: string): void {
@@ -46,5 +49,8 @@ export class AddVehicleComponent implements OnInit {
       this.vehicle.ownerID = UserState.user.id;
       this.dataService.saveEntity(Entity.vehicles, this.vehicle);
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
   }
 }

@@ -15,46 +15,50 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
     navigation: true,
   };
 
-  public subsctiption;
   public myVehicles: Vehicle[] = [];
-  public vehicle = new Vehicle({});
   public selectedVehicle;
-  public searchedVehicle;
+  public showEdit: boolean;
+  public photos = ['', '', '', ''];
+
   constructor(
     private dataService: DataService,
     private activatedRoute: ActivatedRoute) { }
 
+  public onPhotoChange(idx: number, data: string): void {
+    this.photos[idx] = data;
+  }
+
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((profile: Vehicle) => {
-      console.log('profile', profile);
       if (profile.ID) {
-        this.vehicle = profile;
-        this.selectedVehicle = this.vehicle;
-        this.vehiChanged();
-        this.subsctiption = this.dataService.onVehiclesUpdated.subscribe((v) => {
-          this.myVehicles = v;
+        this.selectedVehicle = profile;
+        this.requestNews();
+
+        this.dataService.getMyVehicles().then((vehicles) => {
+          this.myVehicles = vehicles;
         });
         this.dataService.getMyVehicles();
       } else {
-        this.subsctiption = this.dataService.onVehiclesUpdated.subscribe((v) => {
-          this.myVehicles = v;
-          this.selectedVehicle = this.myVehicles[0];
-          this.vehiChanged();
+        this.dataService.getMyVehicles().then((vehicles) => {
+          this.myVehicles = vehicles;
+          if (this.myVehicles.length > 0) {
+            this.selectedVehicle = this.myVehicles[0];
+            this.requestNews();
+          }
         });
-        this.dataService.getMyVehicles();
       }
     });
   }
 
   ngOnDestroy(): void {
-    if (this.subsctiption) {
-      this.subsctiption.unsubscribe();
-    }
   }
 
-  public vehiChanged() {
+  public swapEditBtn() {
+    this.showEdit = !this.showEdit;
+    console.log(this.selectedVehicle);
+  }
+  public requestNews() {
     this.dataService.resetVehicleNews();
-    this.vehicle = this.selectedVehicle;
   }
 
 }

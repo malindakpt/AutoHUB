@@ -24,7 +24,7 @@ export class DataService {
     this.onVehiclesUpdated = new Subject();
   }
 
-  public myVehicles: Array<Vehicle>;
+ // public myVehicles: Array<Vehicle>;
   public searchedVehicle;
 
   private isNewsFetchInprogress = false;
@@ -43,10 +43,8 @@ export class DataService {
     this.vehicleNewsList = new Array<News>();
   }
 
-  public getMyVehicles(): any {
-    this.myVehicles = new Array<Vehicle>();
-    this.requestMyVehicles(UserState.user.id);
-    return this.myVehicles;
+  public getMyVehicles(): Promise<any> {
+    return this.requestMyVehicles(UserState.user.id);
   }
 
   public getSearchedVehicle(key: string, val: string): any {
@@ -162,27 +160,30 @@ export class DataService {
       });
   }
 
-  public requestMyVehicles(userID: string) {
+  public requestMyVehicles(userID: string): Promise<any> {
     const that = this;
     const myVehicles = [];
     console.log('send request for get myVehices');
     this.busyOn();
-    this.fs.firestore.collection(Entity.vehicles).where('ownerID', '==', userID)
-
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          myVehicles.push(new Vehicle(doc.data()));
+    return new Promise((resolves, reject) => {
+      this.fs.firestore.collection(Entity.vehicles).where('ownerID', '==', userID)
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            myVehicles.push(new Vehicle(doc.data()));
+          });
+          that.onVehiclesUpdated.next(myVehicles);
+          that.busyOff();
+          resolves(myVehicles);
+        })
+        .catch(function (error) {
+          console.log('Error getting documents: ', error);
+          that.busyOff();
+          resolves(null);
         });
-        Object.assign(that.myVehicles, myVehicles);
-        that.onVehiclesUpdated.next(myVehicles);
-        that.busyOff();
-      })
-      .catch(function (error) {
-        console.log('Error getting documents: ', error);
-        that.busyOff();
-      });
+    }
+  );
   }
 
   public requestNewsListForVehicle(vehicleID: string): void {
