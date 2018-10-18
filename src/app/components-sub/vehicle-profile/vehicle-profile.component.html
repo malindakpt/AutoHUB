@@ -57,6 +57,7 @@
   </div>
 
   <div class="flex-j-end">
+    <button mat-button="" (click)="requestOwnership()">Request ownership</button>
     <button mat-button="" (click)="swapEditBtn()">Edit</button>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
@@ -66,7 +67,7 @@
   <div *ngIf="selectedVehicle && !showEdit" class="vehicle-summary flex-j-sa">
     <div>
       <div *ngIf="isSearchResult" class="flex-j-start info">
-        <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="selectedVehicle.ownerImage"></app-owner-desc>
+        <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
       </div>
       <div class="flex-j-start info">
         <div>REG. NO:</div>

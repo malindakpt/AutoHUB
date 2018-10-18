@@ -12,7 +12,7 @@ export class News extends Entity {
   public time;
   public photos = ['', '', '', ''];
   public ownerName: string;
-  public ownerImage: string;
+  public ownerID: string;
   public comments = [];
 
   // temp variables

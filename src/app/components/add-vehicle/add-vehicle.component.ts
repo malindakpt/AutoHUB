@@ -45,7 +45,6 @@ export class AddVehicleComponent implements OnInit, OnChanges{
   public complete(): void {
     this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.ID).then((status) => {
       this.vehicle.ownerName = UserState.user.name;
-      this.vehicle.ownerImage = UserState.user.image;
       this.vehicle.ownerID = UserState.user.id;
       this.dataService.saveEntity(Entity.vehicles, this.vehicle);
     });

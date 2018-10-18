@@ -79,7 +79,7 @@ export class DataService {
   public addNews(id: string, news: News, images: Array<string>): void {
     this.uploadPhotos(news.photos, images, id).then((status) => {
       news.ownerName = UserState.user.name;
-      news.ownerImage = UserState.user.image;
+      news.ownerID = UserState.user.id;
       this.saveEntity(Entity.news, news);
     });
   }

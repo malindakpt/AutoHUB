@@ -14,4 +14,12 @@ export class UserState {
   public static getTime(): string {
     return new Date().getTime() + '';
   }
+
+  public static getFBProfile(id?: string): string {
+    return 'https://facebook.com/profile.php?uid=' + id || UserState.user.id;
+  }
+
+  public static getFBImage(id?: string): string {
+    return 'https://graph.facebook.com/' + (id || UserState.user.id) + '/picture?type=normal';
+  }
 }

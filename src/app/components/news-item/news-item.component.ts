@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import {Entity} from '../../enum/entities.enum';
 import {NewsType} from '../../enum/news.-type.enum';
 import {Vehicle} from '../../entities/vehicle';
+import {UserState} from '../../config/userState';
 
 @Component({
   selector: 'app-news-list',
@@ -20,6 +21,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
   public newsArr: Array<News>;
   @Input() vehicle: Vehicle;
   public newsTypes = NewsType;
+  public userState = UserState;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {

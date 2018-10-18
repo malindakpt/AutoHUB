@@ -26,7 +26,9 @@ export class HeaderToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getEntityDoc(Entity.settings, (entry: any) => {
-      UserSettings.NON_INTERESTS = entry.NON_INTERESTS;
+      if (entry) {
+        UserSettings.NON_INTERESTS = entry.NON_INTERESTS;
+      }
     });
   }
 
@@ -42,9 +44,7 @@ export class HeaderToolbarComponent implements OnInit {
 
   public showSearch(): void {
     const dialogRef = this.dialog.open(SearchVehicleComponent, {
-
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });

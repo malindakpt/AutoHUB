@@ -2,6 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {ActivatedRoute} from '@angular/router';
+import {MatDialog} from '@angular/material';
+import {OwnershipTransferComponent} from '../ownership-transfer/ownership-transfer.component';
+import {UserState} from '../../config/userState';
+import {Entity} from '../../enum/entities.enum';
 
 @Component({
   selector: 'app-vehicle-profile',
@@ -20,9 +24,11 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   public showEdit: boolean;
   public photos = ['', '', '', ''];
   public isSearchResult;
+  public userState = UserState;
 
   constructor(
     private dataService: DataService,
+    public dialog: MatDialog,
     private activatedRoute: ActivatedRoute) { }
 
   public onPhotoChange(idx: number, data: string): void {
@@ -34,7 +40,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
       if (profile.ID) {
         this.isSearchResult = true;
         this.selectedVehicle = profile;
-        this.onVehicleChange();
+        this.refreshVehicle();
         this.dataService.getMyVehicles().then((vehicles) => {
           this.myVehicles = vehicles;
         });
@@ -45,7 +51,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
           this.myVehicles = vehicles;
           if (this.myVehicles.length > 0) {
             this.selectedVehicle = this.myVehicles[0];
-            this.onVehicleChange();
+            this.refreshVehicle();
           }
         });
       }
@@ -54,14 +60,38 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
   }
+  public requestOwnership(): void {
+    const v = Object.assign({}, this.selectedVehicle);
+    v.nextOwner = UserState.user.id + '##' + UserState.user.name;
+    this.dataService.saveEntity(Entity.vehicles, v);
+  }
 
   public swapEditBtn() {
     this.showEdit = !this.showEdit;
-    console.log(this.selectedVehicle);
   }
   public onVehicleChange() {
+    this.refreshVehicle();
     this.isSearchResult = false;
+    this.showEdit = false;
+  }
+
+  private refreshVehicle(): void {
     this.dataService.resetVehicleNews();
+    if (this.selectedVehicle.nextOwner) {
+      this.showOwnershipTransferRequest();
+    }
+  }
+
+  public showOwnershipTransferRequest(): void {
+    const dialogRef = this.dialog.open(OwnershipTransferComponent, {
+      data: {
+        user: this.selectedVehicle.nextOwner,
+        vehicle: this.selectedVehicle
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

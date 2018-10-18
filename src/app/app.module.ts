@@ -51,6 +51,7 @@ import { SettingsComponent } from './components-sub/settings/settings.component'
 import { SearchVehicleComponent } from './components-sub/search-vehicle/search-vehicle.component';
 import {ROUTER_PROVIDERS} from '@angular/router/src/router_module';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { OwnershipTransferComponent } from './components-sub/ownership-transfer/ownership-transfer.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -121,7 +122,8 @@ export function getAuthServiceConfigs() {
     LoginComponent,
     SecureComponent,
     SettingsComponent,
-    SearchVehicleComponent
+    SearchVehicleComponent,
+    OwnershipTransferComponent
   ],
 
   providers: [
@@ -149,7 +151,8 @@ export function getAuthServiceConfigs() {
     PopupComponent,
     BottomMenuComponent,
     SettingsComponent,
-    SearchVehicleComponent
+    SearchVehicleComponent,
+    OwnershipTransferComponent
   ],
   bootstrap: [
     AppComponent,

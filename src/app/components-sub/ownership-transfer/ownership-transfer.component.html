@@ -1,0 +1,10 @@
+<p *ngIf="confirmStage===0">
+ <a target="_blank" [href]="userState.getFBProfile(userID)">{{ userName }}</a> is requesting ownership of this vehicle?
+</p>
+<p class="red" *ngIf="confirmStage===1">
+  Once you transfer the ownership, you will not have<br> any authority in AutoHUB for this vehicle.<br>Do you still continue?
+</p>
+
+<button *ngIf="confirmStage===0" color="primary" mat-button="Accept" (click)="onAccept()">Continue</button>
+<button color="warn" mat-button="Accept" (click)="onReject()">Reject</button>
+<button *ngIf="confirmStage===1" color="primary" mat-button="Accept" (click)="onAccept2()">Transfer</button>

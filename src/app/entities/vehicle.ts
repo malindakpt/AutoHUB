@@ -4,7 +4,6 @@ export class Vehicle extends Entity {
     public model: string;
     public ownerName: string;
     public ownerID: string;
-    public ownerImage: string;
     public regNo: string;
     public fuelType: string;
     public category: string;
@@ -12,9 +11,9 @@ export class Vehicle extends Entity {
     public manufactYear: number;
     public manufactCountry: string;
     public photos = ['', '', '', ''];
+    public nextOwner: string;
+    public previousOwners = [];
     // Entiy ID is the chassis number
-
-
   constructor(obj: any) {
     super(obj);
     if (obj.photos) {
