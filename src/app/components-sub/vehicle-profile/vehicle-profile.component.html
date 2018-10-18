@@ -20,7 +20,9 @@
       <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
     </div>
   </div>
-
+  <div *ngIf="isSearchResult" class="flex-j-start info">
+    <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
+  </div>
   <div *ngIf="selectedVehicle" class="swiper-container" [swiper]="swiperConfig">
     <div class="swiper-wrapper">
       <div class="swiper-slide slide">
@@ -57,7 +59,7 @@
   </div>
 
   <div class="flex-j-end action-buttons">
-    <fa name="exchange" size="lg"  (click)="requestOwnership()"></fa>
+    <fa *ngIf="selectedVehicle.ownerID !== userState.user.id" name="exchange" size="lg"  (click)="requestOwnership()"></fa>
     <fa name="edit" size="lg"  (click)="swapEditBtn()"></fa>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
@@ -66,9 +68,6 @@
 
   <div *ngIf="selectedVehicle && !showEdit" class="vehicle-summary flex-j-sa">
     <div>
-      <div *ngIf="isSearchResult" class="flex-j-start info">
-        <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
-      </div>
       <div class="flex-j-start info">
         <div>REG. NO:</div>
         <div>{{ selectedVehicle.regNo }}</div>
