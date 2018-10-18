@@ -1,5 +1,5 @@
 <p *ngIf="confirmStage===0">
- <a target="_blank" [href]="userState.getFBProfile(userID)">{{ userName }}</a> is requesting ownership of this vehicle?
+ <img [src]="userState.getFBImage(userID)">  {{ userName }} is requesting ownership of this vehicle?
 </p>
 <p class="red" *ngIf="confirmStage===1">
   Once you transfer the ownership, you will not have<br> any authority in AutoHUB for this vehicle.<br>Do you still continue?

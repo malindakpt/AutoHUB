@@ -16,6 +16,7 @@ export class OwnershipTransferComponent implements OnInit {
   public userState = UserState;
   public userName;
   public userID;
+  public phoneNo;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dataService: DataService,
@@ -29,6 +30,9 @@ export class OwnershipTransferComponent implements OnInit {
   }
 
   public onReject(): void {
+    const v = this.data.vehicle;
+    v.nextOwner = '';
+    this.dataService.saveEntity(Entity.vehicles, v);
     this.dialogRef.close();
   }
 
@@ -40,9 +44,9 @@ export class OwnershipTransferComponent implements OnInit {
     this.confirmStage = 2;
     const v = this.data.vehicle;
     v.previousOwners.push(v.ownerID + '#' + v.ownerName);
-    v.ownerID = this.data.user.id;
-    v.ownerName = this.data.user.name;
-    v.nextOwner = null;
+    v.ownerID = this.userID;
+    v.ownerName = this.userName;
+    v.nextOwner = '';
     this.dataService.saveEntity(Entity.vehicles, v);
     this.dialogRef.close();
   }
