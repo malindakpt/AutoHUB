@@ -27,11 +27,11 @@ export class DataService {
  // public myVehicles: Array<Vehicle>;
   public searchedVehicle;
 
-  private isNewsFetchInprogress = false;
+  public isNewsFetchInprogress = false;
   private lastVisibleNews = {};
   public newsList: Array<News>;
 
-  private isVehicleNewsFetchInprogress = false;
+  public isVehicleNewsFetchInprogress = false;
   private lastVisibleVehicleNews = {};
   public vehicleNewsList: Array<News>;
 
@@ -192,8 +192,6 @@ export class DataService {
     }
     this.isVehicleNewsFetchInprogress = true;
     const that = this;
-    console.log('send request for get vehicle newsList');
-    this.busyOn();
     this.fs.firestore.collection(Entity.news)
       .where('vehicleID', '==', vehicleID)
       .orderBy('time', 'desc')
@@ -205,12 +203,10 @@ export class DataService {
           that.vehicleNewsList.push(new News(doc.data()));
         });
         that.isVehicleNewsFetchInprogress = false;
-        that.busyOff();
       })
       .catch(function (error) {
         that.isVehicleNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
-        that.busyOff();
       });
   }
 
@@ -220,8 +216,6 @@ export class DataService {
     }
     this.isNewsFetchInprogress = true;
     const that = this;
-    console.log('send request for get newsList');
-    this.busyOn();
     this.fs.firestore.collection(Entity.news)
       .where('type', '==', NewsType.COMMON)
       .orderBy('time', 'desc')
@@ -233,12 +227,10 @@ export class DataService {
           that.newsList.push(new News(doc.data()));
         });
         that.isNewsFetchInprogress = false;
-        that.busyOff();
       })
       .catch(function (error) {
         that.isNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
-        that.busyOff();
       });
   }
 

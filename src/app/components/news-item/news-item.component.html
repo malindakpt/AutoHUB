@@ -57,4 +57,8 @@
     </div>
   </div>
 </mat-card>
+
+</div>
+<div *ngIf="dataService.isNewsFetchInprogress || dataService.isVehicleNewsFetchInprogress" class="page-loading">
+  <img src="../../../assets/images/loading-page.gif">
 </div>

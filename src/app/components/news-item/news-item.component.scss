@@ -76,6 +76,14 @@
   }
 }
 
+.page-loading {
+  display: flex;
+  justify-content: center;
+  img{
+    width: 120px;
+    height: 86px;
+  }
+}
 
 mat-card.mat-card {
   padding: 10px 0px 10px 0px;

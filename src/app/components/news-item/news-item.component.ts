@@ -33,7 +33,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(private dataService: DataService) { }
+  constructor(public dataService: DataService) { }
 
   ngOnInit() {
     if (!this.vehicle) {
