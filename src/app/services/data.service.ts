@@ -12,12 +12,14 @@ import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
 import {Settings} from '../config/settings';
 import {NewsType} from '../enum/news.-type.enum';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class DataService {
   constructor(
     private storage: AngularFireStorage,
     private authService: AuthenticationService,
+    private router: Router,
     private fs: AngularFirestore,
     public snackBar: MatSnackBar
   ) {
@@ -91,11 +93,7 @@ export class DataService {
     this.busyOn();
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
-      that.snackBar.openFromComponent(PopupComponent, {
-        duration: 1000,
-        data: {message: 'Success'},
-        verticalPosition: 'top'
-      });
+      that.router.navigate(['secure/news']);
       that.busyOff();
     }).catch(function (error) {
       console.error('Error writing document: ', error);
@@ -235,6 +233,7 @@ export class DataService {
   }
 
   public uploadPhotos(imgURLArr: Array<any>, imgSrcArr: Array<any>, identifierID: string): Promise<any> {
+    this.busyOn();
    return new Promise((resolves, reject) => {
       let uploadCount = 0;
      imgSrcArr.forEach((itm: any, idx: number) => {
@@ -248,7 +247,7 @@ export class DataService {
                   imgURLArr[idx] = data;
                   ++uploadCount;
                   if (uploadCount === imgSrcArr.length) {
-                    resolves(12);
+                    resolves(true);
                   }
                 })
               )
@@ -256,7 +255,7 @@ export class DataService {
           } else {
             ++uploadCount;
             if (uploadCount === imgSrcArr.length) {
-              resolves(12);
+              resolves(true);
             }
           }
         }

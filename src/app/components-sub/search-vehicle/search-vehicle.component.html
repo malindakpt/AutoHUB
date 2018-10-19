@@ -1,17 +1,17 @@
 <mat-form-field>
   <mat-select placeholder="Search by" [(ngModel)] = 'searchType' name = 'searchType'>
-    <mat-option *ngFor="let type of searchTypes" [value]="type">
-      {{type}}
+    <mat-option *ngFor="let type of searchTypes" [value]="type.key">
+      {{type.val}}
     </mat-option>
   </mat-select>
 </mat-form-field>
 <br>
-<mat-form-field *ngIf="searchType==searchTypes[0]">
-  <input matInput placeholder="Eg. CAA1234" [(ngModel)]="regNo" name="model">
+<mat-form-field *ngIf="searchType==searchTypes[0].key">
+  <input matInput placeholder="Eg. CAA1234" [(ngModel)]="regNo" (keydown)="onKeydown($event)" name="model">
 </mat-form-field>
 
-<mat-form-field *ngIf="searchType==searchTypes[1]">
-  <input matInput placeholder="Eg. MFR123456789" [(ngModel)]="chassisNo" name="Chassis">
+<mat-form-field *ngIf="searchType==searchTypes[1].key">
+  <input matInput placeholder="Eg. MFR123456789" [(ngModel)]="chassisNo" (keydown)="onKeydown($event)" name="Chassis">
 </mat-form-field>
 <br>
 <div *ngIf="noResult" class="error">

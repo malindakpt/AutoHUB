@@ -22,6 +22,7 @@ export class AddVehicleComponent implements OnInit, OnChanges{
   public categories = Settings.VEHICLE_CATEGORIES;
   public isEdit = false;
   public autoNews;
+  private isPhotosChanged = false;
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
@@ -52,13 +53,15 @@ export class AddVehicleComponent implements OnInit, OnChanges{
 
   public onPhotoChange(idx: number, data: string): void {
     this.photos[idx] = data;
+    this.isPhotosChanged = true;
   }
 
   public complete(): void {
-    if (this.isEdit) {
+    if (this.isEdit && this.isPhotosChanged) {
       this.dataService.saveEntity(Entity.news, this.autoNews);
     }
-    this.vehicle.photoID = UserState.getUniqueID();
+    this.vehicle.photoID = UserState.getUniqueID()
+    this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '');
     this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID ).then((status) => {
       this.vehicle.ownerName = UserState.user.name;
       this.vehicle.ownerID = UserState.user.id;

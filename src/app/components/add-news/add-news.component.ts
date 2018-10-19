@@ -37,13 +37,11 @@ export class AddNewsComponent implements OnInit {
   }
 
   public complete(): void {
-    this.news.time = new Date(this.date).getTime() + '';
+    this.news.time = UserState.getTime();
     this.news.ID = UserState.getUniqueID();
     if (this.news.type !== this.serviceTypes[0].val) {
       this.news.vehicleID = this.selectedVehicle.ID;
       this.news.cat = this.selectedVehicle.category || 'NO-VEHI-CAT';
-    } else {
-
     }
     this.dataService.addNews(UserState.getUniqueID(), this.news, this.photos);
   }
