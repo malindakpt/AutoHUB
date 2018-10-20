@@ -2,7 +2,7 @@
   <form>
 
     <mat-form-field>
-      <mat-select placeholder="Vehicle Category" [(ngModel)] = 'vehicle.category' name = 'category'>
+      <mat-select placeholder="Vehicle Category" [(ngModel)]='vehicle.category' name='category'>
         <mat-option *ngFor="let item of categories" [value]="item">
           {{item}}
         </mat-option>
@@ -18,7 +18,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Year" [(ngModel)]="vehicle.manufactYear" name="manufactYear" type="number">
+      <input matInput placeholder="Manufactured Year" [(ngModel)]="vehicle.manufactYear" name="manufactYear"
+             type="number">
     </mat-form-field>
 
     <mat-form-field>
@@ -26,7 +27,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Fuel Type" [(ngModel)] = 'vehicle.fuelType' name = 'fuelTypes'>
+      <mat-select placeholder="Fuel Type" [(ngModel)]='vehicle.fuelType' name='fuelTypes'>
         <mat-option *ngFor="let item of fuelTypes" [value]="item">
           {{item}}
         </mat-option>
@@ -41,16 +42,19 @@
       <input matInput placeholder="Engine Model/CC" [(ngModel)]="vehicle.engine" name="engine">
     </mat-form-field>
 
-<div class="img-container">
-  <app-photo-upload [id]="0" [title]="'Front Photo'" (imageChange)="onPhotoChange(0, $event)" [photo]="vehicle.photos[0]"></app-photo-upload>
-  <app-photo-upload [id]="1" [title]="'Back Photo'" (imageChange)="onPhotoChange(1, $event)" [photo]="vehicle.photos[1]"></app-photo-upload>
-  <app-photo-upload [id]="2" [title]="'Left Photo'" (imageChange)="onPhotoChange(2, $event)" [photo]="vehicle.photos[2]"></app-photo-upload>
-  <app-photo-upload [id]="3" [title]="'Right Photo'" (imageChange)="onPhotoChange(3, $event)" [photo]="vehicle.photos[3]"></app-photo-upload>
-</div>
+    <div class="img-container">
+      <app-photo-upload [id]="0" [title]="'Front Photo'" (imageChange)="onPhotoChange(0, $event)"
+                        [photo]="vehicle.photos[0]"></app-photo-upload>
+      <app-photo-upload [id]="1" [title]="'Back Photo'" (imageChange)="onPhotoChange(1, $event)"
+                        [photo]="vehicle.photos[1]"></app-photo-upload>
+      <app-photo-upload [id]="2" [title]="'Left Photo'" (imageChange)="onPhotoChange(2, $event)"
+                        [photo]="vehicle.photos[2]"></app-photo-upload>
+      <app-photo-upload [id]="3" [title]="'Right Photo'" (imageChange)="onPhotoChange(3, $event)"
+                        [photo]="vehicle.photos[3]"></app-photo-upload>
+    </div>
 
 
     <div class="btn-holder">
-      <button mat-raised-button color="warn">Clear</button>
       <button mat-raised-button color="primary" (click)="complete()">{{ isEdit? 'Save' : 'Add'}}</button>
     </div>
 

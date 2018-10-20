@@ -20,6 +20,12 @@
       <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
     </div>
   </div>
+  <div *ngIf="isNew" class="arrow">
+    <img src="../../../assets/images/arrow.gif">
+  </div>
+  <div *ngIf="isNew"  class="guide">
+    Add your vehicles here and add service records
+  </div>
   <div *ngIf="isSearchResult" class="flex-j-start info">
     <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
   </div>
@@ -60,7 +66,7 @@
 
   <div class="flex-j-end action-buttons">
     <fa *ngIf="selectedVehicle && selectedVehicle.ownerID !== userState.user.id" name="exchange" size="lg"  (click)="requestOwnership()"></fa>
-    <fa name="edit" size="lg"  (click)="swapEditBtn()"></fa>
+    <fa *ngIf="selectedVehicle" name="edit" size="lg"  (click)="swapEditBtn()"></fa>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
     <app-add-vehicle [vehicle]="selectedVehicle"></app-add-vehicle>
@@ -101,7 +107,7 @@
     </div>
   </div>
 
-  <div *ngIf="!showEdit">
+  <div *ngIf="!showEdit && selectedVehicle">
     <app-news-list [vehicle]="selectedVehicle"></app-news-list>
   </div>
 

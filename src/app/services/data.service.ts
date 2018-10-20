@@ -95,6 +95,9 @@ export class DataService {
       console.log('Document successfully written!', entity);
       that.router.navigate(['secure/news']);
       that.busyOff();
+      that.snackBar.open('Success', 'Dismiss', {
+        duration: 3000
+      });
     }).catch(function (error) {
       console.error('Error writing document: ', error);
       that.busyOff();

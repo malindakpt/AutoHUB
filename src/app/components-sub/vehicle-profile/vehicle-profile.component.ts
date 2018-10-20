@@ -25,6 +25,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   public photos = ['', '', '', ''];
   public isSearchResult;
   public userState = UserState;
+  public isNew = false;
 
   constructor(
     private dataService: DataService,
@@ -43,12 +44,18 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
         this.refreshVehicle();
         this.dataService.getMyVehicles().then((vehicles) => {
           this.myVehicles = vehicles;
+          if (this.myVehicles.length === 0) {
+            this.isNew = true;
+          }
         });
         this.dataService.getMyVehicles();
       } else {
         this.isSearchResult = false;
         this.dataService.getMyVehicles().then((vehicles) => {
           this.myVehicles = vehicles;
+          if (this.myVehicles.length === 0) {
+            this.isNew = true;
+          }
           if (this.myVehicles.length > 0) {
             this.selectedVehicle = this.myVehicles[0];
             this.refreshVehicle();
