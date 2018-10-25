@@ -1,62 +1,87 @@
 <div class="news-container" *ngFor="let news of newsArr">
-<mat-card>
-  <app-owner-desc [name] = "news.ownerName" [image] ="userState.getFBImage(news.ownerID)" [description] = getDuration(news.time)></app-owner-desc>
-  <div *ngIf="true" class="swiper-container" [swiper]="swiperConfig">
-    <div class="swiper-wrapper">
-      <div *ngIf="news.photos[0]" class="swiper-slide slide" >
-        <div [style.background-image]="'url(' + news.photos[0] + ')'">
-          <a [href]=news.photos[0] target="_blank"> <fa name="th-large" size="lg"></fa></a>
-      </div>
-      </div>
-      <div *ngIf="news.photos[1]" class="swiper-slide slide">
-        <div  [style.background-image]="'url(' + news.photos[1] + ')'">
-          <a [href]=news.photos[1] target="_blank"> <fa name="th-large" size="lg"></fa></a>
+  <mat-card>
+    <app-owner-desc [name]="news.ownerName" [image]="userState.getFBImage(news.ownerID)"
+                    [description]=getDuration(news.time)></app-owner-desc>
+    <div *ngIf="true" class="swiper-container" [swiper]="swiperConfig">
+      <div class="swiper-wrapper">
+        <div *ngIf="news.photos[0]" class="swiper-slide slide">
+          <div [style.background-image]="'url(' + news.photos[0] + ')'">
+            <a [href]=news.photos[0] target="_blank">
+              <fa name="th-large" size="lg"></fa>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="news.photos[1]" class="swiper-slide slide">
+          <div [style.background-image]="'url(' + news.photos[1] + ')'">
+            <a [href]=news.photos[1] target="_blank">
+              <fa name="th-large" size="lg"></fa>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="news.photos[2]" class="swiper-slide slide">
+          <div [style.background-image]="'url(' + news.photos[2] + ')'">
+            <a [href]=news.photos[2] target="_blank">
+              <fa name="th-large" size="lg"></fa>
+            </a>
+          </div>
+        </div>
+        <div *ngIf="news.photos[3]" class="swiper-slide slide">
+          <div [style.background-image]="'url(' + news.photos[3] + ')'">
+            <a [href]=news.photos[3] target="_blank">
+              <fa name="th-large" size="lg"></fa>
+            </a>
+          </div>
         </div>
       </div>
-      <div *ngIf="news.photos[2]" class="swiper-slide slide">
-        <div  [style.background-image]="'url(' + news.photos[2] + ')'">
-          <a [href]=news.photos[2] target="_blank"> <fa name="th-large" size="lg"></fa></a>
-        </div>
-      </div>
-      <div *ngIf="news.photos[3]" class="swiper-slide slide">
-        <div  [style.background-image]="'url(' + news.photos[3] + ')'">
-          <a [href]=news.photos[3] target="_blank"> <fa name="th-large" size="lg"></fa></a>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-  </div>
-
-  <div  *ngIf="news.type && news.type !== newsTypes.COMMON" class="flex-j-sa description">
-    <div class="item"><div class="value">{{ getNewsType(news.type) }}</div><div class="title">Category</div></div>
-    <div class="item"><div class="value">{{ news.odoMeter }}</div><div class="title">ODO Meter</div></div>
-    <div class="item"><div class="value">{{ news.cost }}</div><div class="title">Total Cost</div></div>
-    <div class="item"><div class="value">{{ formatDate(news.time) }}</div><div class="title">Date</div></div>
-  </div>
-  <div class="description-long">
-    {{ news.desc }}
-  </div>
-  <div class="comment-container">
-    <div class="flex-j-end" *ngIf="!news.showComment" (click)="news.showComment=true">
-      <fa name="comments" size="1x"></fa>
-    </div>
-    <div *ngIf="news.showComment" class="add-comment">
-      <mat-form-field>
-        <textarea matInput placeholder="Leave a comment"  [(ngModel)]="news.addCommnet"></textarea>
-      </mat-form-field>
-      <div (click)="addComment(news.ID)">
-        <fa name="save" size="2x"></fa>
-      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
 
-    <div *ngIf="news.comments">
-    <div *ngFor="let comment of news.comments" class="comment">
-      {{comment}}
+    <div *ngIf="news.type && news.type !== newsTypes.COMMON" class="flex-j-sa description">
+      <div class="item">
+        <div class="value">{{ getNewsType(news.type) }}</div>
+        <div class="title">Category</div>
+      </div>
+      <div class="item">
+        <div class="value">{{ news.odoMeter }}</div>
+        <div class="title">ODO Meter</div>
+      </div>
+      <div class="item">
+        <div class="value">{{ news.cost }}</div>
+        <div class="title">Total Cost</div>
+      </div>
+      <div class="item">
+        <div class="value">{{ formatDate(news.time) }}</div>
+        <div class="title">Date</div>
+      </div>
     </div>
+    <div class="description-long">
+      {{ news.desc }}
     </div>
-  </div>
-</mat-card>
+    <div class="comment-container">
+        <div style="width: 100%;">
+          <div *ngIf="news.showComment" class="add-comment">
+            <mat-form-field>
+              <textarea matInput placeholder="Leave a comment" [(ngModel)]="news.addCommnet"></textarea>
+            </mat-form-field>
+            <div (click)="addComment(news.ID)">
+              <fa name="save" size="2x"></fa>
+            </div>
+          </div>
+
+          <div *ngIf="news.comments">
+            <div *ngFor="let comment of news.comments" class="comment">
+              {{comment}}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="!news.showComment" (click)="news.showComment=true">
+            <fa name="comments" size="1x"></fa>
+          </div>
+        </div>
+      </div>
+  </mat-card>
 
 </div>
 <div *ngIf="dataService.isNewsFetchInprogress || dataService.isVehicleNewsFetchInprogress" class="page-loading">

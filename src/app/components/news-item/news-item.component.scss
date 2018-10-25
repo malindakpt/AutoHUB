@@ -53,14 +53,17 @@
     .description-long{
       margin-top: 10px;
       color: #868686;
-      padding: 5px;
+      padding: 5px 13px 5px 13px;
     }
 
     .comment-container {
       padding: 5px;
+      display: flex;
+      justify-content: space-between;
       .comment {
         margin-left: 20px;
         font-size: 13px;
+        margin-top: 5px;
       }
       .add-comment {
         mat-form-field {

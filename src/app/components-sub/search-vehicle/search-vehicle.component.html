@@ -6,14 +6,19 @@
   </mat-select>
 </mat-form-field>
 <br>
-<mat-form-field *ngIf="searchType==searchTypes[0].key">
+<mat-form-field #searchBox1 *ngIf="searchType==searchTypes[0].key">
   <input matInput placeholder="Eg. CAA1234" [(ngModel)]="regNo" (keydown)="onKeydown($event)" name="model">
 </mat-form-field>
 
-<mat-form-field *ngIf="searchType==searchTypes[1].key">
+<mat-form-field #searchBox2 *ngIf="searchType==searchTypes[1].key">
   <input matInput placeholder="Eg. MFR123456789" [(ngModel)]="chassisNo" (keydown)="onKeydown($event)" name="Chassis">
 </mat-form-field>
 <br>
+
+<div *ngFor="let v of vehicles" (click)="onVehicleSelect(v)" class="search-result">
+ Ownerd by:  {{ v.ownerName }}
+</div>
+
 <div *ngIf="noResult" class="error">
   No vehicles exist for your search
   <br>

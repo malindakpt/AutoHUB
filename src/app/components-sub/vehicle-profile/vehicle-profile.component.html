@@ -65,8 +65,9 @@
   </div>
 
   <div class="flex-j-end action-buttons">
-    <fa *ngIf="selectedVehicle && selectedVehicle.ownerID !== userState.user.id" name="exchange" size="lg"  (click)="requestOwnership()"></fa>
-    <fa *ngIf="selectedVehicle" name="edit" size="lg"  (click)="swapEditBtn()"></fa>
+    <button class="req-owner" *ngIf="selectedVehicle && selectedVehicle.ownerID !== userState.user.id" mat-button (click)="requestOwnership()">Request Ownership</button>
+    <fa *ngIf=" false && selectedVehicle && selectedVehicle.ownerID !== userState.user.id" name="exchange" size="lg"  (click)="requestOwnership()"></fa>
+    <fa *ngIf="selectedVehicle" name="edit" size="lg" (click)="swapEditBtn()"></fa>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
     <app-add-vehicle [vehicle]="selectedVehicle"></app-add-vehicle>
@@ -88,7 +89,7 @@
       </div>
       <div class="flex-j-start info">
         <div>CHASSIS NO:</div>
-        <div>{{ selectedVehicle.ID }}</div>
+        <div>{{ selectedVehicle.chassisNo }}</div>
       </div>
     </div>
     <div>

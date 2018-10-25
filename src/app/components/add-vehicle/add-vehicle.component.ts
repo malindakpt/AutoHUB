@@ -14,12 +14,12 @@ import {MatSnackBar} from '@angular/material';
   templateUrl: './add-vehicle.component.html',
   styleUrls: ['./add-vehicle.component.scss']
 })
-export class AddVehicleComponent implements OnInit, OnChanges{
+export class AddVehicleComponent implements OnInit, OnChanges {
   @Input() public vehicle: Vehicle;
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public uploadCount = 0;
-  public fuelTypes = [ 'Petrol', 'Hybrid', 'Disel', 'Electric' ];
+  public fuelTypes = ['Petrol', 'Hybrid', 'Disel', 'Electric'];
   public categories = Settings.VEHICLE_CATEGORIES;
   public isEdit = false;
   public autoNews;
@@ -62,10 +62,15 @@ export class AddVehicleComponent implements OnInit, OnChanges{
 
   public complete(): void {
     if (this.validate()) {
-      if (this.isEdit && this.isPhotosChanged) {
-        this.dataService.saveEntity(Entity.news, this.autoNews);
+      const unique = UserState.getUniqueID();
+      if (this.isEdit) {
+        if (this.isPhotosChanged) {
+          this.dataService.saveEntity(Entity.news, this.autoNews);
+        }
+      } else {
+        this.vehicle.ID = unique;
       }
-      this.vehicle.photoID = UserState.getUniqueID()
+      this.vehicle.photoID = unique;
       this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '');
       this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID).then((status) => {
         this.vehicle.ownerName = UserState.user.name;
@@ -77,12 +82,12 @@ export class AddVehicleComponent implements OnInit, OnChanges{
 
   validate(): boolean {
     if (!this.vehicle.category) {
-     this.showError('Select the category of vehicle');
+      this.showError('Select the category of vehicle');
       return false;
     } else if (!this.vehicle.model) {
       this.showError('Brand/Model cannot be empty');
       return false;
-    } else if (!this.vehicle.ID) {
+    } else if (!this.vehicle.chassisNo) {
       this.showError('Chassis No cannot be empty');
       return false;
     } else if (!this.vehicle.manufactYear) {
