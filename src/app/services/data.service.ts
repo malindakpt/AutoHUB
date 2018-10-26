@@ -89,7 +89,7 @@ export class DataService {
   public saveEntity(entity: Entity, object: any): void {
     const that = this;
     const ref = this.fs.firestore.collection(entity);
-
+  console.log('Saving entity: ' + entity);
     this.busyOn();
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);

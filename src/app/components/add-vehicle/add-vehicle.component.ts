@@ -7,7 +7,9 @@ import {Settings} from '../../config/settings';
 import {DataService} from '../../services/data.service';
 import {News} from '../../entities/news';
 import {NewsType} from '../../enum/news.-type.enum';
-import {MatSnackBar} from '@angular/material';
+import {Event} from '../../enum/event.enum';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search-vehicle.component';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -24,6 +26,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   public isEdit = false;
   public autoNews;
   private isPhotosChanged = false;
+  private unique;
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
@@ -31,6 +34,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   constructor(
     private storage: AngularFireStorage,
     public snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private dataService: DataService) {
   }
 
@@ -62,22 +66,50 @@ export class AddVehicleComponent implements OnInit, OnChanges {
 
   public complete(): void {
     if (this.validate()) {
-      const unique = UserState.getUniqueID();
+      this.unique = UserState.getUniqueID();
       if (this.isEdit) {
         if (this.isPhotosChanged) {
           this.dataService.saveEntity(Entity.news, this.autoNews);
         }
       } else {
-        this.vehicle.ID = unique;
+        this.vehicle.ID = this.unique;
       }
-      this.vehicle.photoID = unique;
-      this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '');
-      this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID).then((status) => {
-        this.vehicle.ownerName = UserState.user.name;
-        this.vehicle.ownerID = UserState.user.id;
-        this.dataService.saveEntity(Entity.vehicles, this.vehicle);
+      const vehicles = [];
+      this.dataService.getEntity(Entity.vehicles, 'chassisNo', this.vehicle.chassisNo, (data) => {
+        if (data) {
+          vehicles.push(data);
+        } else {
+          if (vehicles.length > 0) {
+            this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
+              ' with same Chassis Number. Click on it and request ownership of it');
+          } else {
+            this.dataService.getEntity(Entity.vehicles, 'regNo', this.vehicle.regNo, (data1) => {
+              if (data1) {
+                vehicles.push(data1);
+              } else {
+                if (vehicles.length === 0) {
+                  this.addNewVehicle(this.unique);
+                } else {
+                  this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
+                    ' with same Registration Number. Click on it and request ownership of it');
+                }
+              }
+            });
+          }
+        }
       });
+
     }
+  }
+
+  private addNewVehicle(unique: string): void {
+    this.vehicle.photoID = unique;
+    this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '');
+    this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID).then((status) => {
+      this.vehicle.ownerName = UserState.user.name;
+      this.vehicle.ownerID = UserState.user.id;
+      this.dataService.saveEntity(Entity.vehicles, this.vehicle);
+    });
   }
 
   validate(): boolean {
@@ -119,6 +151,22 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   private showError(msg: string): void {
     this.snackBar.open(msg, 'Dismiss', {
       duration: 5000
+    });
+  }
+
+  private alreadyExist(vehicles: any, msg: string): void {
+    const dat = {
+      msg: msg,
+      vehicles: vehicles
+    };
+    const dialogRef = this.dialog.open(SearchVehicleComponent, {
+      data: dat
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === Event.CONTINUE) {
+        console.log('Adding vehicle..');
+        this.addNewVehicle(this.unique);
+      }
     });
   }
 

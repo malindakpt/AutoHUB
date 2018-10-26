@@ -1,3 +1,7 @@
+<div *ngIf="topic">
+  {{ topic }}
+</div>
+<div *ngIf="!hideSearch">
 <mat-form-field>
   <mat-select placeholder="Search by" [(ngModel)] = 'searchType' name = 'searchType'>
     <mat-option *ngFor="let type of searchTypes" [value]="type.key">
@@ -6,7 +10,7 @@
   </mat-select>
 </mat-form-field>
 <br>
-<mat-form-field #searchBox1 *ngIf="searchType==searchTypes[0].key">
+<mat-form-field tabindex="0" #searchBox1 *ngIf="searchType==searchTypes[0].key">
   <input matInput placeholder="Eg. CAA1234" [(ngModel)]="regNo" (keydown)="onKeydown($event)" name="model">
 </mat-form-field>
 
@@ -14,6 +18,7 @@
   <input matInput placeholder="Eg. MFR123456789" [(ngModel)]="chassisNo" (keydown)="onKeydown($event)" name="Chassis">
 </mat-form-field>
 <br>
+</div>
 
 <div *ngFor="let v of vehicles" (click)="onVehicleSelect(v)" class="search-result">
  Ownerd by:  {{ v.ownerName }}
@@ -23,4 +28,5 @@
   No vehicles exist for your search
   <br>
 </div>
-<button mat-button (click)="search()">Search</button>
+<button *ngIf="!hideSearch" mat-button (click)="search()">Search</button>
+<button *ngIf="hideSearch" mat-button (click)="onContinue()">Add as new vehicle</button>

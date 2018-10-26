@@ -1,7 +1,8 @@
-import {Component, Inject, OnInit, Renderer, ViewChild} from '@angular/core';
+import {Component, Inject, Input, OnInit, Renderer, ViewChild} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Entity} from '../../enum/entities.enum';
+import {Event} from '../../enum/event.enum';
 import {Router} from '@angular/router';
 import {Vehicle} from '../../entities/vehicle';
 
@@ -12,6 +13,9 @@ import {Vehicle} from '../../entities/vehicle';
 })
 export class SearchVehicleComponent implements OnInit {
   public noResult = false;
+  public hideSearch = false;
+  public topic;
+  @Input()
   public vehicles: Array<Vehicle> = [];
   public chassisNo = '';
   public regNo = '';
@@ -20,6 +24,7 @@ export class SearchVehicleComponent implements OnInit {
     { key: 0, val: 'Search by Reg. No.' },
     { key: 1, val: 'Search by Chassis No.'}
     ];
+
   @ViewChild('searchBox1')
   searchBox1: any;
 
@@ -33,8 +38,13 @@ export class SearchVehicleComponent implements OnInit {
     private renderer: Renderer,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.searchType = this.searchTypes[0].key;
+    this.vehicles = data.vehicles;
+    this.topic = data.topic;
   }
   ngOnInit() {
+    if (this.vehicles) {
+      this.hideSearch = true;
+    }
   }
 
   public onKeydown(event) {
@@ -61,5 +71,10 @@ export class SearchVehicleComponent implements OnInit {
   public onVehicleSelect(vehi) {
     this.router.navigate(['/secure/profile'], {queryParams: vehi});
     this.dialogRef.close();
+  }
+
+
+  public onContinue() {
+    this.dialogRef.close(Event.CONTINUE);
   }
 }
