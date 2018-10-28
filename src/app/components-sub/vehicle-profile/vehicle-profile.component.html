@@ -12,9 +12,9 @@
       </mat-form-field>
     </div>
 
-    <div  routerLink="/secure/add-news"  style="margin-top: 18px;">
-      <fa name="plus-square" size="lg"></fa>
-    </div>
+    <!--<div  routerLink="/secure/add-news"  style="margin-top: 18px;">-->
+      <!--<fa name="plus-square" size="lg"></fa>-->
+    <!--</div>-->
 
     <div>
       <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
@@ -24,7 +24,7 @@
     <img src="../../../assets/images/arrow.gif">
   </div>
   <div *ngIf="isNew"  class="guide">
-    Add your vehicles here and add service records
+    Add your vehicles. then add service history
   </div>
   <div *ngIf="isSearchResult" class="flex-j-start info">
     <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>

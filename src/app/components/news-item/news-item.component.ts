@@ -6,6 +6,7 @@ import {Entity} from '../../enum/entities.enum';
 import {NewsType} from '../../enum/news.-type.enum';
 import {Vehicle} from '../../entities/vehicle';
 import {UserState} from '../../config/userState';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-news-list',
@@ -22,6 +23,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
   @Input() vehicle: Vehicle;
   public newsTypes = NewsType;
   public userState = UserState;
+  public resetCount;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -33,7 +35,20 @@ export class NewsItemComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(public dataService: DataService) { }
+  constructor(
+    public dataService: DataService,
+    private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe((refresh: any) => {
+      console.log('re ' + refresh);
+    });
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      console.log('re map' , params);
+      this.dataService.resetNews();
+      this.resetCount = UserState.getTime();
+      this.loadNews();
+    });
+  }
 
   ngOnInit() {
     if (!this.vehicle) {

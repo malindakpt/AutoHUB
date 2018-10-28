@@ -1,3 +1,5 @@
+<app-add-news [resetCount]="resetCount"></app-add-news>
+
 <div class="news-container" *ngFor="let news of newsArr">
   <mat-card>
     <app-owner-desc [name]="news.ownerName" [image]="userState.getFBImage(news.ownerID)"

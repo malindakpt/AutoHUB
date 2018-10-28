@@ -45,6 +45,10 @@ export class DataService {
     this.vehicleNewsList = new Array<News>();
   }
 
+  public resetNews(): void {
+    this.lastVisibleNews = {};
+    this.newsList = new Array<News>();
+  }
   public getMyVehicles(): Promise<any> {
     return this.requestMyVehicles(UserState.user.id);
   }
@@ -93,7 +97,7 @@ export class DataService {
     this.busyOn();
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
-      that.router.navigate(['secure/news']);
+      that.router.navigate(['/secure/news/' +  UserState.getTime()]);
       that.busyOff();
       that.snackBar.open('Success', 'Dismiss', {
         duration: 3000
@@ -188,7 +192,7 @@ export class DataService {
   }
 
   public requestNewsListForVehicle(vehicleID: string): void {
-    if (this.isVehicleNewsFetchInprogress || !this.lastVisibleVehicleNews) {
+    if (this.isVehicleNewsFetchInprogress || this.lastVisibleVehicleNews === -1) {
       return;
     }
     this.isVehicleNewsFetchInprogress = true;
@@ -199,7 +203,7 @@ export class DataService {
       .startAfter(that.lastVisibleVehicleNews)
       .limit(Settings.NEWS_FETCH_COUNT).get()
       .then(function (querySnapshot) {
-        that.lastVisibleVehicleNews = querySnapshot.docs[querySnapshot.docs.length - 1];
+        that.lastVisibleVehicleNews = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
         querySnapshot.forEach(function (doc) {
           that.vehicleNewsList.push(new News(doc.data()));
         });
@@ -212,7 +216,7 @@ export class DataService {
   }
 
   public requestNewsList(): void {
-    if (this.isNewsFetchInprogress || !this.lastVisibleNews) {
+    if (this.isNewsFetchInprogress || this.lastVisibleNews === -1) {
       return;
     }
     this.isNewsFetchInprogress = true;
@@ -223,7 +227,7 @@ export class DataService {
       .startAfter(that.lastVisibleNews)
       .limit(Settings.NEWS_FETCH_COUNT).get()
       .then(function (querySnapshot) {
-        that.lastVisibleNews = querySnapshot.docs[querySnapshot.docs.length - 1];
+        that.lastVisibleNews = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
         querySnapshot.forEach(function (doc) {
           that.newsList.push(new News(doc.data()));
         });

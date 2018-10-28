@@ -78,7 +78,7 @@ export function getAuthServiceConfigs() {
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { useHash: true, enableTracing: false } // <-- debugging purposes only
+      { useHash: true, enableTracing: false, onSameUrlNavigation: 'reload' } // <-- debugging purposes only
     ),
 
     SocialLoginModule,

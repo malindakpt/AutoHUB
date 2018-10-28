@@ -15,7 +15,7 @@ export const appRoutes: Routes = [
     {
       path: 'secure', component: SecureComponent, canActivate: [AuthGuardService], children: [
         { path: '', redirectTo: 'profile', pathMatch: 'full' },
-        { path: 'news', component: NewsItemComponent },
+        { path: 'news/:ref', component: NewsItemComponent },
         { path: 'add-news', component: AddNewsComponent },
         { path: 'profile', component: VehicleProfileComponent },
         { path: 'add', component: AddVehicleComponent },

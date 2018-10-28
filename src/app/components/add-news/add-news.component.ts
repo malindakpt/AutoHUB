@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {News} from '../../entities/news';
@@ -11,7 +11,7 @@ import {MatSnackBar} from '@angular/material';
   templateUrl: './add-news.component.html',
   styleUrls: ['./add-news.component.scss']
 })
-export class AddNewsComponent implements OnInit {
+export class AddNewsComponent implements OnInit, OnChanges {
   public myVehicles: Vehicle[] = [];
   public newsTypes = NewsType;
   public serviceTypes = [
@@ -24,6 +24,7 @@ export class AddNewsComponent implements OnInit {
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public date;
+  @Input() resetCount: string;
   public selectedVehicle: Vehicle;
 
   constructor(
@@ -86,5 +87,9 @@ export class AddNewsComponent implements OnInit {
 
   public onPhotoChange(idx: number, data: string): void {
     this.photos[idx] = data;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.news = new News({});
   }
 }

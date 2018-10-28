@@ -107,29 +107,33 @@ export class AddVehicleComponent implements OnInit, OnChanges {
         this.vehicle.ID = this.unique;
       }
       const vehicles = [];
-      this.dataService.getEntity(Entity.vehicles, 'chassisNo', this.vehicle.chassisNo, (data) => {
-        if (data) {
-          vehicles.push(data);
-        } else {
-          if (vehicles.length > 0) {
-            this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
-              ' with same Chassis Number. Click on it and request ownership of it');
+      if (!this.isEdit) {
+        this.dataService.getEntity(Entity.vehicles, 'chassisNo', this.vehicle.chassisNo, (data) => {
+          if (data) {
+            vehicles.push(data);
           } else {
-            this.dataService.getEntity(Entity.vehicles, 'regNo', this.vehicle.regNo, (data1) => {
-              if (data1) {
-                vehicles.push(data1);
-              } else {
-                if (vehicles.length === 0) {
-                  this.addNewVehicle(this.unique);
+            if (vehicles.length > 0) {
+              this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
+                ' with same Chassis Number. Click on it and request ownership of it');
+            } else {
+              this.dataService.getEntity(Entity.vehicles, 'regNo', this.vehicle.regNo, (data1) => {
+                if (data1) {
+                  vehicles.push(data1);
                 } else {
-                  this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
-                    ' with same Registration Number. Click on it and request ownership of it');
+                  if (vehicles.length === 0) {
+                    this.addNewVehicle(this.unique);
+                  } else {
+                    this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
+                      ' with same Registration Number. Click on it and request ownership of it');
+                  }
                 }
-              }
-            });
+              });
+            }
           }
-        }
-      });
+        });
+      } else {
+        this.addNewVehicle(this.unique);
+      }
 
     }
   }
@@ -137,6 +141,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   private addNewVehicle(unique: string): void {
     this.vehicle.photoID = unique;
     this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '');
+    this.vehicle.regNo = this.vehicle.regNo.toUpperCase();
     this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID).then((status) => {
       this.vehicle.ownerName = UserState.user.name;
       this.vehicle.ownerID = UserState.user.id;
