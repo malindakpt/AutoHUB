@@ -10,6 +10,9 @@ import {NewsType} from '../../enum/news.-type.enum';
 import {Event} from '../../enum/event.enum';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search-vehicle.component';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -21,13 +24,15 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public uploadCount = 0;
-  public fuelTypes = ['Petrol', 'Hybrid', 'Disel', 'Electric'];
+  public fuelTypes = Settings.FUEL_TYPES;
   public categories = Settings.VEHICLE_CATEGORIES;
   public isEdit = false;
   public autoNews;
   private isPhotosChanged = false;
   private unique;
-
+  brandControl = new FormControl();
+  options = Settings.VEHICLE_BRANDS;
+  filteredOptions: Observable<String[]>;
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
 
@@ -38,6 +43,15 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     private dataService: DataService) {
   }
 
+  displayFn(str?: string): string | undefined {
+    return str ? str : undefined;
+  }
+
+  private _filter(name: string): String[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
   ngOnInit() {
     if (this.vehicle) {
       this.isEdit = true;
@@ -55,6 +69,13 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     } else {
       this.vehicle = new Vehicle({});
     }
+
+    this.filteredOptions = this.brandControl.valueChanges
+      .pipe(
+        startWith<string>(''),
+        map(value => typeof value === 'string' ? value : value),
+        map(name => name ? this._filter(name) : this.options.slice())
+      );
   }
 
   public onPhotoChange(idx: number, data: string): void {
@@ -65,7 +86,8 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   }
 
   public complete(): void {
-    if (this.validate()) {
+    console.log(this.vehicle);
+    if (this.validate() || !Settings.VALIDATE_ADD_VEHICLE) {
       this.unique = UserState.getUniqueID();
       if (this.isEdit) {
         if (this.isPhotosChanged) {
@@ -116,8 +138,11 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     if (!this.vehicle.category) {
       this.showError('Select the category of vehicle');
       return false;
+    } else if (Settings.VEHICLE_BRANDS.indexOf(this.vehicle.brand) < 0) {
+      this.showError('Invalid Brand');
+      return false;
     } else if (!this.vehicle.model) {
-      this.showError('Brand/Model cannot be empty');
+      this.showError('Model cannot be empty');
       return false;
     } else if (!this.vehicle.chassisNo) {
       this.showError('Chassis No cannot be empty');

@@ -9,8 +9,17 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Brand" [(ngModel)]='vehicle.brand' aria-label="Brand" matInput [formControl]="brandControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
     <mat-form-field>
-      <input matInput placeholder="Brand Model" [(ngModel)]="vehicle.model" name="model">
+      <input matInput placeholder="Model" [(ngModel)]="vehicle.model" name="model">
     </mat-form-field>
 
     <mat-form-field>

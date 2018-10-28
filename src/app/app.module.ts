@@ -14,6 +14,8 @@ import {
   MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule
   , MatSnackBarModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule
 } from '@angular/material';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 import { HeaderToolbarComponent } from './components/header-toolbar/header-toolbar.component';
 import { VehicleProfileComponent } from './components-sub/vehicle-profile/vehicle-profile.component';
 import { AdContainerComponent } from './components-sub/ad-container/ad-container.component';
@@ -22,7 +24,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PopupComponent } from './components-sub/popup/popup.component';
 import { BottomMenuComponent } from './components-sub/bottom-menu/bottom-menu.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -84,6 +86,7 @@ export function getAuthServiceConfigs() {
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
 
     MatButtonModule,
     MatCheckboxModule,
@@ -96,6 +99,7 @@ export function getAuthServiceConfigs() {
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatAutocompleteModule,
 
 
     AngularFireModule.initializeApp(environment.firebase),
