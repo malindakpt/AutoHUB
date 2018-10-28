@@ -166,8 +166,8 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     } else if (!this.vehicle.fuelType) {
       this.showError('Select Fuel Type');
       return false;
-    } else if (!this.vehicle.manufactCountry) {
-      this.showError('Manufactured country cannot be empty');
+    } else if (Settings.COUNTRIES.indexOf(this.vehicle.manufactCountry) < 0) {
+      this.showError('Invalid manufactured country');
       return false;
     } else if (!this.vehicle.engine) {
       this.showError('Engine Model/CC cannot be empty');
