@@ -31,8 +31,11 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   private isPhotosChanged = false;
   private unique;
   brandControl = new FormControl();
-  options = Settings.VEHICLE_BRANDS;
-  filteredOptions: Observable<String[]>;
+  countryControl = new FormControl();
+  brands = Settings.VEHICLE_BRANDS;
+  countries = Settings.COUNTRIES;
+  filteredBrands: Observable<String[]>;
+  filteredCountries: Observable<String[]>;
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
 
@@ -41,16 +44,17 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private dataService: DataService) {
+
   }
 
   displayFn(str?: string): string | undefined {
     return str ? str : undefined;
   }
 
-  private _filter(name: string): String[] {
+  private _filter(name: string, options: Array<string>): String[] {
     const filterValue = name.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
   ngOnInit() {
     if (this.vehicle) {
@@ -70,11 +74,17 @@ export class AddVehicleComponent implements OnInit, OnChanges {
       this.vehicle = new Vehicle({});
     }
 
-    this.filteredOptions = this.brandControl.valueChanges
+    this.filteredCountries = this.countryControl.valueChanges
       .pipe(
         startWith<string>(''),
         map(value => typeof value === 'string' ? value : value),
-        map(name => name ? this._filter(name) : this.options.slice())
+        map(name => name ? this._filter(name, this.countries) : this.countries.slice())
+      );
+    this.filteredBrands = this.brandControl.valueChanges
+      .pipe(
+        startWith<string>(''),
+        map(value => typeof value === 'string' ? value : value),
+        map(name => name ? this._filter(name, this.brands) : this.brands.slice())
       );
   }
 

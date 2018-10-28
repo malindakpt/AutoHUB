@@ -12,7 +12,7 @@
     <mat-form-field class="example-full-width">
       <input type="text" placeholder="Brand" [(ngModel)]='vehicle.brand' aria-label="Brand" matInput [formControl]="brandControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        <mat-option *ngFor="let option of filteredBrands | async" [value]="option">
           {{option}}
         </mat-option>
       </mat-autocomplete>
@@ -43,8 +43,13 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Manufactured Country" [(ngModel)]="vehicle.manufactCountry" name="manufactCountry">
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Manufactured Country" [(ngModel)]='vehicle.manufactCountry' aria-label="Manufactured Country" matInput [formControl]="countryControl" [matAutocomplete]="autoCountry">
+      <mat-autocomplete #autoCountry="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field>
