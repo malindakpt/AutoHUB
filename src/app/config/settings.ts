@@ -6,6 +6,10 @@ export class Settings {
   public static COUNTRIES = ['Japan', 'India', 'United Kindom', 'China'];
   public static FUEL_TYPES = ['Petrol', 'Hybrid', 'Disel', 'Electric'];
   public static VALIDATE_ADD_VEHICLE = true;
+  public static MENU_OPTIONS = [
+    { disp: 'Discussion', route: '/secure/news/1'},
+    { disp: 'My Vehicles', route: '/secure/profile'},
+  ];
 }
 
 export class UserSettings {

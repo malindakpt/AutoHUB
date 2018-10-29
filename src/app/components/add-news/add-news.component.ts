@@ -31,7 +31,7 @@ export class AddNewsComponent implements OnInit, OnChanges {
   ngOnInit() {
     if ( NewsWidgetType.NEWS === this.widgetType) {
       this.serviceTypes = [
-        { name: 'Discussion Item', val: NewsType.COMMON }
+        { name: 'Discussion Item', val: NewsType.NEWS }
       ];
     } else if ( NewsWidgetType.SERVICE === this.widgetType) {
       this.serviceTypes = [
@@ -41,7 +41,7 @@ export class AddNewsComponent implements OnInit, OnChanges {
       ];
     } else {
       this.serviceTypes = [
-        { name: 'Discussion Item', val: NewsType.COMMON },
+        { name: 'Discussion Item', val: NewsType.NEWS },
         { name: 'Normal Service', val: NewsType.SERVICE },
         { name: 'Maintenance/Upgrade', val: NewsType.MAINTENANCE },
         { name: 'Repair', val: NewsType.REPAIR },
@@ -57,8 +57,8 @@ export class AddNewsComponent implements OnInit, OnChanges {
     if (this.validate()) {
       this.news.time = this.date.getTime();
       this.news.ID = UserState.getUniqueID();
-      if (this.news.type !== this.serviceTypes[0].val) {
-        this.news.vehicleID = this.selectedVehicle.ID;
+      if (this.news.type !== NewsType.NEWS ) {
+        this.news.vehicleID = this.selectedVehicle.chassisNo;
         this.news.cat = this.selectedVehicle.category || 'NO-VEHI-CAT';
       }
       this.dataService.addNews(this.news.ID, this.news, this.photos);
@@ -72,7 +72,7 @@ export class AddNewsComponent implements OnInit, OnChanges {
   }
 
   public validate(): boolean {
-    if (this.news.type === NewsType.COMMON ) {
+    if (this.news.type === NewsType.NEWS ) {
       if (!this.news.desc) {
         this.showError('Add a description');
         return false;

@@ -27,7 +27,7 @@
     Add your vehicles. then add service history
   </div>
   <div *ngIf="isSearchResult" class="flex-j-start info">
-    <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Current Owner'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
+    <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Owned by'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
   </div>
   <div *ngIf="selectedVehicle" class="swiper-container" [swiper]="swiperConfig">
     <div class="swiper-wrapper">
@@ -65,7 +65,7 @@
   </div>
 
   <div class="flex-j-end action-buttons">
-    <button class="req-owner" *ngIf="selectedVehicle && selectedVehicle.ownerID !== userState.user.id" mat-button (click)="requestOwnership()">Request Ownership</button>
+    <button class="req-owner" *ngIf="false && selectedVehicle && selectedVehicle.ownerID !== userState.user.id" mat-button (click)="requestOwnership()">Request Ownership</button>
     <fa *ngIf=" false && selectedVehicle && selectedVehicle.ownerID !== userState.user.id" name="exchange" size="lg"  (click)="requestOwnership()"></fa>
     <fa *ngIf="selectedVehicle" name="edit" size="lg" (click)="swapEditBtn()"></fa>
   </div>
@@ -88,7 +88,7 @@
         <div>{{ selectedVehicle.manufactYear }}</div>
       </div>
       <div class="flex-j-start info">
-        <div>CHASSIS NO:</div>
+        <div>CHASSIS:</div>
         <div>{{ selectedVehicle.chassisNo }}</div>
       </div>
     </div>
@@ -98,7 +98,7 @@
         <div>{{ selectedVehicle.brand }}</div>
       </div>
       <div class="flex-j-start info">
-        <div>MADE IN:</div>
+        <div>MADE:</div>
         <div>{{ selectedVehicle.manufactCountry }}</div>
       </div>
       <div class="flex-j-start info">
@@ -113,7 +113,7 @@
   </div>
 
   <div *ngIf="!showEdit && selectedVehicle">
-    <app-news-list [vehicle]="selectedVehicle"></app-news-list>
+    <app-news-list [vehicle]="selectedVehicle" [isSearchResult]="isSearchResult"></app-news-list>
   </div>
 
 </div>

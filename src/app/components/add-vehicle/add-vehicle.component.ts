@@ -106,35 +106,35 @@ export class AddVehicleComponent implements OnInit, OnChanges {
       } else {
         this.vehicle.ID = this.unique;
       }
-      const vehicles = [];
-      if (!this.isEdit) {
-        this.dataService.getEntity(Entity.vehicles, 'chassisNo', this.vehicle.chassisNo, (data) => {
-          if (data) {
-            vehicles.push(data);
-          } else {
-            if (vehicles.length > 0) {
-              this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
-                ' with same Chassis Number. Click on it and request ownership of it');
-            } else {
-              this.dataService.getEntity(Entity.vehicles, 'regNo', this.vehicle.regNo, (data1) => {
-                if (data1) {
-                  vehicles.push(data1);
-                } else {
-                  if (vehicles.length === 0) {
-                    this.addNewVehicle(this.unique);
-                  } else {
-                    this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
-                      ' with same Registration Number. Click on it and request ownership of it');
-                  }
-                }
-              });
-            }
-          }
-        });
-      } else {
-        this.addNewVehicle(this.unique);
-      }
-
+      // const vehicles = [];
+      // if (!this.isEdit) {
+      //   this.dataService.getEntity(Entity.vehicles, 'chassisNo', this.vehicle.chassisNo, (data) => {
+      //     if (data) {
+      //       vehicles.push(data);
+      //     } else {
+      //       if (vehicles.length > 0) {
+      //         this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
+      //           ' with same Chassis Number. Click on it and request ownership of it');
+      //       } else {
+      //         this.dataService.getEntity(Entity.vehicles, 'regNo', this.vehicle.regNo, (data1) => {
+      //           if (data1) {
+      //             vehicles.push(data1);
+      //           } else {
+      //             if (vehicles.length === 0) {
+      //               this.addNewVehicle(this.unique);
+      //             } else {
+      //               this.alreadyExist(vehicles, 'There are ' + vehicles.length + ' vehicles' +
+      //                 ' with same Registration Number. Click on it and request ownership of it');
+      //             }
+      //           }
+      //         });
+      //       }
+      //     }
+      //   });
+      // } else {
+      //   this.addNewVehicle(this.unique);
+      // }
+      this.addNewVehicle(this.unique);
     }
   }
 

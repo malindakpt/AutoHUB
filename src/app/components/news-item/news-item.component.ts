@@ -21,6 +21,8 @@ export class NewsItemComponent implements OnInit, OnChanges {
   };
   public newsArr: Array<News>;
   @Input() vehicle: Vehicle;
+  @Input() isSearchResult = false;
+  @Input() isNewsView = false;
   public newsTypes = NewsType;
   public userState = UserState;
   public resetCount;
@@ -39,12 +41,14 @@ export class NewsItemComponent implements OnInit, OnChanges {
   constructor(
     public dataService: DataService,
     private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.queryParams.subscribe((refresh: any) => {
-      console.log('re ' + refresh);
-    });
+    // this.activatedRoute.queryParams.subscribe((refresh: any) => {
+    //   console.log('re ' + refresh);
+    // });
 
-    this.activatedRoute.paramMap.subscribe(params => {
-      console.log('re map' , params);
+    this.activatedRoute.paramMap.subscribe((params: any) => {
+      if (params.params.ref === 1) {
+        this.isNewsView = true;
+      }
       this.dataService.resetNews();
       this.resetCount = UserState.getTime();
       this.loadNews();
@@ -52,11 +56,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    if (!this.vehicle) {
-      this.loadNews();
-    } else {
-
-    }
+    // this.loadNews();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -85,14 +85,16 @@ export class NewsItemComponent implements OnInit, OnChanges {
   }
 
   public loadNews(): void {
-    if (!this.vehicle) {
+    if (this.isNewsView) {
       this.addNewsType = NewsWidgetType.NEWS;
       this.newsArr = this.dataService.getNewsList();
-    } else if (this.vehicle && this.vehicle.ID)  {
-      this.addNewsType = NewsWidgetType.SERVICE;
-      this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.ID);
     } else {
-      // Do nothing
+      if (this.vehicle && this.vehicle.ID) {
+        this.addNewsType = NewsWidgetType.SERVICE;
+        this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.chassisNo);
+      } else {
+        // Do nothing
+      }
     }
   }
 

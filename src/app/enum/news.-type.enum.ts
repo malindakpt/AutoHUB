@@ -1,5 +1,5 @@
 export enum NewsType {
-  MAINTENANCE = 1, REPAIR, SERVICE, COMMON
+  MAINTENANCE = 1, REPAIR, SERVICE, NEWS
 }
 
 export enum NewsWidgetType {

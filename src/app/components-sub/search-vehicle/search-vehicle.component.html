@@ -21,7 +21,7 @@
 </div>
 
 <div *ngFor="let v of vehicles" (click)="onVehicleSelect(v)" class="search-result">
- Ownerd by:  {{ v.ownerName }}
+ Added by:  {{ v.ownerName }}
 </div>
 
 <div *ngIf="noResult" class="error">

@@ -67,6 +67,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
   }
+
   public requestOwnership(): void {
     const v = Object.assign({}, this.selectedVehicle);
     v.nextOwner = UserState.user.id + '##' + UserState.user.name;

@@ -38,11 +38,13 @@ export class SearchVehicleComponent implements OnInit {
     private renderer: Renderer,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.searchType = this.searchTypes[0].key;
-    this.vehicles = data.vehicles;
-    this.topic = data.topic;
+    if (data) {
+      this.vehicles = data.vehicles;
+      this.topic = data.topic;
+    }
   }
   ngOnInit() {
-    if (this.vehicles) {
+    if (this.vehicles && this.vehicles.length > 0) {
       this.hideSearch = true;
     }
   }
@@ -57,7 +59,8 @@ export class SearchVehicleComponent implements OnInit {
     this.vehicles = [];
     this.noResult = false;
     const prop = this.searchType === 0 ? 'regNo' : 'chassisNo';
-    const key = this.searchType === 0 ? this.regNo.replace(/[^a-zA-Z0-9]/g, '') : this.chassisNo.replace(/[^a-zA-Z0-9]/g, '');
+    let key = this.searchType === 0 ? this.regNo.replace(/[^a-zA-Z0-9]/g, '') : this.chassisNo.replace(/[^a-zA-Z0-9]/g, '');
+    key = key.toUpperCase();
     this.dataService.getEntity(Entity.vehicles, prop, key, (dat) => {
       if (dat) {
         this.vehicles.push(dat);
