@@ -3,7 +3,7 @@ import {News} from '../../entities/news';
 import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
 import {Entity} from '../../enum/entities.enum';
-import {NewsType} from '../../enum/news.-type.enum';
+import {NewsType, NewsWidgetType} from '../../enum/news.-type.enum';
 import {Vehicle} from '../../entities/vehicle';
 import {UserState} from '../../config/userState';
 import {ActivatedRoute} from '@angular/router';
@@ -24,6 +24,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
   public newsTypes = NewsType;
   public userState = UserState;
   public resetCount;
+  public addNewsType;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -53,6 +54,8 @@ export class NewsItemComponent implements OnInit, OnChanges {
   ngOnInit() {
     if (!this.vehicle) {
       this.loadNews();
+    } else {
+
     }
   }
 
@@ -83,8 +86,10 @@ export class NewsItemComponent implements OnInit, OnChanges {
 
   public loadNews(): void {
     if (!this.vehicle) {
+      this.addNewsType = NewsWidgetType.NEWS;
       this.newsArr = this.dataService.getNewsList();
     } else if (this.vehicle && this.vehicle.ID)  {
+      this.addNewsType = NewsWidgetType.SERVICE;
       this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.ID);
     } else {
       // Do nothing

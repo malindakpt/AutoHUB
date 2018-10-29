@@ -3,7 +3,7 @@ import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {News} from '../../entities/news';
 import {UserState} from '../../config/userState';
-import {NewsType} from '../../enum/news.-type.enum';
+import {NewsType, NewsWidgetType} from '../../enum/news.-type.enum';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -14,25 +14,39 @@ import {MatSnackBar} from '@angular/material';
 export class AddNewsComponent implements OnInit, OnChanges {
   public myVehicles: Vehicle[] = [];
   public newsTypes = NewsType;
-  public serviceTypes = [
-    { name: 'Discussion Item', val: NewsType.COMMON },
-    { name: 'Normal Service', val: NewsType.SERVICE },
-    { name: 'Maintenance/Upgrade', val: NewsType.MAINTENANCE },
-    { name: 'Repair', val: NewsType.REPAIR },
-  ];
+  public serviceTypes = [];
   public news = new News({});
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public date;
   @Input() resetCount: string;
+  @Input() widgetType: NewsWidgetType;
   public selectedVehicle: Vehicle;
 
   constructor(
     public snackBar: MatSnackBar,
     private dataService: DataService,
-  ) { }
+  ) {}
 
   ngOnInit() {
+    if ( NewsWidgetType.NEWS === this.widgetType) {
+      this.serviceTypes = [
+        { name: 'Discussion Item', val: NewsType.COMMON }
+      ];
+    } else if ( NewsWidgetType.SERVICE === this.widgetType) {
+      this.serviceTypes = [
+        { name: 'Normal Service', val: NewsType.SERVICE },
+        { name: 'Maintenance/Upgrade', val: NewsType.MAINTENANCE },
+        { name: 'Repair', val: NewsType.REPAIR },
+      ];
+    } else {
+      this.serviceTypes = [
+        { name: 'Discussion Item', val: NewsType.COMMON },
+        { name: 'Normal Service', val: NewsType.SERVICE },
+        { name: 'Maintenance/Upgrade', val: NewsType.MAINTENANCE },
+        { name: 'Repair', val: NewsType.REPAIR },
+      ];
+    }
     this.dataService.getMyVehicles().then(vehis => {
       this.myVehicles = vehis;
     });
@@ -51,6 +65,10 @@ export class AddNewsComponent implements OnInit, OnChanges {
       console.log('News added: ' + this.news.ID);
       this.dataService.resetVehicleNews();
     }
+  }
+
+  public close(): void {
+    this.news = new News({});
   }
 
   public validate(): boolean {
