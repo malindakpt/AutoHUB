@@ -62,7 +62,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
       this.autoNews = new News({});
       this.autoNews.ID = UserState.getUniqueID();
       this.autoNews.vehicleID = this.vehicle.ID;
-      this.autoNews.type = NewsType.COMMON;
+      this.autoNews.type = NewsType.NEWS;
       this.autoNews.time = UserState.getTime();
       this.autoNews.ownerID = UserState.user.id;
       this.autoNews.ownerName = UserState.user.name;

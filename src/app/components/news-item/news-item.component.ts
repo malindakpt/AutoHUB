@@ -27,6 +27,11 @@ export class NewsItemComponent implements OnInit, OnChanges {
   public userState = UserState;
   public resetCount;
   public addNewsType;
+  public isShowOnlyMyNews = false;
+  public visibleNewsPrefs = [
+    { val: false, label: 'From All Users'},
+    { val: true, label: 'Added By Me'}
+  ];
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -41,12 +46,9 @@ export class NewsItemComponent implements OnInit, OnChanges {
   constructor(
     public dataService: DataService,
     private activatedRoute: ActivatedRoute) {
-    // this.activatedRoute.queryParams.subscribe((refresh: any) => {
-    //   console.log('re ' + refresh);
-    // });
 
     this.activatedRoute.paramMap.subscribe((params: any) => {
-      if (params.params.ref === 1) {
+      if (params.params.ref === '1') {
         this.isNewsView = true;
       }
       this.dataService.resetNews();
@@ -56,7 +58,6 @@ export class NewsItemComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // this.loadNews();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -84,6 +85,11 @@ export class NewsItemComponent implements OnInit, OnChanges {
     return date.format('MMM Do YY');
   }
 
+  public onToggleNewsPref(): void {
+    this.dataService.resetVehicleNews();
+    this.loadNews();
+  }
+
   public loadNews(): void {
     if (this.isNewsView) {
       this.addNewsType = NewsWidgetType.NEWS;
@@ -91,7 +97,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
     } else {
       if (this.vehicle && this.vehicle.ID) {
         this.addNewsType = NewsWidgetType.SERVICE;
-        this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.chassisNo);
+        this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.chassisNo, this.isShowOnlyMyNews);
       } else {
         // Do nothing
       }

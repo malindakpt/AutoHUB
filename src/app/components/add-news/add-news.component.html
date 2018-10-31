@@ -1,7 +1,7 @@
 <div class="flex-j-center">
   <form>
     <mat-form-field>
-      <mat-select placeholder="Select Activity Type" [(ngModel)]='news.type' name='serviceType'>
+      <mat-select placeholder="Select Activity Type To Add" [(ngModel)]='news.type' name='serviceType'>
         <mat-option *ngFor="let type of serviceTypes" [value]="type.val">
           {{type.name}}
         </mat-option>
@@ -9,7 +9,7 @@
     </mat-form-field>
 
     <div *ngIf="news.type">
-      <mat-form-field *ngIf="news.type && news.type !== newsTypes.COMMON">
+      <mat-form-field *ngIf="news.type && news.type !== newsTypes.NEWS">
         <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='vehicleID'>
           <mat-option *ngFor="let vehi of myVehicles" [value]="vehi">
             {{vehi.regNo}}
@@ -17,11 +17,11 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field *ngIf="news.type && news.type !== newsTypes.COMMON">
+      <mat-form-field *ngIf="news.type && news.type !== newsTypes.NEWS">
         <input matInput placeholder="ODO Meter" [(ngModel)]='news.odoMeter' name='odo' type="number">
       </mat-form-field>
 
-      <mat-form-field *ngIf="news.type && news.type !== newsTypes.COMMON">
+      <mat-form-field *ngIf="news.type && news.type !== newsTypes.NEWS">
         <input matInput placeholder="Total Cost" [(ngModel)]='news.cost' name='cost' type="number">
       </mat-form-field>
 

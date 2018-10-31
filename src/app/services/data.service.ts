@@ -49,6 +49,7 @@ export class DataService {
     this.lastVisibleNews = {};
     this.newsList = new Array<News>();
   }
+
   public getMyVehicles(): Promise<any> {
     return this.requestMyVehicles(UserState.user.id);
   }
@@ -74,11 +75,11 @@ export class DataService {
     return this.newsList;
   }
 
-  public getVehicleNewsList(ID: string): Array<News> {
+  public getVehicleNewsList(ID: string, isOnlyMyNews: boolean): Array<News> {
     if (!this.vehicleNewsList) {
       this.vehicleNewsList = new Array<News>();
     }
-    this.requestNewsListForVehicle(ID);
+    this.requestNewsListForVehicle(ID, isOnlyMyNews);
     return this.vehicleNewsList;
   }
 
@@ -191,16 +192,21 @@ export class DataService {
   );
   }
 
-  public requestNewsListForVehicle(vehicleID: string): void {
+  public requestNewsListForVehicle(vehicleID: string, isOnlyMyNews: boolean): void {
     if (this.isVehicleNewsFetchInprogress || this.lastVisibleVehicleNews === -1) {
       return;
     }
     this.isVehicleNewsFetchInprogress = true;
     const that = this;
-    this.fs.firestore.collection(Entity.news)
+    let query = this.fs.firestore.collection(Entity.news)
       .where('vehicleID', '==', vehicleID)
-      .orderBy('time', 'desc')
-      .startAfter(that.lastVisibleVehicleNews)
+      .orderBy('time', 'desc');
+
+    if (isOnlyMyNews) {
+      query = query.where('ownerID', '==', UserState.user.id);
+    }
+
+    query.startAfter(that.lastVisibleVehicleNews)
       .limit(Settings.NEWS_FETCH_COUNT).get()
       .then(function (querySnapshot) {
         that.lastVisibleVehicleNews = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
@@ -222,7 +228,7 @@ export class DataService {
     this.isNewsFetchInprogress = true;
     const that = this;
     this.fs.firestore.collection(Entity.news)
-      .where('type', '==', NewsType.COMMON)
+      .where('type', '==', NewsType.NEWS)
       .orderBy('time', 'desc')
       .startAfter(that.lastVisibleNews)
       .limit(Settings.NEWS_FETCH_COUNT).get()

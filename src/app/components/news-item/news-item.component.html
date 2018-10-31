@@ -1,4 +1,18 @@
-<app-add-news *ngIf="!isSearchResult" [resetCount]="resetCount" [widgetType]="addNewsType"></app-add-news>
+<div>
+  <div>
+    <app-add-news *ngIf="!isSearchResult" [resetCount]="resetCount" [widgetType]="addNewsType"></app-add-news>
+  </div>
+  <div *ngIf="!isNewsView"  class="flex-j-end">
+    <mat-form-field>
+      <mat-select placeholder="Display Activity Preference" [(ngModel)]='isShowOnlyMyNews' name='visibleNewsPrefs' (selectionChange)="onToggleNewsPref()">
+        <mat-option *ngFor="let item of visibleNewsPrefs" [value]="item.val">
+          {{item.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
 
 <div class="news-container" *ngFor="let news of newsArr">
   <mat-card>
@@ -39,7 +53,7 @@
       <div class="swiper-button-next"></div>
     </div>
 
-    <div *ngIf="news.type && news.type !== newsTypes.COMMON" class="flex-j-sa description">
+    <div *ngIf="news.type && news.type !== newsTypes.NEWS" class="flex-j-sa description">
       <div class="item">
         <div class="value">{{ getNewsType(news.type) }}</div>
         <div class="title">Category</div>
