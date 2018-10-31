@@ -13,6 +13,7 @@ import {Subject} from 'rxjs';
 import {Settings} from '../config/settings';
 import {NewsType} from '../enum/news.-type.enum';
 import {Router} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
@@ -21,12 +22,13 @@ export class DataService {
     private authService: AuthenticationService,
     private router: Router,
     private fs: AngularFirestore,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private http: HttpClient
   ) {
     this.onVehiclesUpdated = new Subject();
+    this.setInternetTime();
   }
 
- // public myVehicles: Array<Vehicle>;
   public searchedVehicle;
 
   public isNewsFetchInprogress = false;
@@ -274,6 +276,17 @@ export class DataService {
         }
       );
     });
+  }
+
+  private setInternetTime(): void {
+    this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
+      UserState.internetDate = new Date(time.currentDateTime);
+    });
+    setInterval(() => {
+      this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
+        UserState.internetDate = new Date(time.currentDateTime);
+      });
+    }, Settings.TIME_CHECK_INTERVAL);
   }
 
   private busyOn(): void {

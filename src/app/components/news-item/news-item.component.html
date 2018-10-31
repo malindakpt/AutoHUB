@@ -2,14 +2,9 @@
   <div>
     <app-add-news *ngIf="!isSearchResult" [resetCount]="resetCount" [widgetType]="addNewsType"></app-add-news>
   </div>
-  <div *ngIf="!isNewsView"  class="flex-j-end">
-    <mat-form-field>
-      <mat-select placeholder="Display Activity Preference" [(ngModel)]='isShowOnlyMyNews' name='visibleNewsPrefs' (selectionChange)="onToggleNewsPref()">
-        <mat-option *ngFor="let item of visibleNewsPrefs" [value]="item.val">
-          {{item.label}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+
+  <div *ngIf="!isNewsView && !isSearchResult"  class="flex-j-end private-mode">
+    <mat-slide-toggle (change)="onToggleNewsPref()">private feed</mat-slide-toggle>
   </div>
 </div>
 

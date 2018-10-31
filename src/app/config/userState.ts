@@ -1,6 +1,7 @@
 import {User} from '../entities/user';
 
 export class UserState {
+  public static internetDate: Date;
   public static appInitStarted = false;
   public static user: User;
   public static getUniqueID(): string {
@@ -12,7 +13,13 @@ export class UserState {
   }
 
   public static getTime(): string {
-    return new Date().getTime() + '';
+    const t = new Date();
+    if (UserState.internetDate) {
+      t.setFullYear(UserState.internetDate.getFullYear());
+      t.setMonth(UserState.internetDate.getMonth());
+      t.setDate(UserState.internetDate.getDate());
+    }
+    return t.getTime() + '';
   }
 
   public static getFBProfile(id?: string): string {

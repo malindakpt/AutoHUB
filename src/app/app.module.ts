@@ -12,7 +12,7 @@ import { appRoutes } from '../app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCheckboxModule, MatInputModule, MatBottomSheetModule, MatListModule, MatCardModule
-  , MatSnackBarModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule
+  , MatSnackBarModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatSlideToggleModule
 } from '@angular/material';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
@@ -41,6 +41,7 @@ import {
   FacebookLoginProvider,
   LinkedinLoginProvider,
 } from 'angular-6-social-login';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/auth.service';
 import { PhotoUploadComponent } from './components-sub/photo-upload/photo-upload.component';
 import { AddNewsComponent } from './components/add-news/add-news.component';
@@ -78,7 +79,7 @@ export function getAuthServiceConfigs() {
       appRoutes,
       { useHash: true, enableTracing: false, onSameUrlNavigation: 'reload' } // <-- debugging purposes only
     ),
-
+    HttpClientModule,
     SocialLoginModule,
 
     BrowserModule,
@@ -98,6 +99,7 @@ export function getAuthServiceConfigs() {
     MatNativeDateModule,
     MatDialogModule,
     MatAutocompleteModule,
+    MatSlideToggleModule,
 
 
     AngularFireModule.initializeApp(environment.firebase),

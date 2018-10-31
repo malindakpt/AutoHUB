@@ -28,10 +28,6 @@ export class NewsItemComponent implements OnInit, OnChanges {
   public resetCount;
   public addNewsType;
   public isShowOnlyMyNews = false;
-  public visibleNewsPrefs = [
-    { val: false, label: 'From All Users'},
-    { val: true, label: 'Added By Me'}
-  ];
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -86,6 +82,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
   }
 
   public onToggleNewsPref(): void {
+    this.isShowOnlyMyNews = !this.isShowOnlyMyNews;
     this.dataService.resetVehicleNews();
     this.loadNews();
   }

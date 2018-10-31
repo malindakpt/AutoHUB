@@ -10,6 +10,8 @@ export class Settings {
     { disp: 'Discussion', route: '/secure/news/1'},
     { disp: 'My Vehicles', route: '/secure/profile'},
   ];
+  public static TIME_URL = 'https://worldclockapi.com/api/json/utc/now';
+  public static TIME_CHECK_INTERVAL = 60000;
 }
 
 export class UserSettings {
