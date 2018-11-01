@@ -70,7 +70,7 @@
       {{ news.desc }}
     </div>
     <div *ngIf="news.ownerID === userState.user.id">
-      <app-add-news *ngIf="news.showEdit" [news]="news"></app-add-news>
+      <app-add-news *ngIf="news.showEdit" [news]="news" (onClose)="news.showEdit = false"></app-add-news>
       <div class="flex-j-end pointer">
         <fa *ngIf="!news.showEdit" name="edit" size="lg" (click)="swapEditBtn(news)"></fa>
       </div>

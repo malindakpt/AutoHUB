@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {News} from '../../entities/news';
@@ -22,6 +22,7 @@ export class AddNewsComponent implements OnInit, OnChanges {
   public date;
   @Input() resetCount: string;
   @Input() widgetType: NewsWidgetType;
+  @Output() onClose = new EventEmitter();
   public selectedVehicle: Vehicle;
   public isEdit = false;
 
@@ -87,7 +88,11 @@ export class AddNewsComponent implements OnInit, OnChanges {
   }
 
   public close(): void {
-    this.news = new News({});
+    if (this.isEdit) {
+      this.onClose.emit();
+    } else {
+      this.news = new News({});
+    }
   }
 
   public validate(): boolean {
