@@ -85,22 +85,24 @@ export class DataService {
     return this.vehicleNewsList;
   }
 
-  public addNews(id: string, news: News, images: Array<string>): void {
+  public addNews(id: string, news: News, images: Array<string>, skipRoute?: boolean): void {
     this.uploadPhotos(news.photos, images, id).then((status) => {
       news.ownerName = UserState.user.name;
       news.ownerID = UserState.user.id;
-      this.saveEntity(Entity.news, news);
+      this.saveEntity(Entity.news, news, skipRoute);
     });
   }
 
-  public saveEntity(entity: Entity, object: any): void {
+  public saveEntity(entity: Entity, object: any, skipRoute?: boolean): void {
     const that = this;
     const ref = this.fs.firestore.collection(entity);
   console.log('Saving entity: ' + entity);
     this.busyOn();
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
-      that.router.navigate(['/secure/news/' +  UserState.getTime()]);
+      if (!skipRoute) {
+        that.router.navigate(['/secure/news/' + UserState.getTime()]);
+      }
       that.busyOff();
       that.snackBar.open('Success', 'Dismiss', {
         duration: 3000

@@ -68,12 +68,14 @@ export class AddNewsComponent implements OnInit, OnChanges {
   public complete(): void {
     if (this.validate()) {
       this.news.time = this.date.getTime();
-      this.news.ID = UserState.getUniqueID();
+      if (!this.isEdit) {
+        this.news.ID = UserState.getUniqueID();
+      }
       this.news.showEdit = false;
       if (this.news.type !== NewsType.NEWS ) {
        this.bindNewsParams();
       }
-      this.dataService.addNews(this.news.ID, this.news, this.photos);
+      this.dataService.addNews(this.news.ID, this.news, this.photos, this.isEdit);
       console.log('News added: ' + this.news.ID);
       this.dataService.resetVehicleNews();
     }
