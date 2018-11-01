@@ -60,6 +60,10 @@ export class NewsItemComponent implements OnInit, OnChanges {
     this.loadNews();
   }
 
+  public swapEditBtn(news: News) {
+    news.showEdit = !news.showEdit;
+  }
+
   public getNewsType(no: number): string {
       return NewsType[no];
   }

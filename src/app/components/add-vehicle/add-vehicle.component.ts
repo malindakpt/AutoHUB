@@ -104,6 +104,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
           this.dataService.saveEntity(Entity.news, this.autoNews);
         }
       } else {
+        // TODO: Why this is done
         this.vehicle.ID = this.unique;
       }
       // const vehicles = [];

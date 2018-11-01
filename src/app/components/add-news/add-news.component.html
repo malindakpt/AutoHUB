@@ -31,7 +31,7 @@
 
       <div class="img-container">
         <app-photo-upload [id]="i" *ngFor="let str of photoCount; let i = index"
-                          (imageChange)="onPhotoChange(i, $event)"></app-photo-upload>
+                          (imageChange)="onPhotoChange(i, $event)" [photo]="news.photos[i]"></app-photo-upload>
       </div>
 
       <mat-form-field>

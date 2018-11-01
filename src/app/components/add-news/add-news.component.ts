@@ -15,13 +15,15 @@ export class AddNewsComponent implements OnInit, OnChanges {
   public myVehicles: Vehicle[] = [];
   public newsTypes = NewsType;
   public serviceTypes = [];
-  public news = new News({});
+  @Input()
+  news: News;
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public date;
   @Input() resetCount: string;
   @Input() widgetType: NewsWidgetType;
   public selectedVehicle: Vehicle;
+  public isEdit = false;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -49,22 +51,37 @@ export class AddNewsComponent implements OnInit, OnChanges {
     }
     this.dataService.getMyVehicles().then(vehis => {
       this.myVehicles = vehis;
+      for (const v of this.myVehicles) {
+        if (v.chassisNo === this.news.vehicleID) {
+          this.selectedVehicle = v;
+        }
+      }
     });
     this.date = new Date();
+    if (!this.news) {
+      this.news = new News({});
+    } else {
+      this.isEdit = true;
+    }
   }
 
   public complete(): void {
     if (this.validate()) {
       this.news.time = this.date.getTime();
       this.news.ID = UserState.getUniqueID();
+      this.news.showEdit = false;
       if (this.news.type !== NewsType.NEWS ) {
-        this.news.vehicleID = this.selectedVehicle.chassisNo;
-        this.news.cat = this.selectedVehicle.category || 'NO-VEHI-CAT';
+       this.bindNewsParams();
       }
       this.dataService.addNews(this.news.ID, this.news, this.photos);
       console.log('News added: ' + this.news.ID);
       this.dataService.resetVehicleNews();
     }
+  }
+
+  private bindNewsParams(): void {
+    this.news.vehicleID = this.selectedVehicle.chassisNo;
+    this.news.cat = this.selectedVehicle.category || 'NO-VEHI-CAT';
   }
 
   public close(): void {
@@ -96,7 +113,6 @@ export class AddNewsComponent implements OnInit, OnChanges {
     return true;
   }
 
-
   private showError(msg: string): void {
     this.snackBar.open(msg, 'Dismiss', {
       duration: 5000
@@ -108,6 +124,6 @@ export class AddNewsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.news = new News({});
+    // this.news = new News({});
   }
 }

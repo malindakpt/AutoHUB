@@ -18,6 +18,7 @@ export class News extends Entity {
   // temp variables
   public addCommnet;
   public showComment;
+  public showEdit;
 
   constructor(obj: any) {
     super(obj);

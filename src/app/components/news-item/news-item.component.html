@@ -69,6 +69,13 @@
     <div class="description-long">
       {{ news.desc }}
     </div>
+    <div *ngIf="news.ownerID === userState.user.id">
+      <app-add-news *ngIf="news.showEdit" [news]="news"></app-add-news>
+      <div class="flex-j-end">
+        <fa *ngIf="!news.showEdit" name="edit" size="lg" (click)="swapEditBtn(news)"></fa>
+      </div>
+
+    </div>
     <div class="comment-container">
         <div style="width: 100%;">
           <div *ngIf="news.showComment" class="add-comment">
