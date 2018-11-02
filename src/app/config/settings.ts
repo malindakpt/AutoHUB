@@ -12,6 +12,7 @@ export class Settings {
   ];
   public static TIME_URL = 'https://worldclockapi.com/api/json/utc/now';
   public static TIME_CHECK_INTERVAL = 60000;
+  public static COMMENT_SEPARATOR = '{[]}';
 }
 
 export class UserSettings {

@@ -54,6 +54,7 @@ import { SettingsComponent } from './components-sub/settings/settings.component'
 import { SearchVehicleComponent } from './components-sub/search-vehicle/search-vehicle.component';
 import { OwnershipTransferComponent } from './components-sub/ownership-transfer/ownership-transfer.component';
 import {SideMenuComponent} from './components-sub/side-menu/side-menu.component';
+import {CommentMsgPipe, CommentProfPicPipe, CommentUserName} from './app.pipes';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -129,7 +130,10 @@ export function getAuthServiceConfigs() {
     SettingsComponent,
     SearchVehicleComponent,
     OwnershipTransferComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    CommentMsgPipe,
+    CommentProfPicPipe,
+    CommentUserName
   ],
 
   providers: [

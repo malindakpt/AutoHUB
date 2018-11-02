@@ -16,11 +16,12 @@ export class Vehicle extends Entity {
     public photos = ['', '', '', ''];
     public nextOwner: string;
     public previousOwners = [];
+    public forSale: boolean;
     // Entiy ID is the chassis number
-  constructor(obj: any) {
-    super(obj);
-    if (obj.photos) {
-      this.photos = obj.photos;
+    constructor(obj: any) {
+      super(obj);
+      if (obj.photos) {
+        this.photos = obj.photos;
+      }
     }
-  }
 }

@@ -19,7 +19,6 @@ export class UserState {
       t.setMonth(UserState.internetDate.getMonth());
       t.setDate(UserState.internetDate.getDate());
     }
-    //alert(t);
     return t.getTime() + '';
   }
 

@@ -7,6 +7,7 @@ import {NewsType, NewsWidgetType} from '../../enum/news.-type.enum';
 import {Vehicle} from '../../entities/vehicle';
 import {UserState} from '../../config/userState';
 import {ActivatedRoute} from '@angular/router';
+import {Settings} from '../../config/settings';
 
 @Component({
   selector: 'app-news-list',
@@ -67,14 +68,16 @@ export class NewsItemComponent implements OnInit, OnChanges {
   public getNewsType(no: number): string {
       return NewsType[no];
   }
-  public addComment(id: string) {
-    const news = this.newsArr.filter(value =>  value.ID === id )[0];
-    news.comments.push(news.addCommnet);
+  public addComment(news: News) {
+    // const news = this.newsArr.filter(value =>  value.ID === id )[0];
+    const comment = this.userState.user.id + Settings.COMMENT_SEPARATOR + this.userState.
+      user.name + Settings.COMMENT_SEPARATOR + news.addCommnet;
+    news.comments.push(comment);
     news.addCommnet = '';
     news.showComment = false;
-    this.dataService.saveEntity(Entity.news, news);
-
+    this.dataService.saveEntity(Entity.news, news, true);
   }
+
   public getDuration(snap: number): string {
     const date = moment(Number(snap));
     return date.fromNow();

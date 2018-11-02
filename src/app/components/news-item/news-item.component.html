@@ -66,15 +66,16 @@
         <div class="title">Date</div>
       </div>
     </div>
-    <div class="description-long">
-      {{ news.desc }}
-    </div>
-    <div *ngIf="news.ownerID === userState.user.id">
-      <app-add-news *ngIf="news.showEdit" [news]="news" (onClose)="news.showEdit = false"></app-add-news>
-      <div class="flex-j-end pointer">
-        <fa *ngIf="!news.showEdit" name="edit" size="lg" (click)="swapEditBtn(news)"></fa>
+    <div class="flex-j-sb">
+      <div *ngIf="!news.showEdit" class="description-long">
+        {{ news.desc }}
       </div>
-
+      <div *ngIf="news.ownerID === userState.user.id">
+        <app-add-news *ngIf="news.showEdit" [news]="news" (onClose)="news.showEdit = false"></app-add-news>
+        <div class="flex-j-end pointer">
+          <fa *ngIf="!news.showEdit" name="pencil" size="lg" (click)="swapEditBtn(news)"></fa>
+        </div>
+      </div>
     </div>
     <div class="comment-container">
         <div style="width: 100%;">
@@ -82,14 +83,16 @@
             <mat-form-field>
               <textarea matInput placeholder="Leave a comment" [(ngModel)]="news.addCommnet"></textarea>
             </mat-form-field>
-            <div (click)="addComment(news.ID)" class="pointer">
+            <div (click)="addComment(news)" class="pointer">
               <fa name="save" size="2x"></fa>
             </div>
           </div>
 
           <div *ngIf="news.comments">
             <div *ngFor="let comment of news.comments" class="comment">
-              {{comment}}
+              <img [src]="comment | commentProfPic">
+              <span class="user">{{comment | commentUserName}} : </span>
+              <span class="text">{{comment | commentMsg}}</span>
             </div>
           </div>
         </div>
