@@ -11,9 +11,10 @@ import {PopupComponent} from '../components-sub/popup/popup.component';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
 import {Settings} from '../config/settings';
-import {NewsType} from '../enum/news.-type.enum';
+import {NewsType} from '../enum/enums';
 import {Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import {VehicleStatus} from '../enum/event.enum';
 
 @Injectable()
 export class DataService {
@@ -174,7 +175,6 @@ export class DataService {
     const that = this;
     const myVehicles = [];
     console.log('send request for get myVehices');
-    this.busyOn();
     return new Promise((resolves, reject) => {
       this.fs.firestore.collection(Entity.vehicles).where('ownerID', '==', userID)
         .get()
@@ -184,16 +184,46 @@ export class DataService {
             myVehicles.push(new Vehicle(doc.data()));
           });
           that.onVehiclesUpdated.next(myVehicles);
-          that.busyOff();
           resolves(myVehicles);
         })
         .catch(function (error) {
           console.log('Error getting documents: ', error);
-          that.busyOff();
           resolves(null);
         });
-    }
-  );
+    });
+  }
+
+  public searchVehicles(year: number, brand: string, model: string): Promise<any> {
+    const that = this;
+    const myVehicles = [];
+    console.log('send request for get myVehices');
+    return new Promise((resolves, reject) => {
+      let query =  this.fs.firestore.collection(Entity.vehicles).where('status', '==', VehicleStatus.SELL)
+
+      if (year) {
+        query = query.where('year', '==', year);
+      }
+      if (brand) {
+        query = query.where('brand', '==', brand);
+      }
+      if (model) {
+        query = query.where('model', '==', brand);
+      }
+
+      query.get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            myVehicles.push(new Vehicle(doc.data()));
+          });
+          that.onVehiclesUpdated.next(myVehicles);
+          resolves(myVehicles);
+        })
+        .catch(function (error) {
+          console.log('Error getting documents: ', error);
+          resolves(null);
+        });
+    });
   }
 
   public requestNewsListForVehicle(vehicleID: string, isOnlyMyNews: boolean): void {

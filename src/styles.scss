@@ -4,64 +4,73 @@
 @import "../src/app/scss/variabels.scss";
 
 @font-face {
-    font-family: 'roboto';
-    // src: url('../src/app/scss/fonts/Roboto/Roboto-Black.e'); /* IE9 Compat Modes */
-    // src: url('webfont.eot?#iefix') format('embedded-opentype'); /* IE6-IE8 */
-    // src: url('webfont.woff') format('woff'); /* Modern Browsers */
-    src: url('../src/app/scss/fonts/Roboto/RobotoCondensed-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
-    // src: url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+  font-family: 'roboto';
+  // src: url('../src/app/scss/fonts/Roboto/Roboto-Black.e'); /* IE9 Compat Modes */
+  // src: url('webfont.eot?#iefix') format('embedded-opentype'); /* IE6-IE8 */
+  // src: url('webfont.woff') format('woff'); /* Modern Browsers */
+  src: url('../src/app/scss/fonts/Roboto/RobotoCondensed-Regular.ttf') format('truetype'); /* Safari, Android, iOS */
+  // src: url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+html {
+  font-family: "roboto";
+
+  button {
+    margin-right: 8px !important;
+    width: 80px;
+    float: right;
   }
 
-
-
-
-  html{
-      font-family: "roboto";
-
-      button{
-        margin-right: 8px !important;
-        width: 80px;
-        float: right;
-      }
-
-      .bottom-menu{
-        width: 200px;
-      }
+  .bottom-menu {
+    width: 200px;
   }
+}
+
 .error {
   color: red;
 }
 
-  .flex{
-    display: flex;
-  }
-  .flex-center{
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-  }
-  .flex-j-center{
-    display: flex; 
-    justify-content: center;
-  }
-  .flex-j-start{
-    display: flex; 
-    justify-content: flex-start;
-  }
-  .flex-j-end{
-    display: flex; 
-    justify-content: flex-end;
-  }
-  .flex-j-sb{
-    display: flex;
-    justify-content: space-between;
-  }
-.flex-j-sa{
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-j-center {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-j-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.flex-j-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.flex-j-sb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-j-sa {
   display: flex;
   justify-content: space-around;
 }
-.pointer{
+
+.pointer {
   cursor: pointer;
+}
+
+.m-5 {
+  margin: 5px;
 }
 
 app-bottom-menu.ng-star-inserted {

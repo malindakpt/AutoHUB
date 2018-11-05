@@ -3,7 +3,7 @@ import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {News} from '../../entities/news';
 import {UserState} from '../../config/userState';
-import {NewsType, NewsWidgetType} from '../../enum/news.-type.enum';
+import {NewsType, NewsWidgetType} from '../../enum/enums';
 import {MatSnackBar} from '@angular/material';
 
 @Component({

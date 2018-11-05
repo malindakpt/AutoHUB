@@ -12,7 +12,7 @@ export class CommentMsgPipe implements PipeTransform {
         return arr[2];
       }
     }
-    return '';
+    return '............';
   }
 }
 

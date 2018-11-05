@@ -3,3 +3,8 @@ export enum Event {
   REJECT,
   CONTINUE
 }
+
+export enum VehicleStatus {
+  SELL,
+  RENT
+}

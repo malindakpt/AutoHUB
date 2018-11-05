@@ -1,5 +1,5 @@
 import {Entity} from './entity';
-import {NewsType} from '../enum/news.-type.enum';
+import {NewsType} from '../enum/enums';
 
 export class News extends Entity {
   public vehicleID;

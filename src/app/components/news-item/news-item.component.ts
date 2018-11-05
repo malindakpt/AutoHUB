@@ -3,7 +3,7 @@ import {News} from '../../entities/news';
 import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
 import {Entity} from '../../enum/entities.enum';
-import {NewsType, NewsWidgetType} from '../../enum/news.-type.enum';
+import {NewsType, NewsWidgetType} from '../../enum/enums';
 import {Vehicle} from '../../entities/vehicle';
 import {UserState} from '../../config/userState';
 import {ActivatedRoute} from '@angular/router';

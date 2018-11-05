@@ -66,14 +66,14 @@
         <div class="title">Date</div>
       </div>
     </div>
-    <div class="flex-j-sb">
+    <div [class.flex-j-sb]="!news.showEdit" [class.flex-j-center]="news.showEdit">
       <div *ngIf="!news.showEdit" class="description-long">
         {{ news.desc }}
       </div>
-      <div *ngIf="news.ownerID === userState.user.id">
+      <div *ngIf="news.ownerID === userState.user.id" class="m-5">
         <app-add-news *ngIf="news.showEdit" [news]="news" (onClose)="news.showEdit = false"></app-add-news>
         <div class="flex-j-end pointer">
-          <fa *ngIf="!news.showEdit" name="pencil" size="lg" (click)="swapEditBtn(news)"></fa>
+          <fa *ngIf="!news.showEdit" name="pencil" (click)="swapEditBtn(news)"></fa>
         </div>
       </div>
     </div>
