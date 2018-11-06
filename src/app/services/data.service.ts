@@ -7,13 +7,12 @@ import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {News} from '../entities/news';
 import {UserState} from '../config/userState';
-import {PopupComponent} from '../components-sub/popup/popup.component';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
 import {Settings} from '../config/settings';
 import {NewsType} from '../enum/enums';
 import {Router} from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {VehicleStatus} from '../enum/event.enum';
 
 @Injectable()
@@ -40,8 +39,17 @@ export class DataService {
   private lastVisibleVehicleNews = {};
   public vehicleNewsList: Array<News>;
 
+  public isVehicleSearchInprogress = false;
+  private lastVisibleVehicleSearch = null;
+  public vehicleSearchList: Array<Vehicle>;
+
   public vehicle: Vehicle;
   public onVehiclesUpdated: Subject<any>;
+
+  public resetVehicleSearch(): void {
+    this.lastVisibleVehicleSearch = null;
+    this.vehicleSearchList = new Array<Vehicle>();
+  }
 
   public resetVehicleNews(): void {
     this.lastVisibleVehicleNews = {};
@@ -76,6 +84,13 @@ export class DataService {
     }
     this.requestNewsList();
     return this.newsList;
+  }
+
+  public getSearchVehicleList(): Array<Vehicle> {
+    if (!this.vehicleSearchList) {
+      this.vehicleSearchList = new Array<Vehicle>();
+    }
+    return this.vehicleSearchList;
   }
 
   public getVehicleNewsList(ID: string, isOnlyMyNews: boolean): Array<News> {
@@ -193,40 +208,61 @@ export class DataService {
     });
   }
 
-  public searchVehicles(year: number, brand: string, model: string, category: string): Promise<any> {
+  public searchVehicles(year: number, brand: string, model: string, category: string): void {
+    if (this.isVehicleSearchInprogress || this.lastVisibleVehicleSearch === -1) {
+      return;
+    }
+    this.isVehicleSearchInprogress = true;
     const that = this;
-    const myVehicles = [];
-    console.log('send request for get myVehices');
-    return new Promise((resolves, reject) => {
-      let query =  this.fs.firestore.collection(Entity.vehicles).where('status', '==', VehicleStatus.SELL)
+    const searchedVehicles = [];
+    console.log('send request for search');
+      let query =  this.fs.firestore.collection(Entity.vehicles).where
+      ('status', '==', VehicleStatus.SELL).orderBy('model', 'desc').orderBy('time', 'desc');
 
-      if (year) {
-        query = query.where('manufactYear', '==', year);
-      }
-      if (brand) {
-        query = query.where('brand', '==', brand);
-      }
-      if (model) {
-        query = query.where('model', '>=', model);
-      }
-      if (category) {
-        query = query.where('category', '==', category);
-      }
+    if (model) {
+      query = query.where('model', '>=', model.toUpperCase());
+    }
+    if (year) {
+      query = query.where('manufactYear', '==', year);
+    }
+    if (brand) {
+      query = query.where('brand', '==', brand);
+    }
+    if (category) {
+      query = query.where('category', '==', category);
+    }
+    if (that.lastVisibleVehicleSearch) {
+      query = query.startAfter(that.lastVisibleVehicleSearch);
+    }
+
+    query = query.limit(Settings.SEARCH_VEHICLE_FETCH_COUNT);
+
+      // query.startAfter(that.lastVisibleVehicleSearch)
+      //   .limit(Settings.SEARCH_VEHICLE_FETCH_COUNT).get()
+      //   .then(function (querySnapshot) {
+      //     that.lastVisibleVehicleSearch = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
+      //     querySnapshot.forEach(function (doc) {
+      //       that.vehicleSearchList.push(new Vehicle(doc.data()));
+      //     });
+      //     that.isVehicleSearchInprogress = false;
+      //   })
+      //   .catch(function (error) {
+      //     that.isVehicleSearchInprogress = false;
+      //     console.log('Error getting search vehicles: ', error);
+      //   });
 
       query.get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
-            myVehicles.push(new Vehicle(doc.data()));
+            that.lastVisibleVehicleSearch = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
+            that.vehicleSearchList.push(new Vehicle(doc.data()));
           });
-          that.onVehiclesUpdated.next(myVehicles);
-          resolves(myVehicles);
+          that.isVehicleSearchInprogress = false;
         })
         .catch(function (error) {
           console.log('Error getting documents: ', error);
-          resolves(null);
         });
-    });
   }
 
   public requestNewsListForVehicle(vehicleID: string, isOnlyMyNews: boolean): void {

@@ -22,6 +22,8 @@ export class SearchListComponent implements OnInit {
   public searchModel;
   public searchManufactYear;
 
+  public vehicleList;
+
   constructor(
     private dataService: DataService
   ) { }
@@ -36,10 +38,15 @@ export class SearchListComponent implements OnInit {
   }
 
   public onSearch(): void {
-    const model = 'prem'.toUpperCase();
-    this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory).then(data => {
-      console.log(data);
-    });
+    this.dataService.resetVehicleSearch();
+    this.vehicleList = this.dataService.getSearchVehicleList();
+    this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
+  }
+
+
+  public onSearchNext(): void {
+    this.vehicleList = this.dataService.getSearchVehicleList();
+    this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
   }
 
   public displayFn(str?: string): string | undefined {

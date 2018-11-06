@@ -1,6 +1,7 @@
 export class Settings {
   public static LOGIN_TIMEOUT = 3000;
   public static NEWS_FETCH_COUNT = 7;
+  public static SEARCH_VEHICLE_FETCH_COUNT = 1;
   public static VEHICLE_CATEGORIES = [ 'Van', 'Bus', '3-wheeler', 'Jeep', 'Double Cab', 'Motor Bike',
     'Truck', 'Car-Sedan', 'Car-Hatchback', 'Car-Wagon'];
   public static VEHICLE_BRANDS = ['NISSAN', 'HONDA', 'TOYOTA', 'ISUZU', 'SUZUKI'];

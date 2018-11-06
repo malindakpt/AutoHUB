@@ -17,6 +17,7 @@ export class Vehicle extends Entity {
     public nextOwner: string;
     public previousOwners = [];
     public status: boolean;
+    public time: number;
     // Entiy ID is the chassis number
     constructor(obj: any) {
       super(obj);

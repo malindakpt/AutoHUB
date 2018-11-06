@@ -1,36 +1,43 @@
 <div class="flex-j-center">
   <form>
 
-    <mat-form-field>
-      <mat-select placeholder="Vehicle Category" [(ngModel)]='searchCategory' name='category'>
-        <mat-option *ngFor="let item of categories" [value]="item">
-          <div class="img-option">
-            {{item}}
-            <img *ngIf="item==='Car-Sedan' || item==='Car-Hatchback' || item==='Car-Wagon'" [src]="'../../../assets/images/' + item + '.png'">
-          </div>
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="flex-j-sb">
+      <mat-form-field class="m-5">
+        <mat-select placeholder="Vehicle Category" [(ngModel)]='searchCategory' name='category'>
+          <mat-option *ngFor="let item of categories" [value]="item">
+            <div class="img-option">
+              {{item}}
+              <img *ngIf="item==='Car-Sedan' || item==='Car-Hatchback' || item==='Car-Wagon'" [src]="'../../../assets/images/' + item + '.png'">
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input type="text" placeholder="Brand" [(ngModel)]='searchBrand' aria-label="Brand" matInput [formControl]="brandControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredBrands | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+      <mat-form-field class="m-5">
+        <input type="text" placeholder="Brand" [(ngModel)]='searchBrand' aria-label="Brand" matInput [formControl]="brandControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredBrands | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="flex-j-sb">
+      <mat-form-field class="m-5">
+        <input matInput placeholder="Model" [(ngModel)]="searchModel" name="model">
+      </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Model" [(ngModel)]="searchModel" name="model">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Manufactured Year" [(ngModel)]="searchManufactYear" name="manufactYear"
-             type="number">
-    </mat-form-field>
-
+      <mat-form-field class="m-5">
+        <input matInput placeholder="Manufactured Year" [(ngModel)]="searchManufactYear" name="manufactYear"
+               type="number">
+      </mat-form-field>
+    </div>
 <button mat-button (click)="onSearch()">Search</button>
+    <button mat-button (click)="onSearchNext()">Search Next</button>
 
   </form>
+</div>
+
+<div *ngFor="let v of vehicleList">
+{{v.regNo}}
 </div>
