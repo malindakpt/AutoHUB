@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../../services/data.service';
-import {modelGroupProvider} from '@angular/forms/src/directives/ng_model_group';
+import {Settings} from '../../config/settings';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-search-list',
@@ -9,19 +12,42 @@ import {modelGroupProvider} from '@angular/forms/src/directives/ng_model_group';
 })
 export class SearchListComponent implements OnInit {
 
+  public categories = Settings.VEHICLE_CATEGORIES;
+  public brands = Settings.VEHICLE_BRANDS;
+  public filteredBrands: Observable<String[]>;
+  public brandControl = new FormControl();
+
+  public searchCategory;
+  public searchBrand;
+  public searchModel;
+  public searchManufactYear;
+
   constructor(
     private dataService: DataService
   ) { }
 
   ngOnInit() {
-
+    this.filteredBrands = this.brandControl.valueChanges
+      .pipe(
+        startWith<string>(''),
+        map(value => typeof value === 'string' ? value : value),
+        map(name => name ? this._filter(name, this.brands) : this.brands.slice())
+      );
   }
 
   public onSearch(): void {
     const model = 'prem'.toUpperCase();
-    this.dataService.searchVehicles(2007,  'TOYOTA', model).then(data => {
+    this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory).then(data => {
       console.log(data);
     });
   }
 
+  public displayFn(str?: string): string | undefined {
+    return str ? str : undefined;
+  }
+
+  private _filter(name: string, options: Array<string>): String[] {
+    const filterValue = name.toLowerCase();
+    return options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
 }

@@ -53,7 +53,6 @@ export class AddVehicleComponent implements OnInit, OnChanges {
 
   private _filter(name: string, options: Array<string>): String[] {
     const filterValue = name.toLowerCase();
-
     return options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
   ngOnInit() {
@@ -122,7 +121,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     });
   }
 
-  validate(): boolean {
+  private validate(): boolean {
     if (!this.vehicle.category) {
       this.showError('Select the category of vehicle');
       return false;

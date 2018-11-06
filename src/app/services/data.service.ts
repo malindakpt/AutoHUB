@@ -193,7 +193,7 @@ export class DataService {
     });
   }
 
-  public searchVehicles(year: number, brand: string, model: string): Promise<any> {
+  public searchVehicles(year: number, brand: string, model: string, category: string): Promise<any> {
     const that = this;
     const myVehicles = [];
     console.log('send request for get myVehices');
@@ -208,6 +208,9 @@ export class DataService {
       }
       if (model) {
         query = query.where('model', '>=', model);
+      }
+      if (category) {
+        query = query.where('category', '==', category);
       }
 
       query.get()
