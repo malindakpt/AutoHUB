@@ -9,7 +9,7 @@
         max-width: 500px;
         width: 100%;
     }
-    
+
     mat-form-field {
         width: 100%;
     }
@@ -22,4 +22,13 @@
   .btn-holder{
     margin-top: 30px;
     }
+}
+
+.img-option {
+  display: flex;
+  justify-content: space-between;
+  img {
+    width: 100px;
+    height: 25px;
+  }
 }

@@ -4,7 +4,10 @@
     <mat-form-field>
       <mat-select placeholder="Vehicle Category" [(ngModel)]='vehicle.category' name='category'>
         <mat-option *ngFor="let item of categories" [value]="item">
-          {{item}}
+          <div class="img-option">
+            {{item}}
+            <img *ngIf="item==='Car-Sedan' || item==='Car-Hatchback' || item==='Car-Wagon'" [src]="'../../../assets/images/' + item + '.png'">
+          </div>
         </mat-option>
       </mat-select>
     </mat-form-field>
