@@ -1,6 +1,5 @@
 <div class="flex-j-center">
   <form>
-
     <div class="flex-j-sb">
       <mat-form-field class="m-5">
         <mat-select placeholder="Vehicle Category" [(ngModel)]='searchCategory' name='category'>
@@ -32,12 +31,12 @@
                type="number">
       </mat-form-field>
     </div>
-<button mat-button (click)="onSearch()">Search</button>
+    <button mat-button (click)="onSearch()">Search</button>
     <button mat-button (click)="onSearchNext()">Search Next</button>
 
   </form>
 </div>
 
 <div *ngFor="let v of vehicleList">
-{{v.regNo}}
+  <app-vehicle-profile [selectedVehicle]="v" [isSearchResult]="true" [showNews]="false"></app-vehicle-profile>
 </div>

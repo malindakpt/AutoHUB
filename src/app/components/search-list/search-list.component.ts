@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Settings} from '../../config/settings';
 import {Observable} from 'rxjs';
@@ -37,6 +37,16 @@ export class SearchListComponent implements OnInit {
       );
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const position = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollPosition = position + screen.height + 10;
+    const fullHeight = document.documentElement.offsetHeight;
+    if ( scrollPosition > fullHeight) {
+      this.onSearchNext();
+    }
+  }
+
   public onSearch(): void {
     this.dataService.resetVehicleSearch();
     this.vehicleList = this.dataService.getSearchVehicleList();
@@ -45,6 +55,7 @@ export class SearchListComponent implements OnInit {
 
 
   public onSearchNext(): void {
+    console.log('loading next');
     this.vehicleList = this.dataService.getSearchVehicleList();
     this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
   }

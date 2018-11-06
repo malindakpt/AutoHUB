@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {ActivatedRoute} from '@angular/router';
@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material';
 import {OwnershipTransferComponent} from '../ownership-transfer/ownership-transfer.component';
 import {UserState} from '../../config/userState';
 import {Entity} from '../../enum/entities.enum';
+import {VehicleStatus} from '../../enum/event.enum';
 
 @Component({
   selector: 'app-vehicle-profile',
@@ -20,12 +21,17 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   };
 
   public myVehicles: Vehicle[] = [];
+  @Input()
   public selectedVehicle;
   public showEdit: boolean;
   public photos = ['', '', '', ''];
+  @Input()
   public isSearchResult;
   public userState = UserState;
   public isNew = false;
+  public vehicleStatus = VehicleStatus;
+  @Input()
+  public showNews = true;
 
   constructor(
     private dataService: DataService,
@@ -49,8 +55,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
           }
         });
         this.dataService.getMyVehicles();
-      } else {
-        this.isSearchResult = false;
+      } else if (!this.isSearchResult) { // if in sell vehicles search view no need to fetch my vehicles
         this.dataService.getMyVehicles().then((vehicles) => {
           this.myVehicles = vehicles;
           if (this.myVehicles.length === 0) {
@@ -66,6 +71,17 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+
+  public readyForSell(): void {
+    this.selectedVehicle.time = this.userState.getTime();
+    this.selectedVehicle.status = VehicleStatus.SELL;
+    this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle);
+  }
+  public avoidSell(): void {
+    this.selectedVehicle.time = this.userState.getTime();
+    this.selectedVehicle.status = VehicleStatus.NONE;
+    this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle);
   }
 
   public requestOwnership(): void {

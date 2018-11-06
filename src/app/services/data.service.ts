@@ -236,26 +236,11 @@ export class DataService {
     }
 
     query = query.limit(Settings.SEARCH_VEHICLE_FETCH_COUNT);
-
-      // query.startAfter(that.lastVisibleVehicleSearch)
-      //   .limit(Settings.SEARCH_VEHICLE_FETCH_COUNT).get()
-      //   .then(function (querySnapshot) {
-      //     that.lastVisibleVehicleSearch = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
-      //     querySnapshot.forEach(function (doc) {
-      //       that.vehicleSearchList.push(new Vehicle(doc.data()));
-      //     });
-      //     that.isVehicleSearchInprogress = false;
-      //   })
-      //   .catch(function (error) {
-      //     that.isVehicleSearchInprogress = false;
-      //     console.log('Error getting search vehicles: ', error);
-      //   });
-
-      query.get()
+    query.get()
         .then(function (querySnapshot) {
+          that.lastVisibleVehicleSearch = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
-            that.lastVisibleVehicleSearch = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
             that.vehicleSearchList.push(new Vehicle(doc.data()));
           });
           that.isVehicleSearchInprogress = false;

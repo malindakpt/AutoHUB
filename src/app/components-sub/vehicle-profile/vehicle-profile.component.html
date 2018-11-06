@@ -1,34 +1,32 @@
 <div class="profile-container">
 
-  <div class="flex-j-sb">
-    <div>
-      <mat-form-field>
-        <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='selectedVehicle'
-                    (selectionChange)="onVehicleChange()">
-          <mat-option *ngFor="let vehi of myVehicles" [value]="vehi">
-            {{vehi.regNo}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+  <div *ngIf="!isSearchResult">
+    <div class="flex-j-sb">
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='selectedVehicle'
+                      (selectionChange)="onVehicleChange()">
+            <mat-option *ngFor="let vehi of myVehicles" [value]="vehi">
+              {{vehi.regNo}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
+      </div>
     </div>
-
-    <!--<div  routerLink="/secure/add-news"  style="margin-top: 18px;">-->
-      <!--<fa name="plus-square" size="lg"></fa>-->
-    <!--</div>-->
-
-    <div>
-      <button routerLink="/secure/add" class="add-btn" mat-stroked-button color="primary">Add Vehicle</button>
+    <div *ngIf="isNew" class="arrow">
+      <img src="../../../assets/images/arrow.gif">
+    </div>
+    <div *ngIf="isNew"  class="guide">
+      Add your vehicles. then add service history
+    </div>
+    <div *ngIf="isSearchResult" class="flex-j-start info">
+      <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Owned by'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
     </div>
   </div>
-  <div *ngIf="isNew" class="arrow">
-    <img src="../../../assets/images/arrow.gif">
-  </div>
-  <div *ngIf="isNew"  class="guide">
-    Add your vehicles. then add service history
-  </div>
-  <div *ngIf="isSearchResult" class="flex-j-start info">
-    <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Owned by'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
-  </div>
+
   <div *ngIf="selectedVehicle" class="swiper-container" [swiper]="swiperConfig">
     <div class="swiper-wrapper">
       <div class="swiper-slide slide">
@@ -64,10 +62,12 @@
     <div class="swiper-button-next"></div>
   </div>
 
-  <div class="flex-j-end action-buttons">
-    <button class="req-owner" *ngIf="false && selectedVehicle && selectedVehicle.ownerID !== userState.user.id" mat-button (click)="requestOwnership()">Request Ownership</button>
-    <fa *ngIf=" false && selectedVehicle && selectedVehicle.ownerID !== userState.user.id" name="exchange" size="lg"  (click)="requestOwnership()"></fa>
-    <fa *ngIf="selectedVehicle" name="edit" size="lg" (click)="swapEditBtn()"></fa>
+  <div class="flex-j-sb action-buttons">
+    <button class="req-owner" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status == vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="avoidSell()">Stop Sell Vehicle</button>
+    <button class="req-owner" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status != vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="readyForSell()">Sell Vehicle</button>
+    <!--<button class="req-owner" *ngIf="false && selectedVehicle && selectedVehicle.ownerID !== userState.user.id" mat-button (click)="requestOwnership()">Request Ownership</button>-->
+    <!--<fa *ngIf="false && selectedVehicle && selectedVehicle.ownerID !== userState.user.id" name="exchange" size="lg"  (click)="requestOwnership()"></fa>-->
+    <fa *ngIf="!isSearchResult && selectedVehicle" name="edit" size="lg" (click)="swapEditBtn()"></fa>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
     <app-add-vehicle [vehicle]="selectedVehicle"></app-add-vehicle>
@@ -112,7 +112,7 @@
     </div>
   </div>
 
-  <div *ngIf="!showEdit && selectedVehicle">
+  <div *ngIf="!showEdit && selectedVehicle && showNews">
     <app-news-list [vehicle]="selectedVehicle" [isSearchResult]="isSearchResult"></app-news-list>
   </div>
 

@@ -5,6 +5,7 @@ export enum Event {
 }
 
 export enum VehicleStatus {
+  NONE,
   SELL,
   RENT
 }
