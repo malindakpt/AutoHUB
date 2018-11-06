@@ -201,13 +201,13 @@ export class DataService {
       let query =  this.fs.firestore.collection(Entity.vehicles).where('status', '==', VehicleStatus.SELL)
 
       if (year) {
-        query = query.where('year', '==', year);
+        query = query.where('manufactYear', '==', year);
       }
       if (brand) {
         query = query.where('brand', '==', brand);
       }
       if (model) {
-        query = query.where('model', '==', brand);
+        query = query.where('model', '>=', model);
       }
 
       query.get()

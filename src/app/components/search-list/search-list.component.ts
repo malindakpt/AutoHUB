@@ -14,8 +14,12 @@ export class SearchListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const model = 'premio'.toUpperCase();
-    this.dataService.searchVehicles(null, null, model).then(data => {
+
+  }
+
+  public onSearch(): void {
+    const model = 'prem'.toUpperCase();
+    this.dataService.searchVehicles(2007,  'TOYOTA', model).then(data => {
       console.log(data);
     });
   }

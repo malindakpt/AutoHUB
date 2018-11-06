@@ -21,6 +21,7 @@ export const appRoutes: Routes = [
         { path: 'add-news', component: AddNewsComponent },
         { path: 'profile', component: VehicleProfileComponent },
         { path: 'add', component: AddVehicleComponent },
+        { path: 'search', component: SearchListComponent },
       ]
     },
   { path: '**', redirectTo: '/error', pathMatch: 'full' },
