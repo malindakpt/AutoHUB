@@ -57,6 +57,7 @@ import {SideMenuComponent} from './components-sub/side-menu/side-menu.component'
 import {CommentMsgPipe, CommentProfPicPipe, CommentUserName} from './app.pipes';
 import { SearchListComponent } from './components/search-list/search-list.component';
 import {ScrollLoaderDirective} from './directives/scroll-loader.directive';
+import { BrandSelectorComponent } from './components-sub/brand-selector/brand-selector.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -138,6 +139,7 @@ export function getAuthServiceConfigs() {
     CommentUserName,
     SearchListComponent,
     ScrollLoaderDirective,
+    BrandSelectorComponent,
   ],
 
   providers: [

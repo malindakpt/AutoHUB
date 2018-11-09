@@ -13,7 +13,10 @@ import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-
+export class Pair {
+  key: number;
+  val: string;
+}
 @Component({
   selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
@@ -30,11 +33,8 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   public autoNews;
   private isPhotosChanged = false;
   private unique;
-  brandControl = new FormControl();
   countryControl = new FormControl();
-  brands = Settings.VEHICLE_BRANDS;
-  countries = Settings.COUNTRIES;
-  filteredBrands: Observable<String[]>;
+  countries: Array<string>;
   filteredCountries: Observable<String[]>;
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
@@ -44,7 +44,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private dataService: DataService) {
-
+    this.countries = UserState.getStringArray(Settings.COUNTRIES);
   }
 
   displayFn(str?: string): string | undefined {
@@ -79,14 +79,12 @@ export class AddVehicleComponent implements OnInit, OnChanges {
         map(value => typeof value === 'string' ? value : value),
         map(name => name ? this._filter(name, this.countries) : this.countries.slice())
       );
-    this.filteredBrands = this.brandControl.valueChanges
-      .pipe(
-        startWith<string>(''),
-        map(value => typeof value === 'string' ? value : value),
-        map(name => name ? this._filter(name, this.brands) : this.brands.slice())
-      );
   }
 
+  public onSelectBrand(brand: any) {
+    console.log(brand);
+    this.vehicle.brand = brand;
+  }
   public onPhotoChange(idx: number, data: string): void {
     if (data.length > 10) {
       this.photos[idx] = data;
@@ -125,7 +123,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     if (!this.vehicle.category) {
       this.showError('Select the category of vehicle');
       return false;
-    } else if (Settings.VEHICLE_BRANDS.indexOf(this.vehicle.brand) < 0) {
+    } else if (isNaN(this.vehicle.brand)) {
       this.showError('Invalid Brand');
       return false;
     } else if (!this.vehicle.model) {
@@ -143,7 +141,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     } else if (!this.vehicle.fuelType) {
       this.showError('Select Fuel Type');
       return false;
-    } else if (Settings.COUNTRIES.indexOf(this.vehicle.manufactCountry) < 0) {
+    } else if (Settings.COUNTRIES.findIndex((b: Pair) => this.vehicle.manufactCountry === b.val) < 0) {
       this.showError('Invalid manufactured country');
       return false;
     } else if (!this.vehicle.engine) {

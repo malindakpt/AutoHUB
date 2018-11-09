@@ -1,4 +1,5 @@
 import {User} from '../entities/user';
+import {Pair} from '../components/add-vehicle/add-vehicle.component';
 
 export class UserState {
   public static internetDate: Date;
@@ -28,5 +29,21 @@ export class UserState {
 
   public static getFBImage(id?: string): string {
     return 'https://graph.facebook.com/' + (id || UserState.user.id) + '/picture?type=normal';
+  }
+
+  public static getStringArray(arr: Array<Pair>): Array<string> {
+    const strs = [];
+    for (const item of arr) {
+      strs.push(item.val);
+    }
+    return strs;
+  }
+
+  public static getStringMap(arr: Array<Pair>): object {
+    const map = {};
+    for (const item of arr) {
+      map[item.val] = item.key;
+    }
+    return map;
   }
 }

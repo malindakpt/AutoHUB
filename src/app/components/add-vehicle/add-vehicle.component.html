@@ -3,23 +3,16 @@
 
     <mat-form-field>
       <mat-select placeholder="Vehicle Category" [(ngModel)]='vehicle.category' name='category'>
-        <mat-option *ngFor="let item of categories" [value]="item">
+        <mat-option *ngFor="let item of categories" [value]="item.key">
           <div class="img-option">
-            {{item}}
-            <img *ngIf="item==='Car-Sedan' || item==='Car-Hatchback' || item==='Car-Wagon'" [src]="'../../../assets/images/' + item + '.png'">
+            {{item.val}}
+            <img [src]="'../../../assets/images/vehicle-types/' + item.val + '.png'">
           </div>
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input type="text" placeholder="Brand" [(ngModel)]='vehicle.brand' aria-label="Brand" matInput [formControl]="brandControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredBrands | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <app-brand-selector (selectBrand)="onSelectBrand($event)"></app-brand-selector>
 
     <mat-form-field>
       <input matInput placeholder="Model" [(ngModel)]="vehicle.model" name="model">

@@ -4,6 +4,7 @@ import {Settings} from '../../config/settings';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
+import {Pair} from '../add-vehicle/add-vehicle.component';
 
 @Component({
   selector: 'app-search-list',
@@ -14,7 +15,7 @@ export class SearchListComponent implements OnInit {
 
   public categories = Settings.VEHICLE_CATEGORIES;
   public brands = Settings.VEHICLE_BRANDS;
-  public filteredBrands: Observable<String[]>;
+  public filteredBrands: Observable<Pair[]>;
   public brandControl = new FormControl();
 
   public searchCategory;
@@ -64,8 +65,12 @@ export class SearchListComponent implements OnInit {
     return str ? str : undefined;
   }
 
-  private _filter(name: string, options: Array<string>): String[] {
-    const filterValue = name.toLowerCase();
-    return options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  private _filter(name: any, options: Array<Pair>): Pair[] {
+    const filterValue = name.val ? name.val : name.toLowerCase();
+    return options.filter(option => option.val.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  public onSelectBrand(id: string): void {
+    this.searchBrand = id;
   }
 }
