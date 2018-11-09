@@ -12,7 +12,6 @@ import {Settings} from '../../config/settings';
 })
 export class BrandSelectorComponent implements OnInit {
 
-  @Input() value: any
   @Output() selectBrand = new EventEmitter();
   filteredBrands: Observable<String[]>;
   brandControl = new FormControl();

@@ -1,0 +1,8 @@
+<mat-form-field class="example-full-width">
+  <input type="text" placeholder="Manufactured Country" (change)="onChange($event)" aria-label="Manufactured Country" matInput [formControl]="countryControl" [matAutocomplete]="autoCountry">
+  <mat-autocomplete #autoCountry="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSelectBrand($event)">
+    <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

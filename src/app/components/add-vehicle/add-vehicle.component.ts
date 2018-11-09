@@ -33,9 +33,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   public autoNews;
   private isPhotosChanged = false;
   private unique;
-  countryControl = new FormControl();
-  countries: Array<string>;
-  filteredCountries: Observable<String[]>;
+
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
 
@@ -44,17 +42,9 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private dataService: DataService) {
-    this.countries = UserState.getStringArray(Settings.COUNTRIES);
   }
 
-  displayFn(str?: string): string | undefined {
-    return str ? str : undefined;
-  }
 
-  private _filter(name: string, options: Array<string>): String[] {
-    const filterValue = name.toLowerCase();
-    return options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-  }
   ngOnInit() {
     if (this.vehicle) {
       this.isEdit = true;
@@ -72,18 +62,13 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     } else {
       this.vehicle = new Vehicle({});
     }
-
-    this.filteredCountries = this.countryControl.valueChanges
-      .pipe(
-        startWith<string>(''),
-        map(value => typeof value === 'string' ? value : value),
-        map(name => name ? this._filter(name, this.countries) : this.countries.slice())
-      );
   }
 
   public onSelectBrand(brand: any) {
-    console.log(brand);
     this.vehicle.brand = brand;
+  }
+  public onSelectCountry(country: any) {
+    this.vehicle.manufactCountry = country;
   }
   public onPhotoChange(idx: number, data: string): void {
     if (data.length > 10) {
@@ -141,7 +126,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     } else if (!this.vehicle.fuelType) {
       this.showError('Select Fuel Type');
       return false;
-    } else if (Settings.COUNTRIES.findIndex((b: Pair) => this.vehicle.manufactCountry === b.val) < 0) {
+    } else if (isNaN(this.vehicle.manufactCountry)) {
       this.showError('Invalid manufactured country');
       return false;
     } else if (!this.vehicle.engine) {

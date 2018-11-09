@@ -39,14 +39,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input type="text" placeholder="Manufactured Country" [(ngModel)]='vehicle.manufactCountry' aria-label="Manufactured Country" matInput [formControl]="countryControl" [matAutocomplete]="autoCountry">
-      <mat-autocomplete #autoCountry="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredCountries | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <app-country-selector (selectCountry)="onSelectCountry($event)"></app-country-selector>
 
     <mat-form-field>
       <input matInput placeholder="Engine Model/CC" [(ngModel)]="vehicle.engine" name="engine">

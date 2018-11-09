@@ -12,7 +12,7 @@ export class Vehicle extends Entity {
     public category: string;
     public engine: string;
     public manufactYear: number;
-    public manufactCountry: string;
+    public manufactCountry: number;
     public photos = ['', '', '', ''];
     public nextOwner: string;
     public previousOwners = [];
