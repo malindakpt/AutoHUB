@@ -6,10 +6,10 @@ import {Entity} from '../enum/entities.enum';
 import {finalize} from 'rxjs/operators';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {News} from '../entities/news';
-import {UserState} from '../config/userState';
+import {Helper} from '../util/helper';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
-import {Settings} from '../config/settings';
+import {Settings} from '../util/settings';
 import {NewsType} from '../enum/enums';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -62,7 +62,7 @@ export class DataService {
   }
 
   public getMyVehicles(): Promise<any> {
-    return this.requestMyVehicles(UserState.user.id);
+    return this.requestMyVehicles(Helper.user.id);
   }
 
   public getSearchedVehicle(key: string, val: string): any {
@@ -103,8 +103,8 @@ export class DataService {
 
   public addNews(id: string, news: News, images: Array<string>, skipRoute?: boolean): void {
     this.uploadPhotos(news.photos, images, id).then((status) => {
-      news.ownerName = UserState.user.name;
-      news.ownerID = UserState.user.id;
+      news.ownerName = Helper.user.name;
+      news.ownerID = Helper.user.id;
       this.saveEntity(Entity.news, news, skipRoute);
     });
   }
@@ -117,7 +117,7 @@ export class DataService {
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
       if (!skipRoute) {
-        that.router.navigate(['/secure/news/' + UserState.getTime()]);
+        that.router.navigate(['/secure/news/' + Helper.getTime()]);
       }
       that.busyOff();
       that.snackBar.open('Success', 'Dismiss', {
@@ -133,7 +133,7 @@ export class DataService {
     const that = this;
     console.log('send request for get Entiyt');
     this.busyOn();
-    this.fs.firestore.collection(entity).doc(UserState.user.id)
+    this.fs.firestore.collection(entity).doc(Helper.user.id)
       .get()
       .then(function (doc) {
         console.log('entiyt info fetched');
@@ -261,7 +261,7 @@ export class DataService {
       .orderBy('time', 'desc');
 
     if (isOnlyMyNews) {
-      query = query.where('ownerID', '==', UserState.user.id);
+      query = query.where('ownerID', '==', Helper.user.id);
     }
 
     query.startAfter(that.lastVisibleVehicleNews)
@@ -336,11 +336,11 @@ export class DataService {
 
   private setInternetTime(): void {
     this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
-      UserState.internetDate = new Date(time.currentDateTime);
+      Helper.internetDate = new Date(time.currentDateTime);
     });
     setInterval(() => {
       this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
-        UserState.internetDate = new Date(time.currentDateTime);
+        Helper.internetDate = new Date(time.currentDateTime);
       });
     }, Settings.TIME_CHECK_INTERVAL);
   }

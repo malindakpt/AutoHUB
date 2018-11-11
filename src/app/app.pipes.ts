@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Settings} from './config/settings';
-import {UserState} from './config/userState';
+import {Settings} from './util/settings';
+import {Helper} from './util/helper';
 
 
 @Pipe({ name: 'commentMsg' })
@@ -22,7 +22,7 @@ export class CommentProfPicPipe implements PipeTransform {
     if (s) {
       const arr = s.split(Settings.COMMENT_SEPARATOR);
       if (arr.length > 2) {
-        return UserState.getFBImage(arr[0]);
+        return Helper.getFBImage(arr[0]);
       }
     }
     return '';

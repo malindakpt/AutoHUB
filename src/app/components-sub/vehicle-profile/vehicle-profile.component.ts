@@ -4,16 +4,17 @@ import {Vehicle} from '../../entities/vehicle';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {OwnershipTransferComponent} from '../ownership-transfer/ownership-transfer.component';
-import {UserState} from '../../config/userState';
+import {Helper} from '../../util/helper';
 import {Entity} from '../../enum/entities.enum';
 import {VehicleStatus} from '../../enum/event.enum';
+import {BaseDirective} from '../../directives/base';
 
 @Component({
   selector: 'app-vehicle-profile',
   templateUrl: './vehicle-profile.component.html',
   styleUrls: ['./vehicle-profile.component.scss']
 })
-export class VehicleProfileComponent implements OnInit, OnDestroy {
+export class VehicleProfileComponent extends BaseDirective implements OnInit, OnDestroy {
 
   public swiperConfig = {
     loop: false,
@@ -27,7 +28,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   public photos = ['', '', '', ''];
   @Input()
   public isSearchResult;
-  public userState = UserState;
+  public userState = Helper;
   public isNew = false;
   public vehicleStatus = VehicleStatus;
   @Input()
@@ -36,7 +37,9 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
   constructor(
     private dataService: DataService,
     public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute) {
+    super();
+  }
 
   public onPhotoChange(idx: number, data: string): void {
     this.photos[idx] = data;
@@ -86,7 +89,7 @@ export class VehicleProfileComponent implements OnInit, OnDestroy {
 
   public requestOwnership(): void {
     const v = Object.assign({}, this.selectedVehicle);
-    v.nextOwner = UserState.user.id + '##' + UserState.user.name;
+    v.nextOwner = Helper.user.id + '##' + Helper.user.name;
     this.dataService.saveEntity(Entity.vehicles, v);
   }
 

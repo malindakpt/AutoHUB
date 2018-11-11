@@ -2,8 +2,8 @@ import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChil
 import {Vehicle} from '../../entities/vehicle';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Entity} from '../../enum/entities.enum';
-import {UserState} from '../../config/userState';
-import {Settings} from '../../config/settings';
+import {Helper} from '../../util/helper';
+import {Settings} from '../../util/settings';
 import {DataService} from '../../services/data.service';
 import {News} from '../../entities/news';
 import {NewsType} from '../../enum/enums';
@@ -49,12 +49,12 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     if (this.vehicle) {
       this.isEdit = true;
       this.autoNews = new News({});
-      this.autoNews.ID = UserState.getUniqueID();
+      this.autoNews.ID = Helper.getUniqueID();
       this.autoNews.vehicleID = this.vehicle.ID;
       this.autoNews.type = NewsType.NEWS;
-      this.autoNews.time = UserState.getTime();
-      this.autoNews.ownerID = UserState.user.id;
-      this.autoNews.ownerName = UserState.user.name;
+      this.autoNews.time = Helper.getTime();
+      this.autoNews.ownerID = Helper.user.id;
+      this.autoNews.ownerName = Helper.user.name;
       this.autoNews.photos[0] = this.vehicle.photos[0];
       this.autoNews.photos[1] = this.vehicle.photos[1];
       this.autoNews.photos[2] = this.vehicle.photos[2];
@@ -80,7 +80,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   public complete(): void {
     console.log(this.vehicle);
     if (this.validate() || !Settings.VALIDATE_ADD_VEHICLE) {
-      this.unique = UserState.getUniqueID();
+      this.unique = Helper.getUniqueID();
       if (this.isEdit) {
         if (this.isPhotosChanged) {
           this.dataService.saveEntity(Entity.news, this.autoNews);
@@ -98,8 +98,8 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '');
     this.vehicle.regNo = this.vehicle.regNo.toUpperCase();
     this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID).then((status) => {
-      this.vehicle.ownerName = UserState.user.name;
-      this.vehicle.ownerID = UserState.user.id;
+      this.vehicle.ownerName = Helper.user.name;
+      this.vehicle.ownerID = Helper.user.id;
       this.dataService.saveEntity(Entity.vehicles, this.vehicle);
     });
   }

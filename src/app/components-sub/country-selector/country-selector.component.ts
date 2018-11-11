@@ -2,8 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {UserState} from '../../config/userState';
-import {Settings} from '../../config/settings';
+import {Helper} from '../../util/helper';
+import {Settings} from '../../util/settings';
 
 @Component({
   selector: 'app-country-selector',
@@ -19,8 +19,8 @@ export class CountrySelectorComponent implements OnInit {
   countryIds: object;
 
   constructor() {
-    this.countries = UserState.getStringArray(Settings.COUNTRIES);
-    this.countryIds = UserState.getStringMap(Settings.COUNTRIES);
+    this.countries = Helper.getStringArray(Settings.COUNTRIES);
+    this.countryIds = Helper.getStringMap(Settings.COUNTRIES);
   }
 
   ngOnInit() {

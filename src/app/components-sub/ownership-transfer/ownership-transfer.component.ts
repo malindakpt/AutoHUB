@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {SearchVehicleComponent} from '../search-vehicle/search-vehicle.component';
 import {DataService} from '../../services/data.service';
 import {Entity} from '../../enum/entities.enum';
-import {UserState} from '../../config/userState';
+import {Helper} from '../../util/helper';
 
 @Component({
   selector: 'app-ownership-transfer',
@@ -13,7 +13,7 @@ import {UserState} from '../../config/userState';
 export class OwnershipTransferComponent implements OnInit {
 
   public confirmStage = 0;
-  public userState = UserState;
+  public userState = Helper;
   public userName;
   public userID;
   public phoneNo;

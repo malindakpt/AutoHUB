@@ -2,8 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
-import {UserState} from '../../config/userState';
-import {Settings} from '../../config/settings';
+import {Helper} from '../../util/helper';
+import {Settings} from '../../util/settings';
+import {Pair} from '../../components/add-vehicle/add-vehicle.component';
 
 @Component({
   selector: 'app-brand-selector',
@@ -12,15 +13,17 @@ import {Settings} from '../../config/settings';
 })
 export class BrandSelectorComponent implements OnInit {
 
+  @Input() brandId;
   @Output() selectBrand = new EventEmitter();
   filteredBrands: Observable<String[]>;
   brandControl = new FormControl();
   brands: Array<string>;
   brandIds: object;
+  selectedBrandText: string;
 
   constructor() {
-    this.brands = UserState.getStringArray(Settings.VEHICLE_BRANDS);
-    this.brandIds = UserState.getStringMap(Settings.VEHICLE_BRANDS);
+    this.brands = Helper.getStringArray(Settings.VEHICLE_BRANDS);
+    this.brandIds = Helper.getStringMap(Settings.VEHICLE_BRANDS);
   }
 
   ngOnInit() {
@@ -30,6 +33,11 @@ export class BrandSelectorComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value),
         map(name => name ? this._filter(name, this.brands) : this.brands.slice())
       );
+
+    if (this.brandId) {
+      const arr = Settings.VEHICLE_BRANDS.filter(ele => ele.key === this.brandId);
+      this.selectedBrandText = arr.length > 0 ? arr[0].val : '';
+    }
   }
 
   displayFn(str?: string): string | undefined {

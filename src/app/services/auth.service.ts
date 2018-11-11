@@ -5,7 +5,7 @@ import {
 } from 'angular-6-social-login';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable } from 'rxjs';
-import { UserState} from '../config/userState';
+import { Helper} from '../util/helper';
 import { Router} from '@angular/router';
 import { environment } from '../../environments/environment';
 
@@ -34,7 +34,7 @@ export class AuthenticationService {
         this.authStatus = this.socialAuthService.authState;
         this.socialAuthService.authState.subscribe((sts: any) => {
           if (sts) {
-            UserState.user = sts;
+            Helper.user = sts;
             this.router.navigate(['secure']);
             console.log('Already logged in : ', sts);
           } else {
@@ -54,7 +54,7 @@ export class AuthenticationService {
 
         this.devAuthSubject = new BehaviorSubject(user);
         this.authStatus = this.devAuthSubject;
-        UserState.user = user;
+        Helper.user = user;
         console.log('Running in DEV mode');
         this.router.navigate(['secure']);
       }
@@ -64,7 +64,7 @@ export class AuthenticationService {
         const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (sts: any) => {
-                UserState.user = sts;
+                Helper.user = sts;
                 console.log('FB sign in data : ', sts);
                 this.imageURL = sts.image;
                 this.router.navigate(['secure']);
@@ -75,7 +75,7 @@ export class AuthenticationService {
     public logout(): void {
         this.socialAuthService.signOut().then(
             (userData) => {
-                UserState.user = null;
+                Helper.user = null;
                 this.router.navigate(['login']);
             }
         );

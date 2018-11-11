@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
-import {Settings} from '../../config/settings';
+import {Settings} from '../../util/settings';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';

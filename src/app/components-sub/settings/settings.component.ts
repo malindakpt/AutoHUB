@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {UserSettings, Settings} from '../../config/settings';
+import {UserSettings, Settings} from '../../util/settings';
 import {DataService} from '../../services/data.service';
 import {Entity} from '../../enum/entities.enum';
-import {UserState} from '../../config/userState';
+import {Helper} from '../../util/helper';
 
 export interface Favorite {
   name: string;
@@ -54,7 +54,7 @@ export class SettingsComponent implements OnInit {
     console.log(this.myDislikes);
    }
   public saveInterests(): void {
-    UserSettings.ID = UserState.user.id;
+    UserSettings.ID = Helper.user.id;
     this.dataService.saveEntity(Entity.settings, Object.assign({}, UserSettings));
     this.dialogRef.close();
   }

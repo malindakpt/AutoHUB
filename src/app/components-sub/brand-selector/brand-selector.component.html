@@ -1,5 +1,5 @@
 <mat-form-field class="example-full-width">
-  <input type="text" placeholder="Brand" (change)="onChange($event)" aria-label="Brand" matInput [formControl]="brandControl" [matAutocomplete]="auto">
+  <input type="text" placeholder="Brand" [(ngModel)]="selectedBrandText" (change)="onChange($event)" aria-label="Brand" matInput [formControl]="brandControl" [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onSelectBrand($event)">
     <mat-option *ngFor="let option of filteredBrands | async" [value]="option">
       {{option}}

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomMenuComponent } from 'src/app/components-sub/bottom-menu/bottom-menu.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import {UserState} from '../../config/userState';
+import {Helper} from '../../util/helper';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {SettingsComponent} from '../../components-sub/settings/settings.component';
 import {Entity} from '../../enum/entities.enum';
 import {DataService} from '../../services/data.service';
-import {Settings, UserSettings} from '../../config/settings';
+import {Settings, UserSettings} from '../../util/settings';
 import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search-vehicle.component';
 
 @Component({
@@ -17,7 +17,7 @@ import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search
 })
 export class HeaderToolbarComponent implements OnInit {
 
-  public user = UserState.user;
+  public user = Helper.user;
   constructor(
     private bottomSheet: MatBottomSheet,
     public dialog: MatDialog,

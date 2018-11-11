@@ -1,5 +1,5 @@
 import { AuthenticationService } from './services/auth.service';
-import {UserState} from './config/userState';
+import {Helper} from './util/helper';
 import {Router} from '@angular/router';
 
 export class AppInit {
@@ -8,14 +8,14 @@ export class AppInit {
       // authService.setAuthStatus();
         return (): Promise<any> => {
             return new Promise((resolve, reject) => {
-              /* UserState.appInitStarted = true;
+              /* Helper.appInitStarted = true;
                AppInit.intv = setInterval(() => {
-                 if (!UserState.user || (UserState.user && UserState.user.id.length > 2)) {
+                 if (!Helper.user || (Helper.user && Helper.user.id.length > 2)) {
                     console.log('App started');
                     clearInterval(AppInit.intv);
                     resolve();
                  } else {
-                   console.log(UserState.user);
+                   console.log(Helper.user);
                  }
               }, 1000);*/
               resolve();

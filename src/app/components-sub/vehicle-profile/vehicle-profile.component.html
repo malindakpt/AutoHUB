@@ -95,11 +95,11 @@
     <div>
       <div class="flex-j-start info">
         <div>BRAND: </div>
-        <div>{{ selectedVehicle.brand }}</div>
+        <div>{{ helper.getBrandStringFromID(selectedVehicle.brand) }}</div>
       </div>
       <div class="flex-j-start info">
         <div>MADE:</div>
-        <div>{{ selectedVehicle.manufactCountry }}</div>
+        <div>{{ helper.getCountryStringFromID(selectedVehicle.manufactCountry) }}</div>
       </div>
       <div class="flex-j-start info">
         <div>ENGINE:</div>

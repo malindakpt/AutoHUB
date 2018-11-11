@@ -59,6 +59,8 @@ import { SearchListComponent } from './components/search-list/search-list.compon
 import {ScrollLoaderDirective} from './directives/scroll-loader.directive';
 import { BrandSelectorComponent } from './components-sub/brand-selector/brand-selector.component';
 import { CountrySelectorComponent } from './components-sub/country-selector/country-selector.component';
+import { BaseComponent } from './components/base/base.component';
+import {BaseDirective} from './directives/base';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -140,8 +142,10 @@ export function getAuthServiceConfigs() {
     CommentUserName,
     SearchListComponent,
     ScrollLoaderDirective,
+    BaseDirective,
     BrandSelectorComponent,
     CountrySelectorComponent,
+    BaseComponent,
   ],
 
   providers: [

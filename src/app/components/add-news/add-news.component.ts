@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {News} from '../../entities/news';
-import {UserState} from '../../config/userState';
+import {Helper} from '../../util/helper';
 import {NewsType, NewsWidgetType} from '../../enum/enums';
 import {MatSnackBar} from '@angular/material';
 
@@ -70,7 +70,7 @@ export class AddNewsComponent implements OnInit, OnChanges {
     if (this.validate()) {
       this.news.time = this.date.getTime();
       if (!this.isEdit) {
-        this.news.ID = UserState.getUniqueID();
+        this.news.ID = Helper.getUniqueID();
       }
       this.news.showEdit = false;
       if (this.news.type !== NewsType.NEWS ) {

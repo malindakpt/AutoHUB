@@ -12,7 +12,7 @@
       </mat-select>
     </mat-form-field>
 
-    <app-brand-selector (selectBrand)="onSelectBrand($event)"></app-brand-selector>
+    <app-brand-selector [brandId]="vehicle.brand" (selectBrand)="onSelectBrand($event)"></app-brand-selector>
 
     <mat-form-field>
       <input matInput placeholder="Model" [(ngModel)]="vehicle.model" name="model">

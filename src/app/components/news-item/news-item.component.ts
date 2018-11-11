@@ -5,9 +5,9 @@ import * as moment from 'moment';
 import {Entity} from '../../enum/entities.enum';
 import {NewsType, NewsWidgetType} from '../../enum/enums';
 import {Vehicle} from '../../entities/vehicle';
-import {UserState} from '../../config/userState';
+import {Helper} from '../../util/helper';
 import {ActivatedRoute} from '@angular/router';
-import {Settings} from '../../config/settings';
+import {Settings} from '../../util/settings';
 
 @Component({
   selector: 'app-news-list',
@@ -25,10 +25,10 @@ export class NewsItemComponent implements OnInit, OnChanges {
   @Input() isSearchResult = false;
   @Input() isNewsView = false;
   public newsTypes = NewsType;
-  public userState = UserState;
+  public userState = Helper;
   public resetCount;
   public addNewsType;
-  public isShowOnlyMyNews = false;
+  public isShowOnlyMyNews = true;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -45,11 +45,11 @@ export class NewsItemComponent implements OnInit, OnChanges {
     private activatedRoute: ActivatedRoute) {
 
     this.activatedRoute.paramMap.subscribe((params: any) => {
-      if (params.params.ref === '1') {
+      if (params.params.ref) {
         this.isNewsView = true;
       }
       this.dataService.resetNews();
-      this.resetCount = UserState.getTime();
+      this.resetCount = Helper.getTime();
       this.loadNews();
     });
   }
