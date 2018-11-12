@@ -61,6 +61,8 @@ import { BrandSelectorComponent } from './components-sub/brand-selector/brand-se
 import { CountrySelectorComponent } from './components-sub/country-selector/country-selector.component';
 import { BaseComponent } from './components/base/base.component';
 import {BaseDirective} from './directives/base';
+import { DialogComponent } from './components-sub/dialog/dialog.component';
+import {DialogService} from './services/dialog.service';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -146,12 +148,14 @@ export function getAuthServiceConfigs() {
     BrandSelectorComponent,
     CountrySelectorComponent,
     BaseComponent,
+    DialogComponent,
   ],
 
   providers: [
     AuthenticationService,
     AuthGuardService,
     DataService,
+    DialogService,
     AngularFirestore, [
       {
         provide: APP_INITIALIZER,
@@ -174,7 +178,8 @@ export function getAuthServiceConfigs() {
     BottomMenuComponent,
     SettingsComponent,
     SearchVehicleComponent,
-    OwnershipTransferComponent
+    OwnershipTransferComponent,
+    DialogComponent
   ],
   bootstrap: [
     AppComponent,

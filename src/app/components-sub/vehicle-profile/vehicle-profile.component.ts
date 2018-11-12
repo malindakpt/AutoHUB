@@ -8,6 +8,7 @@ import {Helper} from '../../util/helper';
 import {Entity} from '../../enum/entities.enum';
 import {VehicleStatus} from '../../enum/event.enum';
 import {BaseDirective} from '../../directives/base';
+import {DialogService} from '../../services/dialog.service';
 
 @Component({
   selector: 'app-vehicle-profile',
@@ -36,6 +37,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
 
   constructor(
     private dataService: DataService,
+    private dialogService: DialogService,
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute) {
     super();
@@ -81,6 +83,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
     this.selectedVehicle.status = VehicleStatus.SELL;
     this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle);
   }
+
   public avoidSell(): void {
     this.selectedVehicle.time = this.userState.getTime();
     this.selectedVehicle.status = VehicleStatus.NONE;
@@ -93,9 +96,19 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
     this.dataService.saveEntity(Entity.vehicles, v);
   }
 
+  public deleteVehicle(): void {
+    this.dialogService.openDialog('Deleting a vehicle', 'Are you sure you want to delete this vehicle from your profile ?').then(data => {
+        this.selectedVehicle.isActive = false;
+        this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, false);
+        console.log('deleted');
+      }
+    );
+  }
+
   public swapEditBtn() {
     this.showEdit = !this.showEdit;
   }
+
   public onVehicleChange() {
     this.refreshVehicle();
     this.isSearchResult = false;

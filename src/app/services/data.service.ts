@@ -109,14 +109,14 @@ export class DataService {
     });
   }
 
-  public saveEntity(entity: Entity, object: any, skipRoute?: boolean): void {
+  public saveEntity(entity: Entity, object: any, skipRouting?: boolean): void {
     const that = this;
     const ref = this.fs.firestore.collection(entity);
-  console.log('Saving entity: ' + entity);
+    console.log('Saving entity: ' + entity);
     this.busyOn();
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
-      if (!skipRoute) {
+      if (!skipRouting) {
         that.router.navigate(['/secure/news/' + Helper.getTime()]);
       }
       that.busyOff();
@@ -191,7 +191,7 @@ export class DataService {
     const myVehicles = [];
     console.log('send request for get myVehices');
     return new Promise((resolves, reject) => {
-      this.fs.firestore.collection(Entity.vehicles).where('ownerID', '==', userID)
+      this.fs.firestore.collection(Entity.vehicles).where('ownerID', '==', userID).where('isActive', '==', true)
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
