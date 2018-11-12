@@ -10,10 +10,11 @@ import {Helper} from '../util/helper';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
 import {Settings} from '../util/settings';
-import {NewsType} from '../enum/enums';
+import {DialogType, NewsType} from '../enum/enums';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {VehicleStatus} from '../enum/event.enum';
+import {DialogService} from './dialog.service';
 
 @Injectable()
 export class DataService {
@@ -23,7 +24,8 @@ export class DataService {
     private router: Router,
     private fs: AngularFirestore,
     public snackBar: MatSnackBar,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialogService: DialogService
   ) {
     this.onVehiclesUpdated = new Subject();
     this.setInternetTime();
@@ -125,6 +127,7 @@ export class DataService {
       });
     }).catch(function (error) {
       console.error('Error writing document: ', error);
+      that.showNetworkError();
       that.busyOff();
     });
   }
@@ -141,6 +144,7 @@ export class DataService {
         that.busyOff();
       })
       .catch(function (error) {
+        that.showNetworkError();
         console.log('Error getting documents: ', error);
         that.busyOff();
       });
@@ -161,6 +165,7 @@ export class DataService {
         that.busyOff();
       })
       .catch(function (error) {
+        that.showNetworkError();
         console.log('Error getting documents: ', error);
         callBack(null);
         that.busyOff();
@@ -181,6 +186,7 @@ export class DataService {
         that.busyOff();
       })
       .catch(function (error) {
+        that.showNetworkError();
         console.log('Error getting documents: ', error);
         that.busyOff();
       });
@@ -202,6 +208,7 @@ export class DataService {
           resolves(myVehicles);
         })
         .catch(function (error) {
+          that.showNetworkError();
           console.log('Error getting documents: ', error);
           resolves(null);
         });
@@ -246,6 +253,7 @@ export class DataService {
           that.isVehicleSearchInprogress = false;
         })
         .catch(function (error) {
+          that.showNetworkError();
           console.log('Error getting documents: ', error);
         });
   }
@@ -274,6 +282,7 @@ export class DataService {
         that.isVehicleNewsFetchInprogress = false;
       })
       .catch(function (error) {
+        that.showNetworkError();
         that.isVehicleNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
       });
@@ -298,6 +307,7 @@ export class DataService {
         that.isNewsFetchInprogress = false;
       })
       .catch(function (error) {
+        that.showNetworkError();
         that.isNewsFetchInprogress = false;
         console.log('Error getting news documents: ', error);
       });
@@ -351,6 +361,14 @@ export class DataService {
 
   private busyOff(): void {
     document.getElementById('overlay').style.display = 'none';
+  }
+
+  private showNetworkError(): void {
+    this.dialogService.openDialog(DialogType.TEXT_INPUT, 'Network Error',
+      'Time is too long to get the response from server. Please try again !').then(data => {
+        window.location.reload();
+      }
+    );
   }
 }
 

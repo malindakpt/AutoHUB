@@ -19,6 +19,7 @@ export class Vehicle extends Entity {
     public status: boolean;
     public time: number;
     public isActive = true;
+    public description;
     // Entiy ID is the chassis number
     constructor(obj: any) {
       super(obj);

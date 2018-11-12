@@ -5,3 +5,7 @@ export enum NewsType {
 export enum NewsWidgetType {
   NEWS, SERVICE
 }
+
+export enum DialogType {
+  CONFIRMATION, TEXT_INPUT
+}
