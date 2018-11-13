@@ -16,10 +16,10 @@ export const appRoutes: Routes = [
     { path: 'error', component: ErrorComponent, canActivate: [AuthGuardService] },
     {
       path: 'secure', component: SecureComponent, canActivate: [AuthGuardService], children: [
-        { path: '', redirectTo: 'profile', pathMatch: 'full' },
+        { path: '', redirectTo: 'profile/1', pathMatch: 'full' },
         { path: 'news/:ref', component: NewsItemComponent },
         { path: 'add-news', component: AddNewsComponent },
-        { path: 'profile', component: VehicleProfileComponent },
+        { path: 'profile/:ref', component: VehicleProfileComponent },
         { path: 'add', component: AddVehicleComponent },
         { path: 'search', component: SearchListComponent },
       ]

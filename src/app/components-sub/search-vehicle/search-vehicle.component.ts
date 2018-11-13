@@ -71,8 +71,8 @@ export class SearchVehicleComponent implements OnInit {
     });
   }
 
-  public onVehicleSelect(vehi) {
-    this.router.navigate(['/secure/profile'], {queryParams: vehi});
+  public onVehicleSelect() {
+    this.router.navigate(['/secure/profile'], {queryParams: this.vehicles[0]});
     this.dialogRef.close();
   }
 

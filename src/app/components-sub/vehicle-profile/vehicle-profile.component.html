@@ -111,9 +111,14 @@
     </div>
   </div>
 
+  <div *ngIf="selectedVehicle">
   <div class="flex-j-end">
     <div *ngIf="!showDescription" mat-button (click)="showDescription = !showDescription">show more..</div>
     <div *ngIf="showDescription">{{selectedVehicle.description}}</div>
+  </div>
+  <div class="flex-j-end">
+    <div *ngIf="showDescription" mat-button (click)="showDescription = !showDescription">hide more..</div>
+  </div>
   </div>
 
   <div *ngIf="!showEdit && selectedVehicle && showNews">
