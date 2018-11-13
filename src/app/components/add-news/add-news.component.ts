@@ -5,13 +5,14 @@ import {News} from '../../entities/news';
 import {Helper} from '../../util/helper';
 import {NewsType, NewsWidgetType} from '../../enum/enums';
 import {MatSnackBar} from '@angular/material';
+import {BaseDirective} from '../../directives/base';
 
 @Component({
   selector: 'app-add-news',
   templateUrl: './add-news.component.html',
   styleUrls: ['./add-news.component.scss']
 })
-export class AddNewsComponent implements OnInit, OnChanges {
+export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges {
   public myVehicles: Vehicle[] = [];
   public newsTypes = NewsType;
   public serviceTypes = [];
@@ -29,7 +30,9 @@ export class AddNewsComponent implements OnInit, OnChanges {
   constructor(
     public snackBar: MatSnackBar,
     private dataService: DataService,
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     if ( NewsWidgetType.NEWS === this.widgetType) {
@@ -105,16 +108,17 @@ export class AddNewsComponent implements OnInit, OnChanges {
       if (!this.selectedVehicle) {
         this.showError('Select a vehicle');
         return false;
-      } else if (!this.news.odoMeter) {
-        this.showError('Please add ODO meter value');
+      } else if (!this.news.odoMeter || isNaN(this.news.odoMeter)) {
+        this.showError('Invalid ODO meter value');
         return false;
-      } else if (!this.news.cost) {
-        this.showError('Cost cannot be empty');
+      } else if (!this.news.cost || isNaN(this.news.cost)) {
+        this.showError('Invalid cost value');
         return false;
       }
     }
-    if (!this.date) {
-      this.showError('Date cannot be empty');
+    console.log(this.date.getTime(), this.helper.getTime());
+    if (!this.date || this.date.getTime() < this.helper.getTime()) {
+      this.showError('Invalid date');
       return false;
     }
     return true;

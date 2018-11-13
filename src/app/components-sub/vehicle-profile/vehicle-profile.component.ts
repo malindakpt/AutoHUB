@@ -106,8 +106,8 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
     this.dialogService.openDialog(DialogType.CONFIRMATION,
       'Delete vehicle', 'Are you sure, you want to delete this vehicle from your profile ?').then(data => {
         if (data) {
-          // this.selectedVehicle.isActive = false;
-          // this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, false);
+          this.selectedVehicle.isActive = false;
+          this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, false);
           console.log('deleted');
         }
       }
@@ -126,9 +126,9 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
 
   private refreshVehicle(): void {
     this.dataService.resetVehicleNews();
-    if (this.selectedVehicle.nextOwner) {
-      this.showOwnershipTransferRequest();
-    }
+    // if (this.selectedVehicle.nextOwner) {
+    //   this.showOwnershipTransferRequest();
+    // }
   }
 
   public showOwnershipTransferRequest(): void {

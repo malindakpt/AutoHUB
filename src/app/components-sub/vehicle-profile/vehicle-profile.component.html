@@ -113,16 +113,16 @@
 
   <div *ngIf="selectedVehicle">
   <div class="flex-j-end">
-    <div *ngIf="!showDescription" mat-button (click)="showDescription = !showDescription">show more..</div>
+    <div *ngIf="!showDescription" mat-button class="pointer" (click)="showDescription = !showDescription">show more..</div>
     <div *ngIf="showDescription">{{selectedVehicle.description}}</div>
   </div>
   <div class="flex-j-end">
-    <div *ngIf="showDescription" mat-button (click)="showDescription = !showDescription">hide more..</div>
+    <div *ngIf="showDescription" mat-button class="pointer" (click)="showDescription = !showDescription">hide more..</div>
   </div>
   </div>
 
   <div *ngIf="!showEdit && selectedVehicle && showNews">
-    <app-news-list [vehicle]="selectedVehicle" [isSearchResult]="isSearchResult"></app-news-list>
+    <app-news-list [vehicle]="selectedVehicle" [isSearchResult]="isSearchResult" [isNewsView]="false"></app-news-list>
   </div>
 
 </div>

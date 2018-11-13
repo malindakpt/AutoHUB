@@ -20,7 +20,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
     loop: false,
     navigation: true
   };
-  public newsArr: Array<News>;
+  public newsArr = new Array<News>();
   @Input() vehicle: Vehicle;
   @Input() isSearchResult = false;
   @Input() isNewsView = false;
@@ -45,7 +45,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
     private activatedRoute: ActivatedRoute) {
 
     this.activatedRoute.paramMap.subscribe((params: any) => {
-      if (params.params.ref) {
+      if (this.isNewsView === undefined && params.params.ref) {
         this.isNewsView = true;
       }
       this.dataService.resetNews();

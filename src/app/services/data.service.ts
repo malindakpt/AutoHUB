@@ -39,7 +39,7 @@ export class DataService {
 
   public isVehicleNewsFetchInprogress = false;
   private lastVisibleVehicleNews = {};
-  public vehicleNewsList: Array<News>;
+  public vehicleNewsList = new Array<News>();
 
   public isVehicleSearchInprogress = false;
   private lastVisibleVehicleSearch = null;
@@ -55,6 +55,7 @@ export class DataService {
 
   public resetVehicleNews(): void {
     this.lastVisibleVehicleNews = {};
+    // Object.assign(this.vehicleNewsList, []);
     this.vehicleNewsList = new Array<News>();
   }
 

@@ -18,11 +18,11 @@
       </mat-form-field>
 
       <mat-form-field *ngIf="news.type && news.type !== newsTypes.NEWS">
-        <input matInput placeholder="ODO Meter" [(ngModel)]='news.odoMeter' name='odo' type="number">
+        <input matInput placeholder="ODO Meter" [(ngModel)]='news.odoMeter' name='odo'>
       </mat-form-field>
 
       <mat-form-field *ngIf="news.type && news.type !== newsTypes.NEWS">
-        <input matInput placeholder="Total Cost" [(ngModel)]='news.cost' name='cost' type="number">
+        <input matInput placeholder="Total Cost" [(ngModel)]='news.cost' name='cost'>
       </mat-form-field>
 
       <mat-form-field>

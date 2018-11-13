@@ -117,8 +117,8 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     } else if (!this.vehicle.chassisNo) {
       this.showError('Chassis No cannot be empty');
       return false;
-    } else if (!this.vehicle.manufactYear) {
-      this.showError('Manufactured year cannot be empty');
+    } else if (!this.vehicle.manufactYear || isNaN(this.vehicle.manufactYear)) {
+      this.showError('Invalid manufactured year');
       return false;
     } else if (!this.vehicle.regNo) {
       this.showError('Registration No. cannot be empty');
