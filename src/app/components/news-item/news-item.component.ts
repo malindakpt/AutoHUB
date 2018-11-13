@@ -23,7 +23,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
   public newsArr = new Array<News>();
   @Input() vehicle: Vehicle;
   @Input() isSearchResult = false;
-  @Input() isNewsView = false;
+  @Input() isNewsView;
   public newsTypes = NewsType;
   public userState = Helper;
   public resetCount;
@@ -35,7 +35,7 @@ export class NewsItemComponent implements OnInit, OnChanges {
     const position = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollPosition = position + screen.height + 10;
     const fullHeight = document.documentElement.offsetHeight;
-    if ( scrollPosition > fullHeight) {
+    if (scrollPosition > fullHeight) {
       this.loadNews();
     }
   }
@@ -44,17 +44,24 @@ export class NewsItemComponent implements OnInit, OnChanges {
     public dataService: DataService,
     private activatedRoute: ActivatedRoute) {
 
-    this.activatedRoute.paramMap.subscribe((params: any) => {
-      if (this.isNewsView === undefined && params.params.ref) {
-        this.isNewsView = true;
+    this.dataService.resetNews();
+    this.resetCount = Helper.getTime();
+
+    this.activatedRoute.params.subscribe(params => {
+      if (this.isNewsView === undefined) {
+        if (params.isNewsView) {
+          const b = JSON.parse(params.isNewsView);
+          if (b) {
+            this.isNewsView = b;
+          }
+        }
       }
-      this.dataService.resetNews();
-      this.resetCount = Helper.getTime();
       this.loadNews();
     });
   }
 
   ngOnInit() {
+    console.log(this.isNewsView, this.isSearchResult);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -66,12 +73,12 @@ export class NewsItemComponent implements OnInit, OnChanges {
   }
 
   public getNewsType(no: number): string {
-      return NewsType[no];
+    return NewsType[no];
   }
+
   public addComment(news: News) {
     // const news = this.newsArr.filter(value =>  value.ID === id )[0];
-    const comment = this.userState.user.id + Settings.COMMENT_SEPARATOR + this.userState.
-      user.name + Settings.COMMENT_SEPARATOR + news.addCommnet;
+    const comment = this.userState.user.id + Settings.COMMENT_SEPARATOR + this.userState.user.name + Settings.COMMENT_SEPARATOR + news.addCommnet;
     news.comments.push(comment);
     news.addCommnet = '';
     news.showComment = false;
@@ -107,8 +114,6 @@ export class NewsItemComponent implements OnInit, OnChanges {
       }
     }
   }
-
-
 
 
 }

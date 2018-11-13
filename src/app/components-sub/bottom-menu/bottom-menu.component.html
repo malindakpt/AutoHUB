@@ -1,9 +1,9 @@
 <mat-nav-list>
-  <a routerLink="/secure/news/1" mat-list-item  (click)="openLink($event)">
+  <a [routerLink]="['/secure/news/1', {isNewsView: true}]" mat-list-item  (click)="openLink($event)">
     <span mat-line><fa name="plus-square" size="lg"></fa>News</span>
   </a>
 
-  <a routerLink="/secure/profile/1" mat-list-item  (click)="openLink($event)">
+  <a [routerLink]="['/secure/profile/1', {isNewsView: false}]" mat-list-item  (click)="openLink($event)">
     <span mat-line><fa name="car" size="lg"></fa>Profile</span>
   </a>
   <a routerLink="/secure/search" mat-list-item  (click)="openLink($event)">
