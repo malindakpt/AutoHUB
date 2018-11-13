@@ -120,7 +120,7 @@ export class DataService {
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
       if (!skipRouting) {
-        that.router.navigate(['/secure/news/' + Helper.getTime()], {queryParams: {isNewsView: true}});
+        that.router.navigate(['/secure/news/' + Helper.getTime(), {isNewsView: true}]);
       }
       that.busyOff();
       that.snackBar.open('Success', 'Dismiss', {
