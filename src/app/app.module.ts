@@ -28,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PopupComponent } from './components-sub/popup/popup.component';
 import { BottomMenuComponent } from './components-sub/bottom-menu/bottom-menu.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { NewsItemComponent } from './components/news-item/news-item.component';
+import { NewsListComponent } from './components/news-list/news-list.component';
 import { OwnerDescComponent } from './components-sub/owner-desc/owner-desc.component';
 
 
@@ -129,7 +129,7 @@ export function getAuthServiceConfigs() {
     AddVehicleComponent,
     PopupComponent,
     BottomMenuComponent,
-    NewsItemComponent,
+    NewsListComponent,
     OwnerDescComponent,
     PhotoUploadComponent,
     AddNewsComponent,

@@ -11,10 +11,10 @@ import {Settings} from '../../util/settings';
 
 @Component({
   selector: 'app-news-list',
-  templateUrl: './news-item.component.html',
-  styleUrls: ['./news-item.component.scss']
+  templateUrl: './news-list.component.html',
+  styleUrls: ['./news-list.component.scss']
 })
-export class NewsItemComponent implements OnInit, OnChanges {
+export class NewsListComponent implements OnInit, OnChanges {
 
   public swiperConfig = {
     loop: false,

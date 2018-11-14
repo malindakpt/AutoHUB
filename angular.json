@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
+              "src/app/scss/styles.scss",
               "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
@@ -79,7 +79,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss",
+              "src/app/scss/styles.scss",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"
             ],

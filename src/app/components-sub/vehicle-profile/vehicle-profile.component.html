@@ -65,8 +65,8 @@
   <div class="flex-j-end action-buttons">
     <button class="req-owner" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status == vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="avoidSell()">Stop Sell Vehicle</button>
     <button class="req-owner" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status != vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="readyForSell()">Sell Vehicle</button>
-    <fa *ngIf="!isSearchResult && selectedVehicle" name="edit" size="sm" (click)="swapEditBtn()"></fa>
-    <fa *ngIf="!isSearchResult && selectedVehicle" name="trash" size="sm" (click)="deleteVehicle()"></fa>
+    <fa *ngIf="!isSearchResult && selectedVehicle" name="edit" size="sm" class="pointer" (click)="swapEditBtn()"></fa>
+    <fa *ngIf="!isSearchResult && selectedVehicle" name="trash" size="sm" class="pointer" (click)="deleteVehicle()"></fa>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
     <app-add-vehicle [vehicle]="selectedVehicle"></app-add-vehicle>

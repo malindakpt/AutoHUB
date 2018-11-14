@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { VehicleProfileComponent } from './components-sub/vehicle-profile/vehicle-profile.component';
-import { NewsItemComponent } from './components/news-item/news-item.component';
+import { NewsListComponent } from './components/news-list/news-list.component';
 import { AddNewsComponent } from './components/add-news/add-news.component';
 import { LoginComponent } from './components/login/login.component';
 import {AuthGuardService} from './services/auth.guard.service';
@@ -17,7 +17,7 @@ export const appRoutes: Routes = [
     {
       path: 'secure', component: SecureComponent, canActivate: [AuthGuardService], children: [
         { path: '', redirectTo: 'profile/1', pathMatch: 'full' },
-        { path: 'news/:ref', component: NewsItemComponent },
+        { path: 'news/:ref', component: NewsListComponent },
         { path: 'add-news', component: AddNewsComponent },
         { path: 'profile/:ref', component: VehicleProfileComponent },
         { path: 'add', component: AddVehicleComponent },
