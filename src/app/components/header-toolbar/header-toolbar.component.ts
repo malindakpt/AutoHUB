@@ -16,7 +16,7 @@ import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search
   styleUrls: ['./header-toolbar.component.scss']
 })
 export class HeaderToolbarComponent implements OnInit {
-
+  public menuOptions = Settings.MENU_OPTIONS;
   public user = Helper.user;
   constructor(
     private bottomSheet: MatBottomSheet,
@@ -32,6 +32,9 @@ export class HeaderToolbarComponent implements OnInit {
     });
   }
 
+  public logout(): void {
+    this.authenticationService.logout();
+  }
   public showSettings(): void {
     const dialogRef = this.dialog.open(SettingsComponent, {
 

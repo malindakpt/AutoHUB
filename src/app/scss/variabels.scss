@@ -3,10 +3,14 @@ $font-color: #ffffff;
 $owner-color: #005ff9;
 $phone-breakpoint: 740px;
 
+@mixin mobile-only() {
+  @media only screen and (max-width: $phone-breakpoint) {
+    @content;
+  }
+}
 
-
-@mixin small-screen() {
-    @media only screen and (max-width: $phone-breakpoint) {
-        @content;
-    }
+@mixin desktop-only() {
+  @media only screen and (min-width: $phone-breakpoint) {
+    @content;
+  }
 }

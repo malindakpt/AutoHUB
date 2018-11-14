@@ -2,7 +2,7 @@
 
 :host {
     width: calc(100% - 300px);
-    @include small-screen {
+    @include mobile-only {
       display: none;
     }
 }

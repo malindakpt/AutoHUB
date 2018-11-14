@@ -1,7 +1,7 @@
 <div id="overlay">
   <img class="loading-icon" src="../../../assets/images/loading3.gif">
 </div>
-<div class="mat-elevation-z6 header">
+<div class="header">
   <div class="flex-j-start">
     <div class="b-menu-left" (click)="showMenu()">
       <fa name="bars" size="lg"></fa>
@@ -12,30 +12,19 @@
   </div>
 
   <div class="flex-j-sb font-size-25 menu-bar">
-    <!--<div>-->
-      <!--<div [routerLink]="['/secure/news/1']">-->
-        <!--News-->
-      <!--</div>-->
-    <!--<div [routerLink]="['/secure/profile']">-->
-        <!--Profile-->
-    <!--</div>-->
-    <!--</div>-->
+    <span class="header-menu pointer show" (click)="showSearch()">
+      <span><fa name="search" size="lg"></fa>Search</span>
+    </span>
 
-        <!--<div class="b-menu" (click)="showSettings()">-->
-          <!--<fa name="cog" size="lg"></fa>-->
-        <!--</div>-->
+    <span *ngFor="let item of menuOptions" [routerLink]="item.route" class="header-menu pointer">
+      <span><fa [name]="item.icon" size="lg"></fa>{{item.disp}}</span>
+    </span>
 
-        <div class="b-menu" (click)="showSearch()">
-          <fa name="search" size="lg"></fa>
-        </div>
-
-        <div *ngIf="user">
-          <img [src]="user.image">
-        </div>
+    <div *ngIf="user">
+      <img [src]="user.image">
+    </div>
+    <a (click)="logout()" class="header-menu">
+      <span><fa name="power-off" size="lg"></fa>Logout</span>
+    </a>
 
 </div>
-
-
-<!--<div class="add-btn">-->
-  <!--<fa name="plus" size="lg"></fa>-->
-<!--</div>-->

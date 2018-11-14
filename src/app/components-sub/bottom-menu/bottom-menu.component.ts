@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import {AuthenticationService} from '../../services/auth.service';
+import {Settings} from '../../util/settings';
 
 @Component({
   selector: 'app-bottom-menu',
@@ -8,6 +9,7 @@ import {AuthenticationService} from '../../services/auth.service';
   styleUrls: ['./bottom-menu.component.scss']
 })
 export class BottomMenuComponent implements OnInit {
+  public menuOptions = Settings.MENU_OPTIONS;
   ngOnInit(): void {
   }
   constructor(

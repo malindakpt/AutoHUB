@@ -1,13 +1,6 @@
 <mat-nav-list>
-  <a [routerLink]="['/secure/news/1', {isNewsView: true}]" mat-list-item  (click)="openLink($event)">
-    <span mat-line><fa name="plus-square" size="lg"></fa>News</span>
-  </a>
-
-  <a [routerLink]="['/secure/profile/1', {isNewsView: false}]" mat-list-item  (click)="openLink($event)">
-    <span mat-line><fa name="car" size="lg"></fa>Profile</span>
-  </a>
-  <a routerLink="/secure/search" mat-list-item  (click)="openLink($event)">
-    <span mat-line><fa name="shopping-cart" size="lg"></fa>Buy Vehicle</span>
+  <a *ngFor="let item of menuOptions" [routerLink]="item.route" mat-list-item  (click)="openLink($event)">
+    <span mat-line><fa [name]="item.icon" size="lg"></fa>{{item.disp}}</span>
   </a>
   <a mat-list-item  (click)="logout()">
     <span mat-line><fa name="power-off" size="lg"></fa>Logout</span>
