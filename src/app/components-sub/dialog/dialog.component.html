@@ -2,8 +2,7 @@
 <p> {{message}}</p>
 
 <mat-form-field *ngIf="type == dialogType.TEXT_INPUT">
-  <input matInput placeholder="Add text here..." [(ngModel)]="textInput" name="model">
+  <textarea matInput placeholder="Add your text here..." [(ngModel)]="textInput" name="model"></textarea>
 </mat-form-field>
-
 
 <button mat-button (click)="confirm()">OK</button>

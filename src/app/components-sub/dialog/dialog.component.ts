@@ -33,7 +33,11 @@ export class DialogComponent implements OnInit {
         this.dialogRef.close({});
         break;
       case this.dialogType.TEXT_INPUT:
-        this.dialogRef.close(this.textInput);
+        if (this.textInput) {
+          this.dialogRef.close(this.textInput);
+        } else {
+          this.dialogRef.close(null);
+        }
         break;
     }
   }

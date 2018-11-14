@@ -77,8 +77,8 @@ export class NewsListComponent implements OnInit, OnChanges {
   }
 
   public addComment(news: News) {
-    // const news = this.newsArr.filter(value =>  value.ID === id )[0];
-    const comment = this.userState.user.id + Settings.COMMENT_SEPARATOR + this.userState.user.name + Settings.COMMENT_SEPARATOR + news.addCommnet;
+    const comment = this.userState.user.id + Settings.COMMENT_SEPARATOR +
+      this.userState.user.name + Settings.COMMENT_SEPARATOR + news.addCommnet;
     news.comments.push(comment);
     news.addCommnet = '';
     news.showComment = false;

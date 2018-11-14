@@ -81,11 +81,17 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   }
 
   public readyForSell(): void {
-    this.dialogService.openDialog(DialogType.TEXT_INPUT, 'Sell vehicle', 'Add a description about this vehicle').then(data => {
-      this.selectedVehicle.description = data;
-      this.selectedVehicle.time = this.userState.getTime();
-      this.selectedVehicle.status = VehicleStatus.SELL;
-      this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle);
+    this.dialogService.showDialog(DialogType.TEXT_INPUT, 'Phone number required !',
+      'Add details about this vehicle and your contact details').then(data => {
+        console.log('try to sell ');
+      if (data) {
+        this.selectedVehicle.description = data;
+        this.selectedVehicle.time = this.userState.getTime();
+        this.selectedVehicle.status = VehicleStatus.SELL;
+        this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle);
+      } else if (data === null) {
+        this.dialogService.showPopup('Please add required information');
+      }
       }
     );
   }
@@ -103,7 +109,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   }
 
   public deleteVehicle(): void {
-    this.dialogService.openDialog(DialogType.CONFIRMATION,
+    this.dialogService.showDialog(DialogType.CONFIRMATION,
       'Delete vehicle', 'Are you sure, you want to delete this vehicle from your profile ?').then(data => {
         if (data) {
           this.selectedVehicle.isActive = false;

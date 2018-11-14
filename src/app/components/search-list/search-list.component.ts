@@ -36,6 +36,7 @@ export class SearchListComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value),
         map(name => name ? this._filter(name, this.brands) : this.brands.slice())
       );
+    this.onSearch();
   }
 
   @HostListener('window:scroll', ['$event'])

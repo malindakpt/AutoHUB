@@ -117,7 +117,7 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
       }
     }
     console.log(this.date.getTime(), this.helper.getTime());
-    if (!this.date || this.date.getTime() < this.helper.getTime()) {
+    if (!this.date || this.date.getTime() > this.helper.getTime()) {
       this.showError('Invalid date');
       return false;
     }

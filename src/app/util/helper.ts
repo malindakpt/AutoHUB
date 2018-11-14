@@ -14,14 +14,14 @@ export class Helper {
     }
   }
 
-  public static getTime(): string {
+  public static getTime(): number {
     const t = new Date();
     if (Helper.internetDate) {
       t.setFullYear(Helper.internetDate.getFullYear());
       t.setMonth(Helper.internetDate.getMonth());
       t.setDate(Helper.internetDate.getDate());
     }
-    return t.getTime() + '';
+    return t.getTime();
   }
 
   public static getFBProfile(id?: string): string {

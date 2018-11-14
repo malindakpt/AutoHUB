@@ -225,9 +225,10 @@ export class DataService {
     const searchedVehicles = [];
     console.log('send request for search');
       let query =  this.fs.firestore.collection(Entity.vehicles).where
-      ('status', '==', VehicleStatus.SELL).orderBy('model', 'desc').orderBy('time', 'desc');
+      ('status', '==', VehicleStatus.SELL);
 
     if (model) {
+      query = query.orderBy('model', 'desc');
       query = query.where('model', '>=', model.toUpperCase());
     }
     if (year) {
@@ -239,10 +240,10 @@ export class DataService {
     if (category) {
       query = query.where('category', '==', category);
     }
+    query = query.orderBy('time', 'desc');
     if (that.lastVisibleVehicleSearch) {
       query = query.startAfter(that.lastVisibleVehicleSearch);
     }
-
     query = query.limit(Settings.SEARCH_VEHICLE_FETCH_COUNT);
     query.get()
         .then(function (querySnapshot) {
@@ -365,7 +366,7 @@ export class DataService {
   }
 
   private showNetworkError(): void {
-    this.dialogService.openDialog(DialogType.TEXT_INPUT, 'Network Error',
+    this.dialogService.showDialog(DialogType.CONFIRMATION, 'Network Error',
       'Time is too long to get the response from server. Please try again !').then(data => {
         window.location.reload();
       }

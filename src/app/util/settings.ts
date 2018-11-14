@@ -92,9 +92,9 @@ export class Settings {
   public static FUEL_TYPES = ['Petrol', 'Hybrid', 'Disel', 'Electric'];
   public static VALIDATE_ADD_VEHICLE = true;
   public static MENU_OPTIONS = [
-    { disp: 'News', icon: 'plus-square', route: ['/secure/news/1', {isNewsView: true}]},
-    { disp: 'Profile', icon: 'car', route: ['/secure/profile/1', {isNewsView: false}]},
     { disp: 'Buy Vehicle', icon: 'shopping-cart', route: '/secure/search'},
+    { disp: 'News', icon: 'asterisk', route: ['/secure/news/1', {isNewsView: true}]},
+    { disp: 'Profile', icon: 'car', route: ['/secure/profile/1', {isNewsView: false}]},
   ];
   public static TIME_URL = 'https://worldclockapi.com/api/json/utc/now';
   public static TIME_CHECK_INTERVAL = 60000;
