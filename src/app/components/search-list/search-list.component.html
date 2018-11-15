@@ -6,7 +6,7 @@
           <mat-option *ngFor="let item of categories" [value]="item.key">
             <div class="img-option">
               {{item.val}}
-              <img [src]="'../../../assets/images/' + item + '.png'">
+              <img [src]="'../../../assets/images/vehicle-types/' + item.val + '.png'">
             </div>
           </mat-option>
         </mat-select>
