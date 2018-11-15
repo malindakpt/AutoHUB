@@ -11,7 +11,8 @@ export const environment = {
     projectId: "autohub-557b1",
     storageBucket: "autohub-557b1.appspot.com",
     messagingSenderId: "385445687853"
-  }
+  },
+  version: require('../../package.json').version
 };
 
 /*

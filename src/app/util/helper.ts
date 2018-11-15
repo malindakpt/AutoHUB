@@ -1,6 +1,7 @@
 import {User} from '../entities/user';
 import {Pair} from '../components/add-vehicle/add-vehicle.component';
 import {Settings} from './settings';
+import {environment} from '../../environments/environment';
 
 export class Helper {
   public static internetDate: Date;
@@ -56,5 +57,17 @@ export class Helper {
       map[item.val] = item.key;
     }
     return map;
+  }
+
+  public static log(obj1: any, obj2?: any): void {
+    if (!environment.production) {
+      console.log(obj1, obj2);
+    }
+  }
+
+  public static error(obj1: any, obj2?: any): void {
+    if (!environment.production) {
+      console.error(obj1, obj2);
+    }
   }
 }

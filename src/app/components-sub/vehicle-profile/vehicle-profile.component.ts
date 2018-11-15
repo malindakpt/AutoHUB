@@ -50,8 +50,14 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe((params: any) => {
+      Helper.log('p-', params);
+      if (params.isProfile && JSON.parse(params.isProfile)) {
+        this.isSearchResult = false;
+      }
+    });
     this.activatedRoute.queryParams.subscribe((profile: Vehicle) => {
-      if (profile.ID) {
+      if (profile && profile.ID) {
         this.isSearchResult = true;
         this.selectedVehicle = profile;
         this.refreshVehicle();
@@ -83,15 +89,15 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   public readyForSell(): void {
     this.dialogService.showDialog(DialogType.TEXT_INPUT, 'Phone number required !',
       'Add details about this vehicle and your contact details').then(data => {
-        console.log('try to sell ');
-      if (data) {
-        this.selectedVehicle.description = data;
-        this.selectedVehicle.time = this.userState.getTime();
-        this.selectedVehicle.status = VehicleStatus.SELL;
-        this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle);
-      } else if (data === null) {
-        this.dialogService.showPopup('Please add required information');
-      }
+        Helper.log('try to sell ');
+        if (data) {
+          this.selectedVehicle.description = data;
+          this.selectedVehicle.time = this.userState.getTime();
+          this.selectedVehicle.status = VehicleStatus.SELL;
+          this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, true);
+        } else if (data === null) {
+          this.dialogService.showPopup('Please add required information');
+        }
       }
     );
   }
@@ -99,7 +105,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   public avoidSell(): void {
     this.selectedVehicle.time = this.userState.getTime();
     this.selectedVehicle.status = VehicleStatus.NONE;
-    this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle);
+    this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, true);
   }
 
   public requestOwnership(): void {
@@ -114,7 +120,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
         if (data) {
           this.selectedVehicle.isActive = false;
           this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, false);
-          console.log('deleted');
+          Helper.log('deleted');
         }
       }
     );
@@ -145,7 +151,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      Helper.log('The dialog was closed');
     });
   }
 

@@ -63,8 +63,8 @@
   </div>
 
   <div class="flex-j-end action-buttons">
-    <button class="req-owner" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status == vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="avoidSell()">Stop Sell Vehicle</button>
-    <button class="req-owner" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status != vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="readyForSell()">Sell Vehicle</button>
+    <button class="req-owner red-text" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status == vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="avoidSell()">Don't Sell</button>
+    <button class="req-owner red-text" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status != vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="readyForSell()">Sell</button>
     <fa *ngIf="!isSearchResult && selectedVehicle" name="edit" size="sm" class="pointer" (click)="swapEditBtn()"></fa>
     <fa *ngIf="!isSearchResult && selectedVehicle" name="trash" size="sm" class="pointer" (click)="deleteVehicle()"></fa>
   </div>

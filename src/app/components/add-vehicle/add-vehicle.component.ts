@@ -78,7 +78,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   }
 
   public complete(): void {
-    console.log(this.vehicle);
+    Helper.log(this.vehicle);
     if (this.validate() || !Settings.VALIDATE_ADD_VEHICLE) {
       this.unique = Helper.getUniqueID();
       if (this.isEdit) {
@@ -159,7 +159,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === Event.CONTINUE) {
-        console.log('Adding vehicle..');
+        Helper.log('Adding vehicle..');
         this.addNewVehicle(this.unique);
       }
     });

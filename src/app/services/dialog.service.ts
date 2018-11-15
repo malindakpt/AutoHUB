@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogComponent} from '../components-sub/dialog/dialog.component';
 import {DialogType} from '../enum/enums';
+import {Helper} from '../util/helper';
 
 @Injectable()
 export class DialogService {
@@ -16,7 +17,7 @@ export class DialogService {
     const promise = new Promise<object>(
       (resolve, reject) => {
         dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
+          Helper.log('The dialog was closed');
           resolve(result);
         });
       }

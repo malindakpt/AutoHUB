@@ -33,8 +33,8 @@ export class SettingsComponent implements OnInit {
         catogs.push(true);
       }
     }
-    console.log('Dislikes', catogs);
-    console.log('UserSettings.NON_INTERESTS', UserSettings.NON_INTERESTS);
+    Helper.log('Dislikes', catogs);
+    Helper.log('UserSettings.NON_INTERESTS', UserSettings.NON_INTERESTS);
     this.categoryModel = catogs;
   }
 
@@ -51,7 +51,7 @@ export class SettingsComponent implements OnInit {
     } else {
       this.myDislikes.push(item);
     }
-    console.log(this.myDislikes);
+    Helper.log(this.myDislikes);
    }
   public saveInterests(): void {
     UserSettings.ID = Helper.user.id;

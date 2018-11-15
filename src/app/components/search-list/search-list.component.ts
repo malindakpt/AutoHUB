@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import {Pair} from '../add-vehicle/add-vehicle.component';
+import {Helper} from '../../util/helper';
 
 @Component({
   selector: 'app-search-list',
@@ -57,7 +58,7 @@ export class SearchListComponent implements OnInit {
 
 
   public onSearchNext(): void {
-    console.log('loading next');
+    Helper.log('loading next');
     this.vehicleList = this.dataService.getSearchVehicleList();
     this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
   }

@@ -5,13 +5,14 @@ import {Entity} from '../../enum/entities.enum';
 import {Event} from '../../enum/event.enum';
 import {Router} from '@angular/router';
 import {Vehicle} from '../../entities/vehicle';
+import {BaseDirective} from '../../directives/base';
 
 @Component({
   selector: 'app-search-vehicle',
   templateUrl: './search-vehicle.component.html',
   styleUrls: ['./search-vehicle.component.scss']
 })
-export class SearchVehicleComponent implements OnInit {
+export class SearchVehicleComponent extends BaseDirective implements OnInit {
   public noResult = false;
   public hideSearch = false;
   public topic;
@@ -37,6 +38,7 @@ export class SearchVehicleComponent implements OnInit {
     private router: Router,
     private renderer: Renderer,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+    super();
     this.searchType = this.searchTypes[0].key;
     if (data) {
       this.vehicles = data.vehicles;
@@ -72,7 +74,7 @@ export class SearchVehicleComponent implements OnInit {
   }
 
   public onVehicleSelect() {
-    this.router.navigate(['/secure/profile'], {queryParams: this.vehicles[0]});
+    this.router.navigate(['/secure/profile/' + this.helper.getTime()], {queryParams: this.vehicles[0]});
     this.dialogRef.close();
   }
 

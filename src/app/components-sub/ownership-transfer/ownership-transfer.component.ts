@@ -24,7 +24,7 @@ export class OwnershipTransferComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
+    Helper.log(this.data);
     this.userID = this.data.user.split('##')[0];
     this.userName = this.data.user.split('##')[1];
   }

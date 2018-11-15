@@ -20,16 +20,11 @@
 <br>
 </div>
 
-<!--<div *ngFor="let v of vehicles" (click)="onVehicleSelect(v)" class="search-result">-->
-<div *ngIf="vehicles && vehicles.length > 0" (click)="onVehicleSelect()">
+<div *ngIf="vehicles && vehicles.length > 0" (click)="onVehicleSelect()" class="pointer">
   <div>
-    Pre-owned by {{ vehicles.length }} users.
-  </div>
-  <div class="flex-j-end">
-    click to open
+    Pre-owned by {{ vehicles.length }} users. click for more details.
   </div>
 </div>
-<!--</div>-->
 
 <div *ngIf="noResult" class="error">
   No vehicles exist for your search
@@ -37,4 +32,3 @@
 </div>
 <br>
 <button *ngIf="!hideSearch" mat-button (click)="search()">Search</button>
-<!--<button *ngIf="hideSearch" mat-button (click)="onContinue()">Add as new vehicle</button>-->

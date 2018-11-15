@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import { AuthenticationService } from './auth.service';
+import {Helper} from '../util/helper';
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class AuthGuardService implements CanActivate  {
 
   public canActivate(): Promise<any> {
     return new Promise((resolve) => {
-      console.log(this.router.url);
+      Helper.log(this.router.url);
       this.authService.authStatus.subscribe((sts: any) => {
           if (sts) {
             resolve(true);

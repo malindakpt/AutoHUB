@@ -36,10 +36,10 @@ export class AuthenticationService {
           if (sts) {
             Helper.user = sts;
             this.router.navigate(['secure']);
-            console.log('Already logged in : ', sts);
+            Helper.log('Already logged in : ', sts);
           } else {
             this.router.navigate(['login']);
-            console.log('Not logged in : ', sts);
+            Helper.log('Not logged in : ', sts);
           }
         });
       } else {
@@ -55,7 +55,7 @@ export class AuthenticationService {
         this.devAuthSubject = new BehaviorSubject(user);
         this.authStatus = this.devAuthSubject;
         Helper.user = user;
-        console.log('Running in DEV mode');
+        Helper.log('Running in DEV mode');
         this.router.navigate(['secure']);
       }
     }
@@ -65,7 +65,7 @@ export class AuthenticationService {
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (sts: any) => {
                 Helper.user = sts;
-                console.log('FB sign in data : ', sts);
+                Helper.log('FB sign in data : ', sts);
                 this.imageURL = sts.image;
                 this.router.navigate(['secure']);
             }
