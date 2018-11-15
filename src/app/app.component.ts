@@ -3,6 +3,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {DataService} from './services/data.service';
 import {Entity} from './enum/entities.enum';
 import {Helper} from './util/helper';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',

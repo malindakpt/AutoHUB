@@ -21,6 +21,9 @@
       google_ad_client: "ca-pub-6698607648075269",
       enable_page_level_ads: true
     });
+    if (!window.location.href.startsWith('https://localhost')) {
+      console.log = function() {}
+    }
   </script>
 </head>
 <body>

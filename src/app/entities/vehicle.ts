@@ -3,6 +3,7 @@ import {Entity} from './entity';
 export class Vehicle extends Entity {
     public photoID: string;
     public model: string;
+    public modelStartChar: string;
     public brand: number;
     public ownerName: string;
     public ownerID: string;

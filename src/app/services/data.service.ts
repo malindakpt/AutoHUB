@@ -227,9 +227,10 @@ export class DataService {
       let query =  this.fs.firestore.collection(Entity.vehicles).where
       ('status', '==', VehicleStatus.SELL);
 
-    if (model) {
+    if (model && model.length > 0) {
       query = query.orderBy('model', 'desc');
       query = query.where('model', '>=', model.toUpperCase());
+      query = query.where('modelStartChar', '==', model.toUpperCase().substr(0, 1));
     }
     if (year) {
       query = query.where('manufactYear', '==', year);

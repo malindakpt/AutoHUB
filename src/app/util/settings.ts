@@ -94,7 +94,6 @@ export class Settings {
     { key: 5, val: 'TAILAND'},
   ];
   public static FUEL_TYPES = ['Petrol', 'Hybrid', 'Disel', 'Electric'];
-  public static VALIDATE_ADD_VEHICLE = true;
   public static MENU_OPTIONS = [
     { disp: 'Buy Vehicle', icon: 'shopping-cart', route: '/secure/search'},
     { disp: 'News', icon: 'asterisk', route: ['/secure/news/1', {isNewsView: true}]},

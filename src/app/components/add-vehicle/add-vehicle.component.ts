@@ -79,7 +79,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
 
   public complete(): void {
     Helper.log(this.vehicle);
-    if (this.validate() || !Settings.VALIDATE_ADD_VEHICLE) {
+    if (this.validate()) {
       this.unique = Helper.getUniqueID();
       if (this.isEdit) {
         if (this.isPhotosChanged) {
@@ -95,8 +95,9 @@ export class AddVehicleComponent implements OnInit, OnChanges {
 
   private addNewVehicle(unique: string): void {
     this.vehicle.photoID = unique;
-    this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '');
-    this.vehicle.regNo = this.vehicle.regNo.toUpperCase();
+    this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    this.vehicle.model = this.vehicle.model.toUpperCase();
+    this.vehicle.modelStartChar = this.vehicle.model.substring(0, 1);
     this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID).then((status) => {
       this.vehicle.ownerName = Helper.user.name;
       this.vehicle.ownerID = Helper.user.id;
