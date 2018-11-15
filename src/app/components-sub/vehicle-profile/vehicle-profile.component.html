@@ -19,11 +19,12 @@
     <div *ngIf="isNew" class="arrow">
       <img src="../../../assets/images/arrow.gif">
     </div>
-    <div *ngIf="isNew"  class="guide">
+    <div *ngIf="isNew" class="guide">
       Add your vehicles. then add service history
     </div>
     <div *ngIf="isSearchResult" class="flex-j-start info">
-      <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Owned by'" [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
+      <app-owner-desc [name]="selectedVehicle.ownerName" [description]="'Owned by'"
+                      [image]="userState.getFBImage(selectedVehicle.ownerID)"></app-owner-desc>
     </div>
   </div>
 
@@ -63,10 +64,17 @@
   </div>
 
   <div class="flex-j-end action-buttons">
-    <button class="req-owner red-text" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status == vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="avoidSell()">Don't Sell</button>
-    <button class="req-owner red-text" *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status != vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id" mat-button (click)="readyForSell()">Sell</button>
+    <button class="req-owner red-text"
+            *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status == vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id"
+            mat-button (click)="avoidSell()">Don't Sell
+    </button>
+    <button class="req-owner red-text"
+            *ngIf="!isSearchResult && selectedVehicle && selectedVehicle.status != vehicleStatus.SELL && selectedVehicle.ownerID == userState.user.id"
+            mat-button (click)="readyForSell()">Sell
+    </button>
     <fa *ngIf="!isSearchResult && selectedVehicle" name="edit" size="sm" class="pointer" (click)="swapEditBtn()"></fa>
-    <fa *ngIf="!isSearchResult && selectedVehicle" name="trash" size="sm" class="pointer" (click)="deleteVehicle()"></fa>
+    <fa *ngIf="!isSearchResult && selectedVehicle" name="trash" size="sm" class="pointer"
+        (click)="deleteVehicle()"></fa>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
     <app-add-vehicle [vehicle]="selectedVehicle"></app-add-vehicle>
@@ -93,7 +101,7 @@
     </div>
     <div>
       <div class="flex-j-start info">
-        <div>BRAND: </div>
+        <div>BRAND:</div>
         <div>{{ helper.getBrandStringFromID(selectedVehicle.brand) }}</div>
       </div>
       <div class="flex-j-start info">
@@ -112,13 +120,24 @@
   </div>
 
   <div *ngIf="selectedVehicle">
-  <div class="flex-j-end show-more">
-    <div *ngIf="!showDescription" mat-button class="pointer" (click)="showDescription = !showDescription">show more..</div>
-  </div>
-  <div *ngIf="showDescription">{{selectedVehicle.description}}</div>
-  <div class="flex-j-end show-more">
-    <div *ngIf="showDescription" mat-button class="pointer" (click)="showDescription = !showDescription">hide more..</div>
-  </div>
+    <div class="flex-j-end show-more">
+      <div *ngIf="!showDescription" mat-button class="pointer" (click)="showDescription = !showDescription">
+        show more..
+      </div>
+    </div>
+    <div *ngIf="showDescription" class="more-info">
+      <div>
+        {{selectedVehicle.description}}
+      </div>
+      <div *ngIf="isSearchResult && !showNews">
+        <a [routerLink]="['/secure/profile/1']" [queryParams]="selectedVehicle">See maintenance history</a>
+      </div>
+    </div>
+    <div class="flex-j-end show-more">
+      <div *ngIf="showDescription" mat-button class="pointer" (click)="showDescription = !showDescription">
+        hide more..
+      </div>
+    </div>
   </div>
 
   <div *ngIf="!showEdit && selectedVehicle && showNews">

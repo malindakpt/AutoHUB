@@ -16,7 +16,7 @@ export class AuthGuardService implements CanActivate  {
 
   public canActivate(): Promise<any> {
     return new Promise((resolve) => {
-      Helper.log(this.router.url);
+      console.log(this.router.url);
       this.authService.authStatus.subscribe((sts: any) => {
           if (sts) {
             resolve(true);

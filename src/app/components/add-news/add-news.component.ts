@@ -80,7 +80,7 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
        this.bindNewsParams();
       }
       this.dataService.addNews(this.news.ID, this.news, this.photos, this.isEdit);
-      Helper.log('News added: ' + this.news.ID);
+      console.log('News added: ' + this.news.ID);
       this.dataService.resetVehicleNews();
     }
   }
@@ -116,7 +116,7 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
         return false;
       }
     }
-    Helper.log(this.date.getTime(), this.helper.getTime());
+    console.log(this.date.getTime(), this.helper.getTime());
     if (!this.date || this.date.getTime() > this.helper.getTime()) {
       this.showError('Invalid date');
       return false;

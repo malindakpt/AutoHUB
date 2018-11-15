@@ -58,16 +58,4 @@ export class Helper {
     }
     return map;
   }
-
-  public static log(obj1: any, obj2?: any): void {
-    if (!environment.production) {
-      console.log(obj1, obj2);
-    }
-  }
-
-  public static error(obj1: any, obj2?: any): void {
-    if (!environment.production) {
-      console.error(obj1, obj2);
-    }
-  }
 }

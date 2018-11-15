@@ -41,7 +41,7 @@ export class HeaderToolbarComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      Helper.log('The dialog was closed');
+      console.log('The dialog was closed');
     });
   }
 
@@ -49,7 +49,7 @@ export class HeaderToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(SearchVehicleComponent, {
     });
     dialogRef.afterClosed().subscribe(result => {
-      Helper.log('The dialog was closed');
+      console.log('The dialog was closed');
     });
   }
 

@@ -115,10 +115,10 @@ export class DataService {
   public saveEntity(entity: Entity, object: any, skipRouting?: boolean): void {
     const that = this;
     const ref = this.fs.firestore.collection(entity);
-    Helper.log('Saving entity: ' + entity);
+    console.log('Saving entity: ' + entity);
     this.busyOn();
     ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
-      Helper.log('Document successfully written!', entity);
+      console.log('Document successfully written!', entity);
       if (!skipRouting) {
         that.router.navigate(['/secure/news/' + Helper.getTime(), {isNewsView: true}]);
       }
@@ -127,7 +127,7 @@ export class DataService {
         duration: 3000
       });
     }).catch(function (error) {
-      Helper.error('Error writing document: ', error);
+      console.error('Error writing document: ', error);
       that.showNetworkError();
       that.busyOff();
     });
@@ -135,39 +135,39 @@ export class DataService {
 
   public getEntityDoc (entity: Entity, callBack: any) {
     const that = this;
-    Helper.log('send request for get Entiyt');
+    console.log('send request for get Entiyt');
     this.busyOn();
     this.fs.firestore.collection(entity).doc(Helper.user.id)
       .get()
       .then(function (doc) {
-        Helper.log('entiyt info fetched');
+        console.log('entiyt info fetched');
         callBack(doc.data());
         that.busyOff();
       })
       .catch(function (error) {
         that.showNetworkError();
-        Helper.log('Error getting documents: ', error);
+        console.log('Error getting documents: ', error);
         that.busyOff();
       });
   }
 
   public getEntity (entity: Entity, key: string, val: string, callBack: any) {
     const that = this;
-    Helper.log('send request for get Entiyt');
+    console.log('send request for get Entiyt');
     this.busyOn();
     this.fs.firestore.collection(entity).where(key, '==', val)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           callBack(doc.data());
-          Helper.log('getEntity info fetched');
+          console.log('getEntity info fetched');
         });
         callBack(null);
         that.busyOff();
       })
       .catch(function (error) {
         that.showNetworkError();
-        Helper.log('Error getting documents: ', error);
+        console.log('Error getting documents: ', error);
         callBack(null);
         that.busyOff();
       });
@@ -175,20 +175,20 @@ export class DataService {
 
   public requestVehicle (vID: string) {
     const that = this;
-    Helper.log('send request for get Vehicle');
+    console.log('send request for get Vehicle');
     this.busyOn();
     this.fs.firestore.collection(Entity.vehicles).where('ID', '==', vID)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           Object.assign(that.vehicle, doc.data());
-          Helper.log('vehicle info fetched');
+          console.log('vehicle info fetched');
         });
         that.busyOff();
       })
       .catch(function (error) {
         that.showNetworkError();
-        Helper.log('Error getting documents: ', error);
+        console.log('Error getting documents: ', error);
         that.busyOff();
       });
   }
@@ -196,7 +196,7 @@ export class DataService {
   public requestMyVehicles(userID: string): Promise<any> {
     const that = this;
     const myVehicles = [];
-    Helper.log('send request for get myVehices');
+    console.log('send request for get myVehices');
     return new Promise((resolves, reject) => {
       this.fs.firestore.collection(Entity.vehicles).where('ownerID', '==', userID).where('isActive', '==', true)
         .get()
@@ -210,7 +210,7 @@ export class DataService {
         })
         .catch(function (error) {
           that.showNetworkError();
-          Helper.log('Error getting documents: ', error);
+          console.log('Error getting documents: ', error);
           resolves(null);
         });
     });
@@ -223,7 +223,7 @@ export class DataService {
     this.isVehicleSearchInprogress = true;
     const that = this;
     const searchedVehicles = [];
-    Helper.log('send request for search');
+    console.log('send request for search');
       let query =  this.fs.firestore.collection(Entity.vehicles).where
       ('status', '==', VehicleStatus.SELL);
 
@@ -257,7 +257,7 @@ export class DataService {
         })
         .catch(function (error) {
           that.showNetworkError();
-          Helper.log('Error getting documents: ', error);
+          console.log('Error getting documents: ', error);
         });
   }
 
@@ -287,7 +287,7 @@ export class DataService {
       .catch(function (error) {
         that.showNetworkError();
         that.isVehicleNewsFetchInprogress = false;
-        Helper.log('Error getting news documents: ', error);
+        console.log('Error getting news documents: ', error);
       });
   }
 
@@ -312,7 +312,7 @@ export class DataService {
       .catch(function (error) {
         that.showNetworkError();
         that.isNewsFetchInprogress = false;
-        Helper.log('Error getting news documents: ', error);
+        console.log('Error getting news documents: ', error);
       });
   }
 

@@ -61,7 +61,7 @@ export class NewsListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    Helper.log(this.isNewsView, this.isSearchResult);
+    console.log(this.isNewsView, this.isSearchResult);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

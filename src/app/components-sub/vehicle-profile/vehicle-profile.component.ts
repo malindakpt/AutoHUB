@@ -51,7 +51,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: any) => {
-      Helper.log('p-', params);
+      console.log('p-', params);
       if (params.isProfile && JSON.parse(params.isProfile)) {
         this.isSearchResult = false;
       }
@@ -89,7 +89,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   public readyForSell(): void {
     this.dialogService.showDialog(DialogType.TEXT_INPUT, 'Phone number required !',
       'Add details about this vehicle and your contact details').then(data => {
-        Helper.log('try to sell ');
+        console.log('try to sell ');
         if (data) {
           this.selectedVehicle.description = data;
           this.selectedVehicle.time = this.userState.getTime();
@@ -120,7 +120,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
         if (data) {
           this.selectedVehicle.isActive = false;
           this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, false);
-          Helper.log('deleted');
+          console.log('deleted');
         }
       }
     );
@@ -151,7 +151,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      Helper.log('The dialog was closed');
+      console.log('The dialog was closed');
     });
   }
 

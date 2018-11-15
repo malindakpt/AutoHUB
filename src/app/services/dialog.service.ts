@@ -17,7 +17,7 @@ export class DialogService {
     const promise = new Promise<object>(
       (resolve, reject) => {
         dialogRef.afterClosed().subscribe(result => {
-          Helper.log('The dialog was closed');
+          console.log('The dialog was closed');
           resolve(result);
         });
       }

@@ -78,7 +78,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   }
 
   public complete(): void {
-    Helper.log(this.vehicle);
+    console.log(this.vehicle);
     if (this.validate()) {
       this.unique = Helper.getUniqueID();
       if (this.isEdit) {
@@ -98,6 +98,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
     this.vehicle.model = this.vehicle.model.toUpperCase();
     this.vehicle.modelStartChar = this.vehicle.model.substring(0, 1);
+    this.vehicle.manufactYear = Number(this.vehicle.manufactYear);
     this.dataService.uploadPhotos(this.vehicle.photos, this.photos, this.vehicle.photoID).then((status) => {
       this.vehicle.ownerName = Helper.user.name;
       this.vehicle.ownerID = Helper.user.id;
@@ -160,7 +161,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === Event.CONTINUE) {
-        Helper.log('Adding vehicle..');
+        console.log('Adding vehicle..');
         this.addNewVehicle(this.unique);
       }
     });

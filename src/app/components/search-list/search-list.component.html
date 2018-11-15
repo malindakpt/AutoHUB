@@ -3,7 +3,7 @@
     <div class="flex-j-sb">
       <mat-form-field class="m-5">
         <mat-select placeholder="Vehicle Category" [(ngModel)]='searchCategory' name='category'>
-          <mat-option *ngFor="let item of categories" [value]="item.val">
+          <mat-option *ngFor="let item of categories" [value]="item.key">
             <div class="img-option">
               {{item.val}}
               <img [src]="'../../../assets/images/' + item + '.png'">
@@ -29,6 +29,8 @@
   </form>
 </div>
 
-<div *ngFor="let v of vehicleList">
+<!--<a *ngFor="let v of vehicleList" [routerLink]="['/secure/profile/1']" [queryParams]="v" target="_blank">-->
+
+<mat-card *ngFor="let v of vehicleList">
   <app-vehicle-profile [selectedVehicle]="v" [isSearchResult]="true" [showNews]="false"></app-vehicle-profile>
-</div>
+</mat-card>

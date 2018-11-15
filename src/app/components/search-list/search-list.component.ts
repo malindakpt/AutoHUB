@@ -6,6 +6,9 @@ import {map, startWith} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import {Pair} from '../add-vehicle/add-vehicle.component';
 import {Helper} from '../../util/helper';
+import {MatDialogRef} from '@angular/material';
+import {Router} from '@angular/router';
+import {Vehicle} from '../../entities/vehicle';
 
 @Component({
   selector: 'app-search-list',
@@ -27,6 +30,7 @@ export class SearchListComponent implements OnInit {
   public vehicleList;
 
   constructor(
+    private router: Router,
     private dataService: DataService
   ) { }
 
@@ -56,9 +60,12 @@ export class SearchListComponent implements OnInit {
     this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
   }
 
+  public onVehicleSelect(vehicle: Vehicle) {
+    this.router.navigate(['/secure/profile/' + Helper.getTime()], {queryParams: vehicle});
+  }
 
   public onSearchNext(): void {
-    Helper.log('loading next');
+    console.log('loading next');
     this.vehicleList = this.dataService.getSearchVehicleList();
     this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
   }

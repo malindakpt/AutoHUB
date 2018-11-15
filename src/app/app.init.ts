@@ -11,11 +11,11 @@ export class AppInit {
               /* Helper.appInitStarted = true;
                AppInit.intv = setInterval(() => {
                  if (!Helper.user || (Helper.user && Helper.user.id.length > 2)) {
-                    Helper.log('App started');
+                    console.log('App started');
                     clearInterval(AppInit.intv);
                     resolve();
                  } else {
-                   Helper.log(Helper.user);
+                   console.log(Helper.user);
                  }
               }, 1000);*/
               resolve();

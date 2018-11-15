@@ -12,7 +12,7 @@ import {environment} from '../environments/environment';
 })
 export class AppComponent {
   constructor(storage: AngularFireStorage, dataService: DataService) {
-    Helper.log(storage.ref.name);
+    console.log(storage.ref.name);
   }
   title = 'Test 1';
 }
