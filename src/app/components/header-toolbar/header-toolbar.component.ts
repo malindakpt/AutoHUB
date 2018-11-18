@@ -4,7 +4,6 @@ import { BottomMenuComponent } from 'src/app/components-sub/bottom-menu/bottom-m
 import { AuthenticationService } from 'src/app/services/auth.service';
 import {Helper} from '../../util/helper';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {SettingsComponent} from '../../components-sub/settings/settings.component';
 import {Entity} from '../../enum/entities.enum';
 import {DataService} from '../../services/data.service';
 import {Settings, UserSettings} from '../../util/settings';
@@ -25,24 +24,16 @@ export class HeaderToolbarComponent implements OnInit {
     private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
-    this.dataService.getEntityDoc(Entity.settings, (entry: any) => {
+    this.dataService.getEntityDoc(Entity.users, (entry: any) => {
       if (entry) {
-        UserSettings.NON_INTERESTS = entry.NON_INTERESTS;
+        Helper.user.countryId = entry.countryId;
+        console.log('country id: ', entry);
       }
     });
   }
 
   public logout(): void {
     this.authenticationService.logout();
-  }
-  public showSettings(): void {
-    const dialogRef = this.dialog.open(SettingsComponent, {
-
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
 
   public showSearch(): void {

@@ -57,7 +57,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
       }
     });
     this.activatedRoute.queryParams.subscribe((profile: Vehicle) => {
-      if (profile && profile.ID) {
+      if (profile && profile.closed) {
         this.isSearchResult = true;
         this.selectedVehicle = profile;
         this.refreshVehicle();

@@ -60,6 +60,9 @@ export class NewsListComponent implements OnInit, OnChanges {
     });
   }
 
+  onEditComplete(news1: News, news2: News): void {
+    news1 = news2;
+  }
   ngOnInit() {
     console.log(this.isNewsView, this.isSearchResult);
   }
@@ -106,7 +109,7 @@ export class NewsListComponent implements OnInit, OnChanges {
       this.addNewsType = NewsWidgetType.NEWS;
       this.newsArr = this.dataService.getNewsList();
     } else {
-      if (this.vehicle && this.vehicle.ID) {
+      if (this.vehicle && this.vehicle.closed) {
         this.addNewsType = NewsWidgetType.SERVICE;
         this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.chassisNo, this.isShowOnlyMyNews);
       } else {

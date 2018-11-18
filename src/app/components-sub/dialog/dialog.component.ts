@@ -13,6 +13,7 @@ export class DialogComponent implements OnInit {
   public header;
   public message;
   public type;
+  public selectedCountryCode;
 
   public textInput;
 
@@ -39,6 +40,13 @@ export class DialogComponent implements OnInit {
           this.dialogRef.close(null);
         }
         break;
+      case this.dialogType.COUNTRY_SELECT:
+        this.dialogRef.close(this.selectedCountryCode);
+        break;
     }
+  }
+
+  public close(): void {
+    this.dialogRef.close(null);
   }
 }

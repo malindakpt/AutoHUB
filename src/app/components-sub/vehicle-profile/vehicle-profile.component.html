@@ -77,7 +77,7 @@
         (click)="deleteVehicle()"></fa>
   </div>
   <div *ngIf="showEdit && selectedVehicle" class="img-container">
-    <app-add-vehicle [vehicle]="selectedVehicle"></app-add-vehicle>
+    <app-add-vehicle [vehicle]="selectedVehicle" (closed)="showEdit = false"></app-add-vehicle>
   </div>
 
   <div *ngIf="selectedVehicle && !showEdit" class="vehicle-summary flex-j-sa">

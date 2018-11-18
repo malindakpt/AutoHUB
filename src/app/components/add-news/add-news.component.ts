@@ -23,7 +23,8 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
   public date;
   @Input() resetCount: string;
   @Input() widgetType: NewsWidgetType;
-  @Output() onClose = new EventEmitter();
+  @Output() closed = new EventEmitter();
+  @Output() saveComplete = new EventEmitter();
   public selectedVehicle: Vehicle;
   public isEdit = false;
 
@@ -73,14 +74,17 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
     if (this.validate()) {
       this.news.time = this.date.getTime();
       if (!this.isEdit) {
-        this.news.ID = Helper.getUniqueID();
+        this.news.closed = Helper.getUniqueID();
       }
       this.news.showEdit = false;
       if (this.news.type !== NewsType.NEWS ) {
        this.bindNewsParams();
       }
-      this.dataService.addNews(this.news.ID, this.news, this.photos, this.isEdit);
-      console.log('News added: ' + this.news.ID);
+      this.dataService.addNews(this.news.closed, this.news, this.photos, this.isEdit).then((news: News) => {
+        this.saveComplete.emit(news);
+      });
+      console.log('News added: ' + this.news.closed);
+      this.close();
       this.dataService.resetVehicleNews();
     }
   }
@@ -92,7 +96,7 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
 
   public close(): void {
     if (this.isEdit) {
-      this.onClose.emit();
+      this.closed.emit();
     } else {
       this.news = new News({});
     }

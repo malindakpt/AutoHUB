@@ -7,8 +7,8 @@ import { AddNewsComponent } from './components/add-news/add-news.component';
 import { LoginComponent } from './components/login/login.component';
 import {AuthGuardService} from './services/auth.guard.service';
 import {SecureComponent} from './components/secure/secure.component';
-import {SearchVehicleComponent} from './components-sub/search-vehicle/search-vehicle.component';
 import {SearchListComponent} from './components/search-list/search-list.component';
+import {SettingsComponent} from './components/settings/settings.component';
 
 export const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,6 +22,7 @@ export const appRoutes: Routes = [
         { path: 'profile/:ref', component: VehicleProfileComponent },
         { path: 'add', component: AddVehicleComponent },
         { path: 'search', component: SearchListComponent },
+        { path: 'settings', component: SettingsComponent },
       ]
     },
   { path: '**', redirectTo: '/error', pathMatch: 'full' },

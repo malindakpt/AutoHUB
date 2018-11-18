@@ -1,13 +1,11 @@
-
-import {
-    AuthService,
-    FacebookLoginProvider
-} from 'angular-6-social-login';
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable } from 'rxjs';
-import { Helper} from '../util/helper';
-import { Router} from '@angular/router';
-import { environment } from '../../environments/environment';
+import {AuthService, FacebookLoginProvider} from 'angular-6-social-login';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Helper} from '../util/helper';
+import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
+import {Entity} from '../enum/entities.enum';
+import {User} from '../entities/user';
 
 export const users = [{
   email: 'malindakpt@yahoo.com',
@@ -27,7 +25,9 @@ export class AuthenticationService {
     public authStatus: Observable<any>;
     public imageURL: string;
     public devAuthSubject;
-    constructor(private socialAuthService: AuthService, private router: Router) {
+    constructor(
+      private socialAuthService: AuthService,
+      private router: Router) {
 
       if (environment.production) {
       // if (true) {
@@ -58,6 +58,11 @@ export class AuthenticationService {
         console.log('Running in DEV mode');
         this.router.navigate(['secure']);
       }
+    }
+    private setAutoHUBUser(): void {
+      // this.dataService.getEntity(Entity.users, 'id', Helper.user.id, (user: User) => {
+      //   Helper.user = user;
+      // });
     }
 
     public login(): void {

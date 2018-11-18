@@ -5,4 +5,9 @@
   <textarea matInput placeholder="Add your text here..." [(ngModel)]="textInput" name="model"></textarea>
 </mat-form-field>
 
+<mat-form-field *ngIf="type == dialogType.COUNTRY_SELECT">
+  <app-country-selector (selectCountry)="selectedCountryCode = $event"></app-country-selector>
+</mat-form-field>
+
 <button mat-button (click)="confirm()">OK</button>
+<button mat-button (click)="close()">Cancel</button>

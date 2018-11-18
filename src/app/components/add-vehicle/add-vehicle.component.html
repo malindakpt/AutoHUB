@@ -38,7 +38,7 @@
       </mat-select>
     </mat-form-field>
 
-    <app-country-selector (selectCountry)="onSelectCountry($event)"></app-country-selector>
+    <app-country-selector (selectCountry)="onSelectCountry($event)" [countryCode]="vehicle.manufactCountry"></app-country-selector>
 
     <mat-form-field>
       <input matInput placeholder="Engine Model/CC" [(ngModel)]="vehicle.engine" name="engine">
@@ -57,6 +57,7 @@
 
 
     <div class="btn-holder">
+      <button mat-raised-button color="warning" (click)="close()">Close</button>
       <button mat-raised-button color="primary" (click)="complete()">{{ isEdit? 'Save' : 'Add'}}</button>
     </div>
 

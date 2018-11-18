@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -10,9 +10,12 @@ import {Settings} from '../../util/settings';
   templateUrl: './country-selector.component.html',
   styleUrls: ['./country-selector.component.scss']
 })
-export class CountrySelectorComponent implements OnInit {
+export class CountrySelectorComponent implements OnInit, OnChanges {
 
   @Output() selectCountry = new EventEmitter();
+  @Input() placeholder = 'Manufactured Country';
+  @Input() countryCode: number;
+  selectedCountryText: string;
   countryControl = new FormControl();
   filteredCountries: Observable<String[]>;
   countries: Array<string>;
@@ -30,6 +33,18 @@ export class CountrySelectorComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value),
         map(name => name ? this._filter(name, this.countries) : this.countries.slice())
       );
+      this.initialize();
+  }
+
+  private initialize(): void {
+    if (this.countryCode) {
+      const arr = Settings.COUNTRIES.filter(ele => ele.key === this.countryCode);
+      this.selectedCountryText = arr.length > 0 ? arr[0].val : '';
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.initialize();
   }
 
   displayFn(str?: string): string | undefined {
@@ -41,7 +56,7 @@ export class CountrySelectorComponent implements OnInit {
     return options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  public onSelectBrand(event: any): void {
+  public onCountryBrand(event: any): void {
     this.selectCountry.emit(this.countryIds[event.option.value]);
   }
 

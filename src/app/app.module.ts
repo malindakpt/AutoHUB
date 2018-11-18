@@ -50,7 +50,7 @@ import { DataService } from './services/data.service';
 import { LoginComponent } from './components/login/login.component';
 import {AuthGuardService} from './services/auth.guard.service';
 import { SecureComponent } from './components/secure/secure.component';
-import { SettingsComponent } from './components-sub/settings/settings.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { SearchVehicleComponent } from './components-sub/search-vehicle/search-vehicle.component';
 import { OwnershipTransferComponent } from './components-sub/ownership-transfer/ownership-transfer.component';
 import {SideMenuComponent} from './components-sub/side-menu/side-menu.component';

@@ -55,7 +55,6 @@ export class DataService {
 
   public resetVehicleNews(): void {
     this.lastVisibleVehicleNews = {};
-    // Object.assign(this.vehicleNewsList, []);
     this.vehicleNewsList = new Array<News>();
   }
 
@@ -96,19 +95,22 @@ export class DataService {
     return this.vehicleSearchList;
   }
 
-  public getVehicleNewsList(ID: string, isOnlyMyNews: boolean): Array<News> {
+  public getVehicleNewsList(closed: string, isOnlyMyNews: boolean): Array<News> {
     if (!this.vehicleNewsList) {
       this.vehicleNewsList = new Array<News>();
     }
-    this.requestNewsListForVehicle(ID, isOnlyMyNews);
+    this.requestNewsListForVehicle(closed, isOnlyMyNews);
     return this.vehicleNewsList;
   }
 
-  public addNews(id: string, news: News, images: Array<string>, skipRoute?: boolean): void {
-    this.uploadPhotos(news.photos, images, id).then((status) => {
-      news.ownerName = Helper.user.name;
-      news.ownerID = Helper.user.id;
-      this.saveEntity(Entity.news, news, skipRoute);
+  public addNews(id: string, news: News, images: Array<string>, skipRoute?: boolean): Promise<any> {
+    return new Promise((resolves, reject) => {
+      this.uploadPhotos(news.photos, images, id).then((status) => {
+        news.ownerName = Helper.user.name;
+        news.ownerID = Helper.user.id;
+        this.saveEntity(Entity.news, news, skipRoute);
+        resolves(news);
+      });
     });
   }
 
@@ -117,7 +119,7 @@ export class DataService {
     const ref = this.fs.firestore.collection(entity);
     console.log('Saving entity: ' + entity);
     this.busyOn();
-    ref.doc(object.ID).set(Object.assign({}, object)).then(function () {
+    ref.doc(object.id).set(Object.assign({}, object)).then(function () {
       console.log('Document successfully written!', entity);
       if (!skipRouting) {
         that.router.navigate(['/secure/news/' + Helper.getTime(), {isNewsView: true}]);
@@ -177,7 +179,7 @@ export class DataService {
     const that = this;
     console.log('send request for get Vehicle');
     this.busyOn();
-    this.fs.firestore.collection(Entity.vehicles).where('ID', '==', vID)
+    this.fs.firestore.collection(Entity.vehicles).where('closed', '==', vID)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {

@@ -40,7 +40,7 @@ export class BottomMenuComponent extends BaseDirective implements OnInit {
       'Please let us know the issues you face').then((data: any) => {
       if (data) {
         const sug = new Suggestion({});
-        sug.ID = Helper.getUniqueID();
+        sug.closed = Helper.getUniqueID();
         sug.userID = Helper.user.id;
         sug.userName = Helper.user.name;
         sug.message = data;

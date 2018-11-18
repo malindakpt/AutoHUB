@@ -1,9 +1,0 @@
-<h3>
-  My interests
-</h3>
-<div *ngIf="categoryModel">
-  <mat-checkbox *ngFor="let item of categories; let i = index" [(ngModel)] = "categoryModel[i]" [name]="item" (change)="onCheckInterest($event, item )">{{item}}</mat-checkbox>
-</div>
-<div>
-  <button mat-button (click)="saveInterests()">Save</button>
-</div>

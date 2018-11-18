@@ -21,7 +21,8 @@ export class Vehicle extends Entity {
     public time: number;
     public isActive = true;
     public description;
-    // Entiy ID is the chassis number
+  public countryId: number;
+    // Entiy closed is the chassis number
     constructor(obj: any) {
       super(obj);
       if (obj.photos) {

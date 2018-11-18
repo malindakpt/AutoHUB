@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {Vehicle} from '../../entities/vehicle';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Entity} from '../../enum/entities.enum';
@@ -33,6 +33,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   public autoNews;
   private isPhotosChanged = false;
   private unique;
+  @Output() closed = new EventEmitter();
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;
@@ -49,8 +50,8 @@ export class AddVehicleComponent implements OnInit, OnChanges {
     if (this.vehicle) {
       this.isEdit = true;
       this.autoNews = new News({});
-      this.autoNews.ID = Helper.getUniqueID();
-      this.autoNews.vehicleID = this.vehicle.ID;
+      this.autoNews.closed = Helper.getUniqueID();
+      this.autoNews.vehicleID = this.vehicle.closed;
       this.autoNews.type = NewsType.NEWS;
       this.autoNews.time = Helper.getTime();
       this.autoNews.ownerID = Helper.user.id;
@@ -87,7 +88,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
         }
       } else {
         // TODO: Why this is done
-        this.vehicle.ID = this.unique;
+        this.vehicle.closed = this.unique;
       }
       this.addNewVehicle(this.unique);
     }
@@ -165,6 +166,10 @@ export class AddVehicleComponent implements OnInit, OnChanges {
         this.addNewVehicle(this.unique);
       }
     });
+  }
+
+  public close(): void {
+    this.closed.emit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

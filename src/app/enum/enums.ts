@@ -7,5 +7,5 @@ export enum NewsWidgetType {
 }
 
 export enum DialogType {
-  CONFIRMATION, TEXT_INPUT
+  CONFIRMATION, TEXT_INPUT, COUNTRY_SELECT
 }
