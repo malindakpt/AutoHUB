@@ -24,13 +24,13 @@
                type="number">
       </mat-form-field>
     </div>
-    <button mat-button (click)="onSearch()">Search</button>
+    <button mat-raised-button color="primary" (click)="onSearch()">Search</button>
 
   </form>
 </div>
-
-<!--<a *ngFor="let v of vehicleList" [routerLink]="['/secure/profile/1']" [queryParams]="v" target="_blank">-->
-
+<div *ngIf="dataService.isVehicleSearchInprogress" class="page-loading">
+  <img src="../../../assets/images/loading-page.gif">
+</div>
 <mat-card *ngFor="let v of vehicleList">
   <app-vehicle-profile [selectedVehicle]="v" [isSearchResult]="true" [showNews]="false"></app-vehicle-profile>
 </mat-card>

@@ -1,15 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import {AuthenticationService} from '../../services/auth.service';
 import {Settings} from '../../util/settings';
 import {environment} from '../../../environments/environment.prod';
-import {DialogService} from '../../services/dialog.service';
 import {DialogType} from '../../enum/enums';
-import {DataService} from '../../services/data.service';
 import {Entity} from '../../enum/entities.enum';
 import {BaseDirective} from '../../directives/base';
 import {Helper} from '../../util/helper';
-import {VehicleStatus} from '../../enum/event.enum';
 import {Suggestion} from '../../entities/suggestion';
 
 @Component({
@@ -23,11 +20,10 @@ export class BottomMenuComponent extends BaseDirective implements OnInit {
   ngOnInit(): void {
   }
   constructor(
-    private dialogService: DialogService,
-    private dataService: DataService,
     private bottomSheetRef: MatBottomSheetRef<BottomMenuComponent>,
-    private authenticationService: AuthenticationService) {
-    super();
+    private authenticationService: AuthenticationService,
+    private injector: Injector) {
+    super(injector);
   }
 
   openLink(event: MouseEvent): void {
@@ -40,7 +36,7 @@ export class BottomMenuComponent extends BaseDirective implements OnInit {
       'Please let us know the issues you face').then((data: any) => {
       if (data) {
         const sug = new Suggestion({});
-        sug.closed = Helper.getUniqueID();
+        sug.id = Helper.getUniqueID();
         sug.userID = Helper.user.id;
         sug.userName = Helper.user.name;
         sug.message = data;

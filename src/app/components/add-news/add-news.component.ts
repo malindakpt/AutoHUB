@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Injector, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {News} from '../../entities/news';
@@ -29,10 +29,8 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
   public isEdit = false;
 
   constructor(
-    public snackBar: MatSnackBar,
-    private dataService: DataService,
-  ) {
-    super();
+    private injector: Injector) {
+    super(injector);
   }
 
   ngOnInit() {
@@ -74,16 +72,16 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
     if (this.validate()) {
       this.news.time = this.date.getTime();
       if (!this.isEdit) {
-        this.news.closed = Helper.getUniqueID();
+        this.news.id = Helper.getUniqueID();
       }
       this.news.showEdit = false;
       if (this.news.type !== NewsType.NEWS ) {
        this.bindNewsParams();
       }
-      this.dataService.addNews(this.news.closed, this.news, this.photos, this.isEdit).then((news: News) => {
+      this.dataService.addNews(this.news.id, this.news, this.photos, this.isEdit).then((news: News) => {
         this.saveComplete.emit(news);
       });
-      console.log('News added: ' + this.news.closed);
+      console.log('News added: ' + this.news.id);
       this.close();
       this.dataService.resetVehicleNews();
     }
@@ -105,33 +103,27 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
   public validate(): boolean {
     if (this.news.type === NewsType.NEWS ) {
       if (!this.news.desc) {
-        this.showError('Add a description');
+        this.dialogService.showPopup('Add a description');
         return false;
       }
     } else {
       if (!this.selectedVehicle) {
-        this.showError('Select a vehicle');
+        this.dialogService.showPopup('Select a vehicle');
         return false;
       } else if (!this.news.odoMeter || isNaN(this.news.odoMeter)) {
-        this.showError('Invalid ODO meter value');
+        this.dialogService.showPopup('Invalid ODO meter value');
         return false;
       } else if (!this.news.cost || isNaN(this.news.cost)) {
-        this.showError('Invalid cost value');
+        this.dialogService.showPopup('Invalid cost value');
         return false;
       }
     }
-    console.log(this.date.getTime(), this.helper.getTime());
-    if (!this.date || this.date.getTime() > this.helper.getTime()) {
-      this.showError('Invalid date');
+    console.log(this.date.getTime(), Helper.getTime());
+    if (!this.date || this.date.getTime() > Helper.getTime()) {
+      this.dialogService.showPopup('Invalid date');
       return false;
     }
     return true;
-  }
-
-  private showError(msg: string): void {
-    this.snackBar.open(msg, 'Dismiss', {
-      duration: 5000
-    });
   }
 
   public onPhotoChange(idx: number, data: string): void {

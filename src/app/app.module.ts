@@ -59,7 +59,6 @@ import { SearchListComponent } from './components/search-list/search-list.compon
 import {ScrollLoaderDirective} from './directives/scroll-loader.directive';
 import { BrandSelectorComponent } from './components-sub/brand-selector/brand-selector.component';
 import { CountrySelectorComponent } from './components-sub/country-selector/country-selector.component';
-import { BaseComponent } from './components/base/base.component';
 import {BaseDirective} from './directives/base';
 import { DialogComponent } from './components-sub/dialog/dialog.component';
 import {DialogService} from './services/dialog.service';
@@ -147,7 +146,6 @@ export function getAuthServiceConfigs() {
     BaseDirective,
     BrandSelectorComponent,
     CountrySelectorComponent,
-    BaseComponent,
     DialogComponent,
   ],
 

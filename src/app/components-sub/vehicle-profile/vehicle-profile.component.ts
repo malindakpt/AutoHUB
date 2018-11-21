@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Injector, Input, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
 import {ActivatedRoute} from '@angular/router';
@@ -38,11 +38,10 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   public showDescription = false;
 
   constructor(
-    private dataService: DataService,
-    private dialogService: DialogService,
     public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute) {
-    super();
+    private activatedRoute: ActivatedRoute,
+    private injector: Injector) {
+    super(injector);
   }
 
   public onPhotoChange(idx: number, data: string): void {
@@ -57,7 +56,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
       }
     });
     this.activatedRoute.queryParams.subscribe((profile: Vehicle) => {
-      if (profile && profile.closed) {
+      if (profile && profile.id) {
         this.isSearchResult = true;
         this.selectedVehicle = profile;
         this.refreshVehicle();

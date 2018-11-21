@@ -31,4 +31,6 @@
   <br>
 </div>
 <br>
-<button *ngIf="!hideSearch" mat-button (click)="search()">Search</button>
+
+<button *ngIf="!hideSearch" mat-raised-button color="primary" (click)="search()">Search</button>
+<button *ngIf="!hideSearch" mat-raised-button color="accent" (click)="close()">Close</button>

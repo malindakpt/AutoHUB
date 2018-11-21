@@ -1,5 +1,5 @@
 export class Entity {
-  public closed: string;
+  public id: string;
 
   constructor(obj: Object) {
     Object.assign(this, obj);

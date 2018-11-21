@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, Injector, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Settings} from '../../util/settings';
 import {Observable} from 'rxjs';
@@ -9,13 +9,14 @@ import {Helper} from '../../util/helper';
 import {MatDialogRef} from '@angular/material';
 import {Router} from '@angular/router';
 import {Vehicle} from '../../entities/vehicle';
+import {BaseDirective} from '../../directives/base';
 
 @Component({
   selector: 'app-search-list',
   templateUrl: './search-list.component.html',
   styleUrls: ['./search-list.component.scss']
 })
-export class SearchListComponent implements OnInit {
+export class SearchListComponent extends BaseDirective implements OnInit {
 
   public categories = Settings.VEHICLE_CATEGORIES;
   public brands = Settings.VEHICLE_BRANDS;
@@ -31,8 +32,9 @@ export class SearchListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dataService: DataService
-  ) { }
+    private injector: Injector) {
+    super(injector);
+  }
 
   ngOnInit() {
     this.filteredBrands = this.brandControl.valueChanges

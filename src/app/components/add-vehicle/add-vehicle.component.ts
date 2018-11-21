@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Injector, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {Vehicle} from '../../entities/vehicle';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Entity} from '../../enum/entities.enum';
@@ -13,6 +13,8 @@ import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {BaseDirective} from '../../directives/base';
 export class Pair {
   key: number;
   val: string;
@@ -22,7 +24,7 @@ export class Pair {
   templateUrl: './add-vehicle.component.html',
   styleUrls: ['./add-vehicle.component.scss']
 })
-export class AddVehicleComponent implements OnInit, OnChanges {
+export class AddVehicleComponent extends BaseDirective implements OnInit, OnChanges {
   @Input() public vehicle: Vehicle;
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
@@ -40,18 +42,18 @@ export class AddVehicleComponent implements OnInit, OnChanges {
 
   constructor(
     private storage: AngularFireStorage,
-    public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private dataService: DataService) {
+    private router: Router,
+    private injector: Injector) {
+    super(injector);
   }
-
 
   ngOnInit() {
     if (this.vehicle) {
       this.isEdit = true;
       this.autoNews = new News({});
-      this.autoNews.closed = Helper.getUniqueID();
-      this.autoNews.vehicleID = this.vehicle.closed;
+      this.autoNews.id = Helper.getUniqueID();
+      this.autoNews.vehicleID = this.vehicle.id;
       this.autoNews.type = NewsType.NEWS;
       this.autoNews.time = Helper.getTime();
       this.autoNews.ownerID = Helper.user.id;
@@ -88,7 +90,7 @@ export class AddVehicleComponent implements OnInit, OnChanges {
         }
       } else {
         // TODO: Why this is done
-        this.vehicle.closed = this.unique;
+        this.vehicle.id = this.unique;
       }
       this.addNewVehicle(this.unique);
     }
@@ -109,47 +111,41 @@ export class AddVehicleComponent implements OnInit, OnChanges {
 
   private validate(): boolean {
     if (!this.vehicle.category) {
-      this.showError('Select the category of vehicle');
+      this.dialogService.showPopup('Select the category of vehicle');
       return false;
     } else if (isNaN(this.vehicle.brand)) {
-      this.showError('Invalid Brand');
+      this.dialogService.showPopup('Invalid Brand');
       return false;
     } else if (!this.vehicle.model) {
-      this.showError('Model cannot be empty');
+      this.dialogService.showPopup('Model cannot be empty');
       return false;
     } else if (!this.vehicle.chassisNo) {
-      this.showError('Chassis No cannot be empty');
+      this.dialogService.showPopup('Chassis No cannot be empty');
       return false;
     } else if (!this.vehicle.manufactYear || isNaN(this.vehicle.manufactYear)) {
-      this.showError('Invalid manufactured year');
+      this.dialogService.showPopup('Invalid manufactured year');
       return false;
     } else if (!this.vehicle.regNo) {
-      this.showError('Registration No. cannot be empty');
+      this.dialogService.showPopup('Registration No. cannot be empty');
       return false;
     } else if (!this.vehicle.fuelType) {
-      this.showError('Select Fuel Type');
+      this.dialogService.showPopup('Select Fuel Type');
       return false;
     } else if (isNaN(this.vehicle.manufactCountry)) {
-      this.showError('Invalid manufactured country');
+      this.dialogService.showPopup('Invalid manufactured country');
       return false;
     } else if (!this.vehicle.engine) {
-      this.showError('Engine Model/CC cannot be empty');
+      this.dialogService.showPopup('Engine Model/CC cannot be empty');
       return false;
     } else {
       for (const p of this.photos) {
         if (!p && !this.isEdit) {
-          this.showError('You should upload 4 photos from 4 sides');
+          this.dialogService.showPopup('You should upload 4 photos from 4 sides');
           return false;
         }
       }
     }
     return true;
-  }
-
-  private showError(msg: string): void {
-    this.snackBar.open(msg, 'Dismiss', {
-      duration: 5000
-    });
   }
 
   private alreadyExist(vehicles: any, msg: string): void {
@@ -169,7 +165,11 @@ export class AddVehicleComponent implements OnInit, OnChanges {
   }
 
   public close(): void {
-    this.closed.emit();
+    if (this.isEdit) {
+      this.closed.emit();
+    } else {
+      this.router.navigate(['/secure']);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

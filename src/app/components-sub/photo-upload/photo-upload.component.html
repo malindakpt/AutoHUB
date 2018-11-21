@@ -2,7 +2,7 @@
 <div>
   <div class="txt">{{title}}</div>
   <div>
-    <label [attr.for]="id"> <fa name="camera" size="3x"></fa></label>
+    <label [attr.for]="id" class="pointer"> <fa name="camera" size="3x"></fa></label>
     <input [attr.id]="id" style="display: none" type="file" (change)="onFileChange();">
   </div>
   <img [attr.id]="'prev' + id" style="width:80px;height:60px;margin-left: 50px;margin-top: 28px;" [src]="photo || '../../../assets/images/no-image.jpg'" />

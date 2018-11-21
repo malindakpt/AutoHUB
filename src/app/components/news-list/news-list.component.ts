@@ -109,7 +109,7 @@ export class NewsListComponent implements OnInit, OnChanges {
       this.addNewsType = NewsWidgetType.NEWS;
       this.newsArr = this.dataService.getNewsList();
     } else {
-      if (this.vehicle && this.vehicle.closed) {
+      if (this.vehicle && this.vehicle.id) {
         this.addNewsType = NewsWidgetType.SERVICE;
         this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.chassisNo, this.isShowOnlyMyNews);
       } else {

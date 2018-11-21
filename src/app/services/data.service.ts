@@ -104,6 +104,9 @@ export class DataService {
   }
 
   public addNews(id: string, news: News, images: Array<string>, skipRoute?: boolean): Promise<any> {
+    if (!this.validateStatus(news)) {
+      return;
+    }
     return new Promise((resolves, reject) => {
       this.uploadPhotos(news.photos, images, id).then((status) => {
         news.ownerName = Helper.user.name;
@@ -115,6 +118,9 @@ export class DataService {
   }
 
   public saveEntity(entity: Entity, object: any, skipRouting?: boolean): void {
+    if (Entity.settings !== entity && !this.validateStatus(object)) {
+      return;
+    }
     const that = this;
     const ref = this.fs.firestore.collection(entity);
     console.log('Saving entity: ' + entity);
@@ -135,10 +141,13 @@ export class DataService {
     });
   }
 
-  public getEntityDoc (entity: Entity, callBack: any) {
+  public getEntityDoc (entity: Entity, callBack: any, hideBusy?: boolean) {
     const that = this;
     console.log('send request for get Entiyt');
-    this.busyOn();
+    if (!hideBusy) {
+      this.busyOn();
+    }
+
     this.fs.firestore.collection(entity).doc(Helper.user.id)
       .get()
       .then(function (doc) {
@@ -219,6 +228,9 @@ export class DataService {
   }
 
   public searchVehicles(year: number, brand: string, model: string, category: string): void {
+    if (!this.validateStatus()) {
+      return;
+    }
     if (this.isVehicleSearchInprogress || this.lastVisibleVehicleSearch === -1) {
       return;
     }
@@ -243,6 +255,7 @@ export class DataService {
     if (category) {
       query = query.where('category', '==', category);
     }
+    query = query.where('countryId', '==', Helper.user.countryId);
     query = query.orderBy('time', 'desc');
     if (that.lastVisibleVehicleSearch) {
       query = query.startAfter(that.lastVisibleVehicleSearch);
@@ -294,6 +307,9 @@ export class DataService {
   }
 
   public requestNewsList(): void {
+    if (!this.validateStatus()) {
+      return;
+    }
     if (this.isNewsFetchInprogress || this.lastVisibleNews === -1) {
       return;
     }
@@ -301,6 +317,7 @@ export class DataService {
     const that = this;
     this.fs.firestore.collection(Entity.news)
       .where('type', '==', NewsType.NEWS)
+      .where('countryId', '==', Helper.user.countryId)
       .orderBy('time', 'desc')
       .startAfter(that.lastVisibleNews)
       .limit(Settings.NEWS_FETCH_COUNT).get()
@@ -374,6 +391,19 @@ export class DataService {
         window.location.reload();
       }
     );
+  }
+
+  public validateStatus(obj?: any): boolean {
+    if (Helper.user.countryId) {
+      if (obj) {
+        obj.countryId = Helper.user.countryId;
+      }
+      return true;
+    } else {
+      this.dialogService.showPopup('Please set your country before this action');
+      this.router.navigate(['/secure/settings/']);
+      return false;
+    }
   }
 }
 

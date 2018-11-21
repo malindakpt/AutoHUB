@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, Renderer, ViewChild} from '@angular/core';
+import {Component, Inject, Injector, Input, OnInit, Renderer, ViewChild} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Entity} from '../../enum/entities.enum';
@@ -6,6 +6,7 @@ import {Event} from '../../enum/event.enum';
 import {Router} from '@angular/router';
 import {Vehicle} from '../../entities/vehicle';
 import {BaseDirective} from '../../directives/base';
+import {Helper} from '../../util/helper';
 
 @Component({
   selector: 'app-search-vehicle',
@@ -33,12 +34,12 @@ export class SearchVehicleComponent extends BaseDirective implements OnInit {
   searchBox2: any;
 
   constructor(
-    private dataService: DataService,
     public dialogRef: MatDialogRef<SearchVehicleComponent>,
     private router: Router,
     private renderer: Renderer,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-    super();
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private injector: Injector) {
+    super(injector);
     this.searchType = this.searchTypes[0].key;
     if (data) {
       this.vehicles = data.vehicles;
@@ -74,10 +75,13 @@ export class SearchVehicleComponent extends BaseDirective implements OnInit {
   }
 
   public onVehicleSelect() {
-    this.router.navigate(['/secure/profile/' + this.helper.getTime()], {queryParams: this.vehicles[0]});
+    this.router.navigate(['/secure/profile/' + Helper.getTime()], {queryParams: this.vehicles[0]});
     this.dialogRef.close();
   }
 
+  public close() {
+    this.dialogRef.close();
+  }
 
   public onContinue() {
     this.dialogRef.close(Event.CONTINUE);

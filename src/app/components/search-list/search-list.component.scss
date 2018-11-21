@@ -11,7 +11,7 @@
     margin-top: -10px;
   }
 
-  app-brand-selector{
+  app-brand-selector {
     margin: 5px;
     width: 45%;
   }
@@ -24,11 +24,18 @@
     margin-bottom: 5px;
     border-radius: 0px;
   }
+
+  .page-loading {
+    display: flex;
+    justify-content: center;
+    img {
+      width: 120px;
+      height: 86px;
+    }
+  }
 }
 
-
-
-  .img-option {
+.img-option {
   display: flex;
   justify-content: space-between;
   img {

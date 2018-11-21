@@ -9,5 +9,5 @@
   <app-country-selector (selectCountry)="selectedCountryCode = $event"></app-country-selector>
 </mat-form-field>
 
-<button mat-button (click)="confirm()">OK</button>
-<button mat-button (click)="close()">Cancel</button>
+<button mat-raised-button color="primary" (click)="confirm()">OK</button>
+<button mat-raised-button color="accent" (click)="close()">Cancel</button>

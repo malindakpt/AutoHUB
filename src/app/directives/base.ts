@@ -1,4 +1,6 @@
-import {Directive, ElementRef} from '@angular/core';
+import {Directive, Injector} from '@angular/core';
+import {DialogService} from '../services/dialog.service';
+import {DataService} from '../services/data.service';
 import {Helper} from '../util/helper';
 
 @Directive({
@@ -6,5 +8,12 @@ import {Helper} from '../util/helper';
 })
 
 export class BaseDirective {
-  helper = Helper;
+  protected Helper = Helper;
+  protected dialogService;
+  public dataService;
+  constructor(
+    private injectorObj: Injector) {
+    this.dialogService = this.injectorObj.get(DialogService);
+    this.dataService = this.injectorObj.get(DataService);
+}
 }

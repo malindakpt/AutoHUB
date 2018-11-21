@@ -8,6 +8,7 @@ import {Entity} from '../../enum/entities.enum';
 import {DataService} from '../../services/data.service';
 import {Settings, UserSettings} from '../../util/settings';
 import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search-vehicle.component';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -19,6 +20,8 @@ export class HeaderToolbarComponent implements OnInit {
   public user = Helper.user;
   constructor(
     private bottomSheet: MatBottomSheet,
+    private router: Router,
+
     public dialog: MatDialog,
     private dataService: DataService,
     private authenticationService: AuthenticationService) {}
@@ -28,8 +31,11 @@ export class HeaderToolbarComponent implements OnInit {
       if (entry) {
         Helper.user.countryId = entry.countryId;
         console.log('country id: ', entry);
+        if (!Helper.user.countryId) {
+          this.router.navigate(['/secure/settings']);
+        }
       }
-    });
+    }, true);
   }
 
   public logout(): void {
