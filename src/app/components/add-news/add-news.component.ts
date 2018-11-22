@@ -13,18 +13,17 @@ import {BaseDirective} from '../../directives/base';
   styleUrls: ['./add-news.component.scss']
 })
 export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges {
-  public myVehicles: Vehicle[] = [];
-  public newsTypes = NewsType;
-  public serviceTypes = [];
-  @Input()
-  news: News;
-  public photoCount = ['', '', '', ''];
-  public photos = ['', '', '', ''];
-  public date;
+  @Input() news: News;
   @Input() resetCount: string;
   @Input() widgetType: NewsWidgetType;
   @Output() closed = new EventEmitter();
   @Output() saveComplete = new EventEmitter();
+  public myVehicles: Vehicle[] = [];
+  public newsTypes = NewsType;
+  public serviceTypes = [];
+  public photoCount = ['', '', '', ''];
+  public photos = ['', '', '', ''];
+  public date;
   public selectedVehicle: Vehicle;
   public isEdit = false;
 

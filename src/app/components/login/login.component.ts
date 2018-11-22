@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../../services/auth.service';
-import {Helper} from '../../util/helper';
-import {Router} from '@angular/router';
-import {Settings} from '../../util/settings';
+import { AuthenticationService } from '../../services/auth.service';
+import { Settings } from '../../util/settings';
 
 @Component({
   selector: 'app-login',
@@ -26,5 +24,4 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.authenticationService.login();
   }
-
 }

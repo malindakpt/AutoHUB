@@ -74,12 +74,6 @@ export class DataService {
     });
   }
 
-  public getVehicleInfo(id: string): Vehicle {
-    this.vehicle = new Vehicle({});
-    this.requestVehicle(id);
-    return this.vehicle;
-  }
-
   public getNewsList(isLocal: boolean): Array<News> {
     if (!this.newsList) {
       this.newsList = new Array<News>();
@@ -185,26 +179,6 @@ export class DataService {
         that.showNetworkError();
         console.log('Error getting documents: ', error);
         callBack(null);
-        that.busyOff();
-      });
-  }
-
-  public requestVehicle (vID: string) {
-    const that = this;
-    console.log('send request for get Vehicle');
-    this.busyOn();
-    this.fs.firestore.collection(Entity.vehicles).where('id', '==', vID)
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          Object.assign(that.vehicle, doc.data());
-          console.log('vehicle info fetched');
-        });
-        that.busyOff();
-      })
-      .catch(function (error) {
-        that.showNetworkError();
-        console.log('Error getting documents: ', error);
         that.busyOff();
       });
   }

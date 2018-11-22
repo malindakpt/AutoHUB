@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogComponent} from '../components-sub/dialog/dialog.component';
 import {DialogType} from '../enum/enums';
-import {Helper} from '../util/helper';
 
 @Injectable()
 export class DialogService {

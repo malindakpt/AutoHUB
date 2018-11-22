@@ -1,16 +1,15 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomMenuComponent } from 'src/app/components-sub/bottom-menu/bottom-menu.component';
 import { AuthenticationService } from 'src/app/services/auth.service';
-import {Helper} from '../../util/helper';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {Entity} from '../../enum/entities.enum';
-import {DataService} from '../../services/data.service';
-import {Settings, UserSettings} from '../../util/settings';
-import {SearchVehicleComponent} from '../../components-sub/search-vehicle/search-vehicle.component';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BaseDirective} from '../../directives/base';
-import {LocalStorageKeys} from '../../enum/enums';
+import { Helper } from '../../util/helper';
+import { MatDialog } from '@angular/material';
+import { Entity } from '../../enum/entities.enum';
+import { Settings } from '../../util/settings';
+import { SearchVehicleComponent } from '../../components-sub/search-vehicle/search-vehicle.component';
+import { Router } from '@angular/router';
+import { BaseDirective } from '../../directives/base';
+import { LocalStorageKeys } from '../../enum/enums';
 
 @Component({
   selector: 'app-header-toolbar',
@@ -44,7 +43,6 @@ export class HeaderToolbarComponent extends BaseDirective implements OnInit {
           }
         }, true);
       } else {
-        // this.router.navigate(['login']);
         console.log('Not logged in');
       }
     });

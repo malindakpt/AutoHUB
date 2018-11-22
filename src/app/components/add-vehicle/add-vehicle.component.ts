@@ -26,6 +26,7 @@ export class Pair {
 })
 export class AddVehicleComponent extends BaseDirective implements OnInit, OnChanges {
   @Input() public vehicle: Vehicle;
+  @Output() closed = new EventEmitter();
   public photoCount = ['', '', '', ''];
   public photos = ['', '', '', ''];
   public uploadCount = 0;
@@ -35,7 +36,6 @@ export class AddVehicleComponent extends BaseDirective implements OnInit, OnChan
   public autoNews;
   private isPhotosChanged = false;
   private unique;
-  @Output() closed = new EventEmitter();
 
   @ViewChild('prev') prev: ElementRef;
   @ViewChild('img') img: ElementRef;

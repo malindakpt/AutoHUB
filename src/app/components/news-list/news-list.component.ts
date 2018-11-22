@@ -123,7 +123,6 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
   }
 
   public loadNews(): void {
-    console.log('News for: ', this.vehicle);
     if (this.isNewsView) {
       this.addNewsType = NewsWidgetType.NEWS;
       this.newsArr = this.dataService.getNewsList(this.isShowLocalNews);

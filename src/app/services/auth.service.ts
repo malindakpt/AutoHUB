@@ -4,8 +4,6 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Helper} from '../util/helper';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
-import {Entity} from '../enum/entities.enum';
-import {User} from '../entities/user';
 import {LocalStorageKeys} from '../enum/enums';
 import {DialogService} from './dialog.service';
 
@@ -35,7 +33,6 @@ export class AuthenticationService {
 
       this.loginSubject = new Subject();
       if (environment.production) {
-      // if (true) {
         this.authStatus = this.socialAuthService.authState;
       } else {
         const userID = Helper.getItem('userID');
@@ -54,11 +51,6 @@ export class AuthenticationService {
         this.router.navigate(['secure']);
       }
     }
-    private setAutoHUBUser(): void {
-      // this.dataService.getEntity(Entity.users, 'id', Helper.user.id, (user: User) => {
-      //   Helper.user = user;
-      // });
-    }
 
     public login(): void {
         const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
@@ -70,7 +62,6 @@ export class AuthenticationService {
               console.log('FB sign in data : ', user);
               this.imageURL = user.image;
               this.dialogService.showPopup('Next time you will see the news which are specific to your country');
-              // this.router.navigate(['secure']);
             }
         );
     }
