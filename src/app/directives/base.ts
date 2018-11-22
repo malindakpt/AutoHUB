@@ -8,8 +8,8 @@ import {Helper} from '../util/helper';
 })
 
 export class BaseDirective {
-  protected Helper = Helper;
-  protected dialogService;
+  public Helper = Helper;
+  public dialogService;
   public dataService;
   constructor(
     private injectorObj: Injector) {
