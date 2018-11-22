@@ -52,14 +52,18 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
         { name: 'Repair', val: NewsType.REPAIR },
       ];
     }
-    this.dataService.getMyVehicles().then(vehis => {
-      this.myVehicles = vehis;
-      for (const v of this.myVehicles) {
-        if (v.chassisNo === this.news.vehicleID) {
-          this.selectedVehicle = v;
+    if (Helper.user) {
+      this.dataService.getMyVehicles().then(vehis => {
+        this.myVehicles = vehis;
+        for (const v of this.myVehicles) {
+          if (v.chassisNo === this.news.vehicleID) {
+            this.selectedVehicle = v;
+          }
         }
-      }
-    });
+      });
+    } else {
+      console.log('Add news init failed. no user exist');
+    }
     this.date = new Date();
     if (!this.news) {
       this.news = new News({});

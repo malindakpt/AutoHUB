@@ -97,7 +97,7 @@ export class Settings {
   public static FUEL_TYPES = ['Petrol', 'Hybrid', 'Disel', 'Electric'];
   public static MENU_OPTIONS = [
     { disp: 'Buy Vehicle', icon: 'shopping-cart', route: '/secure/search'},
-    { disp: 'News', icon: 'file', route: ['/secure/news/1', {isNewsView: true}]},
+    { disp: 'Discuss', icon: 'book', route: ['/secure/news/1', {isNewsView: true}]},
     { disp: 'Profile', icon: 'car', route: ['/secure/profile/1', {isNewsView: false, isProfile: true}]},
     { disp: 'Settings', icon: 'gear', route: '/secure/settings'},
   ];

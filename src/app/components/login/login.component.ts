@@ -14,8 +14,7 @@ export class LoginComponent implements OnInit {
   public showLogin = false;
   private timer;
   constructor(
-    private authenticationService: AuthenticationService,
-    private router: Router
+    private authenticationService: AuthenticationService
   ) {
   }
 

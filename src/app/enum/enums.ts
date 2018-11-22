@@ -9,3 +9,8 @@ export enum NewsWidgetType {
 export enum DialogType {
   CONFIRMATION, TEXT_INPUT, COUNTRY_SELECT
 }
+
+export enum LocalStorageKeys {
+  USER = 'USER',
+  SHOW_LOCAL_NEWS = 'SHOW_LOCAL_NEWS'
+}

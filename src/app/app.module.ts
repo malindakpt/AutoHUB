@@ -62,6 +62,8 @@ import { CountrySelectorComponent } from './components-sub/country-selector/coun
 import {BaseDirective} from './directives/base';
 import { DialogComponent } from './components-sub/dialog/dialog.component';
 import {DialogService} from './services/dialog.service';
+import {AdsenseModule} from 'ng2-adsense';
+import {CanDeactivateGuard} from './services/save.settings.service';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -87,6 +89,12 @@ export function getAuthServiceConfigs() {
       appRoutes,
       { useHash: true, enableTracing: false, onSameUrlNavigation: 'reload' } // <-- debugging purposes only
     ),
+
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-6698607648075269',
+      adSlot: 7259870550,
+    }),
+
     HttpClientModule,
     SocialLoginModule,
 
@@ -150,6 +158,7 @@ export function getAuthServiceConfigs() {
   ],
 
   providers: [
+    CanDeactivateGuard,
     AuthenticationService,
     AuthGuardService,
     DataService,

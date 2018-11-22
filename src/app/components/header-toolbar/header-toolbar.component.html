@@ -12,19 +12,22 @@
   </div>
 
   <div class="flex-j-sb font-size-25 menu-bar">
-    <span class="header-menu pointer show" (click)="showSearch()">
+    <span *ngIf="Helper.user" class="header-menu pointer show" (click)="showSearch()">
       <span><fa name="search" size="lg"></fa>Search</span>
     </span>
 
     <span *ngFor="let item of menuOptions" [routerLink]="item.route" class="header-menu pointer">
-      <span><fa [name]="item.icon" size="lg"></fa>{{item.disp}}</span>
+      <span  *ngIf="Helper.user"><fa [name]="item.icon" size="lg"></fa>{{item.disp}}</span>
     </span>
 
-    <div *ngIf="user">
-      <img [src]="user.image">
+    <div *ngIf="Helper.user">
+      <img [src]="Helper.user.image">
     </div>
-    <a (click)="logout()" class="header-menu">
+    <a *ngIf="Helper.user" (click)="logout()" class="header-menu pointer">
       <span><fa name="power-off" size="lg"></fa>Logout</span>
+    </a>
+    <a *ngIf="!Helper.user" (click)="login()" class="header-menu pointer">
+      <span><fa name="power-off" size="lg"></fa>Login</span>
     </a>
 
 </div>

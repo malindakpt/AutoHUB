@@ -1,11 +1,13 @@
 import {AuthService, FacebookLoginProvider} from 'angular-6-social-login';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Helper} from '../util/helper';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 import {Entity} from '../enum/entities.enum';
 import {User} from '../entities/user';
+import {LocalStorageKeys} from '../enum/enums';
+import {DialogService} from './dialog.service';
 
 export const users = [{
   email: 'malindakpt@yahoo.com',
@@ -23,33 +25,26 @@ export const users = [{
 export class AuthenticationService {
 
     public authStatus: Observable<any>;
+    public loginSubject: Subject<any>;
     public imageURL: string;
     public devAuthSubject;
     constructor(
-      private socialAuthService: AuthService,
+      public socialAuthService: AuthService,
+      private dialogService: DialogService,
       private router: Router) {
 
+      this.loginSubject = new Subject();
       if (environment.production) {
       // if (true) {
         this.authStatus = this.socialAuthService.authState;
-        this.socialAuthService.authState.subscribe((sts: any) => {
-          if (sts) {
-            Helper.user = sts;
-            this.router.navigate(['secure']);
-            console.log('Already logged in : ', sts);
-          } else {
-            this.router.navigate(['login']);
-            console.log('Not logged in : ', sts);
-          }
-        });
       } else {
-        const userID = localStorage.getItem('userID');
+        const userID = Helper.getItem('userID');
         let user;
         if (userID) {
           user = users[Number(userID)];
         } else {
           user = users[0];
-          localStorage.setItem('userID', '0');
+          Helper.setItem('userID', '0');
         }
 
         this.devAuthSubject = new BehaviorSubject(user);
@@ -68,11 +63,14 @@ export class AuthenticationService {
     public login(): void {
         const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
         this.socialAuthService.signIn(socialPlatformProvider).then(
-            (sts: any) => {
-                Helper.user = sts;
-                console.log('FB sign in data : ', sts);
-                this.imageURL = sts.image;
-                this.router.navigate(['secure']);
+            (user: any) => {
+              Helper.user = user;
+              Helper.setItem(LocalStorageKeys.USER, user);
+              this.loginSubject.next(user);
+              console.log('FB sign in data : ', user);
+              this.imageURL = user.image;
+              this.dialogService.showPopup('Next time you will see the news which are specific to your country');
+              // this.router.navigate(['secure']);
             }
         );
     }
@@ -81,7 +79,8 @@ export class AuthenticationService {
         this.socialAuthService.signOut().then(
             (userData) => {
                 Helper.user = null;
-                this.router.navigate(['login']);
+                Helper.setItem(LocalStorageKeys.USER, null);
+                this.router.navigate(['secure']);
             }
         );
     }

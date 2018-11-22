@@ -9,20 +9,23 @@ import {AuthGuardService} from './services/auth.guard.service';
 import {SecureComponent} from './components/secure/secure.component';
 import {SearchListComponent} from './components/search-list/search-list.component';
 import {SettingsComponent} from './components/settings/settings.component';
+import {CanDeactivateGuard} from './services/save.settings.service';
 
 export const appRoutes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+  //  { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'secure/news/isNewsView', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'error', component: ErrorComponent, canActivate: [AuthGuardService] },
     {
-      path: 'secure', component: SecureComponent, canActivate: [AuthGuardService], children: [
-        { path: '', redirectTo: 'profile/1', pathMatch: 'full' },
+      path: 'secure', component: SecureComponent, children: [
+        { path: '', redirectTo: 'news/isNewsView', pathMatch: 'full' },
+      //  { path: '', redirectTo: 'profile/1', pathMatch: 'full' },
         { path: 'news/:ref', component: NewsListComponent },
         { path: 'add-news', component: AddNewsComponent },
         { path: 'profile/:ref', component: VehicleProfileComponent },
         { path: 'add', component: AddVehicleComponent },
         { path: 'search', component: SearchListComponent },
-        { path: 'settings', component: SettingsComponent },
+        { path: 'settings', component: SettingsComponent,  canDeactivate: [CanDeactivateGuard] },
       ]
     },
   { path: '**', redirectTo: '/error', pathMatch: 'full' },

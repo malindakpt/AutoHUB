@@ -64,7 +64,7 @@ export class DataService {
   }
 
   public getMyVehicles(): Promise<any> {
-    return this.requestMyVehicles(Helper.user.id);
+    return this.requestMyVehicles();
   }
 
   public getSearchedVehicle(key: string, val: string): any {
@@ -80,11 +80,11 @@ export class DataService {
     return this.vehicle;
   }
 
-  public getNewsList(): Array<News> {
+  public getNewsList(isLocal: boolean): Array<News> {
     if (!this.newsList) {
       this.newsList = new Array<News>();
     }
-    this.requestNewsList();
+    this.requestNewsList(isLocal);
     return this.newsList;
   }
 
@@ -95,17 +95,18 @@ export class DataService {
     return this.vehicleSearchList;
   }
 
-  public getVehicleNewsList(closed: string, isOnlyMyNews: boolean): Array<News> {
+  public getVehicleNewsList(id: string, isOnlyMyNews: boolean): Array<News> {
     if (!this.vehicleNewsList) {
       this.vehicleNewsList = new Array<News>();
     }
-    this.requestNewsListForVehicle(closed, isOnlyMyNews);
+    this.requestNewsListForVehicle(id, isOnlyMyNews);
     return this.vehicleNewsList;
   }
 
   public addNews(id: string, news: News, images: Array<string>, skipRoute?: boolean): Promise<any> {
     if (!this.validateStatus(news)) {
-      return;
+      console.log('News validatino failed');
+      return new Promise<any>(() => {});
     }
     return new Promise((resolves, reject) => {
       this.uploadPhotos(news.photos, images, id).then((status) => {
@@ -142,6 +143,10 @@ export class DataService {
   }
 
   public getEntityDoc (entity: Entity, callBack: any, hideBusy?: boolean) {
+    if (!Helper.user) {
+      console.log('No user exist. exit from get user');
+      return;
+    }
     const that = this;
     console.log('send request for get Entiyt');
     if (!hideBusy) {
@@ -188,7 +193,7 @@ export class DataService {
     const that = this;
     console.log('send request for get Vehicle');
     this.busyOn();
-    this.fs.firestore.collection(Entity.vehicles).where('closed', '==', vID)
+    this.fs.firestore.collection(Entity.vehicles).where('id', '==', vID)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
@@ -204,7 +209,12 @@ export class DataService {
       });
   }
 
-  public requestMyVehicles(userID: string): Promise<any> {
+  public requestMyVehicles(): Promise<any> {
+    if (!Helper.user) {
+      console.log('Request my vehicles failed. No User exist');
+      return new Promise(() => {});
+    }
+    const userID = Helper.user.id;
     const that = this;
     const myVehicles = [];
     console.log('send request for get myVehices');
@@ -287,7 +297,9 @@ export class DataService {
       .orderBy('time', 'desc');
 
     if (isOnlyMyNews) {
-      query = query.where('ownerID', '==', Helper.user.id);
+      if (Helper.user) {
+        query = query.where('ownerID', '==', Helper.user.id);
+      }
     }
 
     query.startAfter(that.lastVisibleVehicleNews)
@@ -306,19 +318,23 @@ export class DataService {
       });
   }
 
-  public requestNewsList(): void {
-    if (!this.validateStatus()) {
-      return;
-    }
+  public requestNewsList(isLocal: boolean): void {
+    // Do not validate user when fetch news.
+    // if (!this.validateStatus()) {
+    //   return;
+    // }
     if (this.isNewsFetchInprogress || this.lastVisibleNews === -1) {
       return;
     }
     this.isNewsFetchInprogress = true;
     const that = this;
-    this.fs.firestore.collection(Entity.news)
-      .where('type', '==', NewsType.NEWS)
-      .where('countryId', '==', Helper.user.countryId)
-      .orderBy('time', 'desc')
+    let query = this.fs.firestore.collection(Entity.news)
+      .where('type', '==', NewsType.NEWS);
+
+    if (isLocal && Helper.user && Helper.user.countryId) {
+      query = query.where('countryId', '==', Helper.user.countryId);
+    }
+    query.orderBy('time', 'desc')
       .startAfter(that.lastVisibleNews)
       .limit(Settings.NEWS_FETCH_COUNT).get()
       .then(function (querySnapshot) {
@@ -367,14 +383,15 @@ export class DataService {
   }
 
   private setInternetTime(): void {
-    this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
-      Helper.internetDate = new Date(time.currentDateTime);
-    });
-    setInterval(() => {
-      this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
-        Helper.internetDate = new Date(time.currentDateTime);
-      });
-    }, Settings.TIME_CHECK_INTERVAL);
+    // TODO: temporary removed time validation
+    // this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
+    //   Helper.internetDate = new Date(time.currentDateTime);
+    // });
+    // setInterval(() => {
+    //   this.http.get(Settings.TIME_URL).subscribe( (time: any) => {
+    //     Helper.internetDate = new Date(time.currentDateTime);
+    //   });
+    // }, Settings.TIME_CHECK_INTERVAL);
   }
 
   private busyOn(): void {
@@ -400,7 +417,7 @@ export class DataService {
       }
       return true;
     } else {
-      this.dialogService.showPopup('Please set your country before this action');
+      this.dialogService.showPopup('Please set your country');
       this.router.navigate(['/secure/settings/']);
       return false;
     }

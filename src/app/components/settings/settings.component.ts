@@ -4,6 +4,8 @@ import {Entity} from '../../enum/entities.enum';
 import {Helper} from '../../util/helper';
 import {User} from '../../entities/user';
 import {BaseDirective} from '../../directives/base';
+import {Observable} from 'rxjs';
+import {LocalStorageKeys} from '../../enum/enums';
 
 @Component({
   selector: 'app-settings',
@@ -27,6 +29,7 @@ export class SettingsComponent extends BaseDirective implements OnInit {
       this.dialogService.showPopup('Please select a valid country');
     } else {
       this.dataService.saveEntity(Entity.users, Helper.user);
+      Helper.setItem(LocalStorageKeys.USER, Helper.user);
     }
   }
 
@@ -34,4 +37,12 @@ export class SettingsComponent extends BaseDirective implements OnInit {
     Helper.user.countryId = id;
   }
 
+  canDeactivate(): Observable<boolean> | boolean {
+    if (Helper.user.countryId) {
+      return true;
+    } else {
+      this.dialogService.showPopup('Please select your country');
+      return false;
+    }
+  }
 }

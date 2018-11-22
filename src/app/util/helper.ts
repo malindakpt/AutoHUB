@@ -58,4 +58,18 @@ export class Helper {
     }
     return map;
   }
+
+  public static setItem(key: string, val: any) {
+    const strVal = JSON.stringify(val);
+    localStorage.setItem(key, strVal);
+  }
+
+  public static getItem(key: string): any {
+    const val = localStorage.getItem(key);
+    if (val) {
+      return JSON.parse(val);
+    } else {
+      return null;
+    }
+  }
 }

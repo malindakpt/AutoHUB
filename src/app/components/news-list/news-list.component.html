@@ -4,14 +4,17 @@
   </div>
 
   <div *ngIf="!isNewsView && !isSearchResult"  class="flex-j-end private-mode">
-    <mat-slide-toggle [checked]="isShowOnlyMyNews" (change)="onToggleNewsPref()">private</mat-slide-toggle>
+    <mat-slide-toggle [checked]="isShowOnlyMyNews" (change)="onToggleNewsPref()">{{isShowOnlyMyNews? lblPrivateHistory : lblPublicHistory}}</mat-slide-toggle>
+  </div>
+  <div *ngIf="isNewsView && Helper.user"  class="flex-j-end private-mode">
+    <mat-slide-toggle [checked]="isShowLocalNews" (change)="onToggleNewsCountryPref()">{{isShowLocalNews? lblLocalNews : lblGlobalNews}}</mat-slide-toggle>
   </div>
 </div>
 
 
 <div class="news-container" *ngFor="let news of newsArr">
   <mat-card>
-    <app-owner-desc [name]="news.ownerName" [image]="userState.getFBImage(news.ownerID)"
+    <app-owner-desc [name]="news.ownerName" [image]="Helper.getFBImage(news.ownerID)"
                     [description]=getDuration(news.time)></app-owner-desc>
     <div *ngIf="true" class="swiper-container" [swiper]="swiperConfig">
       <div class="swiper-wrapper">
@@ -70,7 +73,7 @@
       <div *ngIf="!news.showEdit" class="description-long">
         {{ news.desc }}
       </div>
-      <div *ngIf="news.ownerID === userState.user.id" class="m-5">
+      <div *ngIf="Helper.user && news.ownerID === Helper.user.id" class="m-5">
         <app-add-news *ngIf="news.showEdit" [news]="news" (closed)="news.showEdit = false" (saveComplete)="onEditComplete(news, $event)"></app-add-news>
         <div class="flex-j-end pointer">
           <fa *ngIf="!news.showEdit" name="pencil" (click)="swapEditBtn(news)"></fa>

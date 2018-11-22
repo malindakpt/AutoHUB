@@ -1,20 +1,21 @@
-import {Component, HostListener, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, HostListener, Injector, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {News} from '../../entities/news';
 import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
 import {Entity} from '../../enum/entities.enum';
-import {NewsType, NewsWidgetType} from '../../enum/enums';
+import {LocalStorageKeys, NewsType, NewsWidgetType} from '../../enum/enums';
 import {Vehicle} from '../../entities/vehicle';
 import {Helper} from '../../util/helper';
 import {ActivatedRoute} from '@angular/router';
 import {Settings} from '../../util/settings';
+import {BaseDirective} from '../../directives/base';
 
 @Component({
   selector: 'app-news-list',
   templateUrl: './news-list.component.html',
   styleUrls: ['./news-list.component.scss']
 })
-export class NewsListComponent implements OnInit, OnChanges {
+export class NewsListComponent extends BaseDirective implements OnInit, OnChanges {
 
   public swiperConfig = {
     loop: false,
@@ -25,10 +26,14 @@ export class NewsListComponent implements OnInit, OnChanges {
   @Input() isSearchResult = false;
   @Input() isNewsView;
   public newsTypes = NewsType;
-  public userState = Helper;
   public resetCount;
   public addNewsType;
   public isShowOnlyMyNews = true;
+  public isShowLocalNews = false;
+  public lblLocalNews = 'Local News';
+  public lblGlobalNews = 'Global News';
+  public lblPrivateHistory = 'Private History';
+  public lblPublicHistory = 'Public History';
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -42,8 +47,9 @@ export class NewsListComponent implements OnInit, OnChanges {
 
   constructor(
     public dataService: DataService,
-    private activatedRoute: ActivatedRoute) {
-
+    private activatedRoute: ActivatedRoute,
+    private injector: Injector) {
+    super(injector);
     this.dataService.resetNews();
     this.resetCount = Helper.getTime();
 
@@ -55,7 +61,11 @@ export class NewsListComponent implements OnInit, OnChanges {
             this.isNewsView = b;
           }
         }
+        if (params.ref === 'isNewsView') {
+          this.isNewsView = true;
+        }
       }
+      this.isShowLocalNews = Helper.getItem(LocalStorageKeys.SHOW_LOCAL_NEWS);
       this.loadNews();
     });
   }
@@ -64,10 +74,11 @@ export class NewsListComponent implements OnInit, OnChanges {
     news1 = news2;
   }
   ngOnInit() {
-    console.log(this.isNewsView, this.isSearchResult);
+    this.isShowLocalNews = Helper.getItem(LocalStorageKeys.SHOW_LOCAL_NEWS);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.isShowLocalNews = Helper.getItem(LocalStorageKeys.SHOW_LOCAL_NEWS);
     this.loadNews();
   }
 
@@ -80,8 +91,8 @@ export class NewsListComponent implements OnInit, OnChanges {
   }
 
   public addComment(news: News) {
-    const comment = this.userState.user.id + Settings.COMMENT_SEPARATOR +
-      this.userState.user.name + Settings.COMMENT_SEPARATOR + news.addCommnet;
+    const comment = Helper.user.id + Settings.COMMENT_SEPARATOR +
+      Helper.user.name + Settings.COMMENT_SEPARATOR + news.addCommnet;
     news.comments.push(comment);
     news.addCommnet = '';
     news.showComment = false;
@@ -104,10 +115,18 @@ export class NewsListComponent implements OnInit, OnChanges {
     this.loadNews();
   }
 
+  public onToggleNewsCountryPref(): void {
+    this.isShowLocalNews = !this.isShowLocalNews;
+    Helper.setItem(LocalStorageKeys.SHOW_LOCAL_NEWS, this.isShowLocalNews);
+    this.dataService.resetNews();
+    this.loadNews();
+  }
+
   public loadNews(): void {
+    console.log('News for: ', this.vehicle);
     if (this.isNewsView) {
       this.addNewsType = NewsWidgetType.NEWS;
-      this.newsArr = this.dataService.getNewsList();
+      this.newsArr = this.dataService.getNewsList(this.isShowLocalNews);
     } else {
       if (this.vehicle && this.vehicle.id) {
         this.addNewsType = NewsWidgetType.SERVICE;
