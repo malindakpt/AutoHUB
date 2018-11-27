@@ -62,9 +62,9 @@ import { CountrySelectorComponent } from './components-sub/country-selector/coun
 import {BaseDirective} from './directives/base';
 import { DialogComponent } from './components-sub/dialog/dialog.component';
 import {DialogService} from './services/dialog.service';
-import {AdsenseModule} from 'ng2-adsense';
 import {CanDeactivateGuard} from './services/save.settings.service';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { AdsenseModule } from 'ng2-adsense';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',

@@ -15,6 +15,7 @@ export class News extends Entity {
   public ownerID: string;
   public comments = [];
   public countryId: number;
+  public isPrivate = false;
 
   // temp variables
   public addCommnet;
