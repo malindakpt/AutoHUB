@@ -64,6 +64,7 @@ import { DialogComponent } from './components-sub/dialog/dialog.component';
 import {DialogService} from './services/dialog.service';
 import {AdsenseModule} from 'ng2-adsense';
 import {CanDeactivateGuard} from './services/save.settings.service';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -92,7 +93,7 @@ export function getAuthServiceConfigs() {
 
     AdsenseModule.forRoot({
       adClient: 'ca-pub-6698607648075269',
-      adSlot: 7259870550,
+      adSlot: 6459855625,
     }),
 
     HttpClientModule,
@@ -155,6 +156,7 @@ export function getAuthServiceConfigs() {
     BrandSelectorComponent,
     CountrySelectorComponent,
     DialogComponent,
+    PrivacyPolicyComponent,
   ],
 
   providers: [

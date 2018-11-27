@@ -10,11 +10,13 @@ import {SecureComponent} from './components/secure/secure.component';
 import {SearchListComponent} from './components/search-list/search-list.component';
 import {SettingsComponent} from './components/settings/settings.component';
 import {CanDeactivateGuard} from './services/save.settings.service';
+import {PrivacyPolicyComponent} from './components/privacy-policy/privacy-policy.component';
 
 export const appRoutes: Routes = [
   //  { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '', redirectTo: 'secure/news/isNewsView', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
+    { path: 'privacy', component: PrivacyPolicyComponent },
     { path: 'error', component: ErrorComponent, canActivate: [AuthGuardService] },
     {
       path: 'secure', component: SecureComponent, children: [

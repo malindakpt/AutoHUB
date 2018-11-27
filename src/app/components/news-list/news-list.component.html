@@ -82,7 +82,7 @@
     </div>
     <div class="comment-container">
         <div style="width: 100%;">
-          <div *ngIf="news.showComment" class="add-comment">
+          <div *ngIf="news.showComment && Helper.user" class="add-comment">
             <mat-form-field>
               <textarea matInput placeholder="Leave a comment" [(ngModel)]="news.addCommnet"></textarea>
             </mat-form-field>
@@ -100,7 +100,7 @@
           </div>
         </div>
         <div>
-          <div *ngIf="!news.showComment" (click)="news.showComment=true" class="pointer">
+          <div *ngIf="!news.showComment && Helper.user" (click)="news.showComment=true" class="pointer">
             <fa name="comments" size="1x"></fa>
           </div>
         </div>
