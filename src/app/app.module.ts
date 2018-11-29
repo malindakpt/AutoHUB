@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ErrorComponent } from './components/error/error.component';
-import {Router, RouterModule} from '@angular/router';
+import { Router, RouterModule} from '@angular/router';
 import { appRoutes } from '../app/app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -24,7 +24,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PopupComponent } from './components-sub/popup/popup.component';
 import { BottomMenuComponent } from './components-sub/bottom-menu/bottom-menu.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -37,9 +37,7 @@ import { OwnerDescComponent } from './components-sub/owner-desc/owner-desc.compo
 import {
   SocialLoginModule,
   AuthServiceConfig,
-  GoogleLoginProvider,
   FacebookLoginProvider,
-  LinkedinLoginProvider,
 } from 'angular-6-social-login';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/auth.service';
@@ -92,8 +90,8 @@ export function getAuthServiceConfigs() {
     ),
 
     AdsenseModule.forRoot({
-      adClient: 'ca-pub-6698607648075269',
-      adSlot: 6459855625,
+      adClient: 'ca-pub-4540888234098240',
+      adSlot: 2930227358,
     }),
 
     HttpClientModule,
