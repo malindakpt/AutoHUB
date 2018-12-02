@@ -99,6 +99,7 @@ export class AddVehicleComponent extends BaseDirective implements OnInit, OnChan
   private addNewVehicle(unique: string): void {
     this.vehicle.photoID = unique;
     this.vehicle.regNo = this.vehicle.regNo.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    this.vehicle.chassisNo = this.vehicle.chassisNo.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
     this.vehicle.model = this.vehicle.model.toUpperCase();
     this.vehicle.modelStartChar = this.vehicle.model.substring(0, 1);
     this.vehicle.manufactYear = Number(this.vehicle.manufactYear);
