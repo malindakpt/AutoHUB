@@ -1,7 +1,9 @@
 export class Settings {
   public static LOGIN_TIMEOUT = 3000;
-  public static NEWS_FETCH_COUNT = 10;
+  public static NEWS_FETCH_COUNT = 3;
   public static SEARCH_VEHICLE_FETCH_COUNT = 10;
+  public static AD_FREQ_NEWS = 1000;
+  public static AD_FREQ_VEHICLE_NEWS = 1000;
   public static VEHICLE_CATEGORIES = [
     { key: 1, val: 'Bus'},
     { key: 2, val: 'Van'},

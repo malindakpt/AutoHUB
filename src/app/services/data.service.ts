@@ -281,6 +281,9 @@ export class DataService {
       .then(function (querySnapshot) {
         that.lastVisibleVehicleNews = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
         querySnapshot.forEach(function (doc) {
+          if (that.vehicleNewsList && that.vehicleNewsList.length % Settings.AD_FREQ_VEHICLE_NEWS === 0) {
+            that.vehicleNewsList.push(new News({isAd: true}));
+          }
           that.vehicleNewsList.push(new News(doc.data()));
         });
         that.isVehicleNewsFetchInprogress = false;
@@ -314,6 +317,9 @@ export class DataService {
       .then(function (querySnapshot) {
         that.lastVisibleNews = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
         querySnapshot.forEach(function (doc) {
+          if (that.newsList && that.newsList.length % Settings.AD_FREQ_NEWS === 0) {
+            that.newsList.push(new News({isAd: true}));
+          }
           that.newsList.push(new News(doc.data()));
         });
         that.isNewsFetchInprogress = false;

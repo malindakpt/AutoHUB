@@ -1,7 +1,8 @@
 @import "../../scss/variabels";
 
 :host {
-    width: calc(100% - 300px);
+  width: 20%;
+  float:left;
     @include mobile-only {
       display: none;
     }

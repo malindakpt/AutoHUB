@@ -1,3 +1,3 @@
-RMDIR ..\firebase\public /S /Q &
-mkdir ..\firebase\public &
-xcopy dist\autohub ..\firebase\public /E &
+RMDIR ..\F-erandaguna95-project\public /S /Q &
+mkdir ..\F-erandaguna95-project\public &
+xcopy dist\autohub ..\F-erandaguna95-project\public /E &

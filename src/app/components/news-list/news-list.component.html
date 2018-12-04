@@ -13,7 +13,7 @@
 
 
 <div class="news-container" *ngFor="let news of newsArr">
-  <mat-card>
+  <mat-card *ngIf="!news.isAd">
     <app-owner-desc [name]="news.ownerName" [image]="Helper.getFBImage(news.ownerID)"
                     [description]=getDuration(news.time)></app-owner-desc>
     <div *ngIf="true" class="swiper-container" [swiper]="swiperConfig">
@@ -105,6 +105,9 @@
           </div>
         </div>
       </div>
+  </mat-card>
+  <mat-card *ngIf="news.isAd">
+    <p>Advertisement</p>
   </mat-card>
 
 </div>

@@ -1,3 +1,8 @@
-.container{
-  margin-top: 60px;
+@import "../../scss/variabels";
+
+:host {
+  .container{
+    margin-top: 60px;
+    width: 100%;
+  }
 }

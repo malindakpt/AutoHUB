@@ -31,6 +31,6 @@
 <div *ngIf="dataService.isVehicleSearchInprogress" class="page-loading">
   <img src="../../../assets/images/loading-page.gif">
 </div>
-<mat-card *ngFor="let v of vehicleList">
+<div *ngFor="let v of vehicleList">
   <app-vehicle-profile [selectedVehicle]="v" [isSearchResult]="true" [showNews]="false"></app-vehicle-profile>
-</mat-card>
+</div>

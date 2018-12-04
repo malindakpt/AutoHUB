@@ -90,7 +90,7 @@ export function getAuthServiceConfigs() {
     ),
 
     AdsenseModule.forRoot({
-      adClient: 'ca-pub-6698607648075269',
+      adClient: '',
       adSlot: 2930227358,
     }),
 
