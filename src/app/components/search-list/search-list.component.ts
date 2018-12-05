@@ -26,7 +26,13 @@ export class SearchListComponent extends BaseDirective implements OnInit {
   public searchCategory;
   public searchBrand;
   public searchModel;
+  public manufactYearFrom;
+  public manufactYearTo;
   public searchManufactYear;
+  public searchManufactYearFrom;
+  public searchManufactYearTo;
+  private retryCount = 0;
+  private searchDirectionRight; // true: min to max
 
   public vehicleList;
 
@@ -57,9 +63,38 @@ export class SearchListComponent extends BaseDirective implements OnInit {
   }
 
   public onSearch(): void {
+    this.retryCount = 0;
+
+    if (this.manufactYearTo && !this.manufactYearFrom) {
+      this.searchManufactYearFrom = this.manufactYearTo - Settings.SEARCH_VEHICLE_YEAR_GAP;
+      this.searchManufactYearTo = this.manufactYearTo + 0;
+      this.manufactYearFrom = this.manufactYearTo - Settings.SEARCH_VEHICLE_YEAR_GAP;
+      this.searchDirectionRight = false;
+      this.searchManufactYear = this.searchManufactYearTo;
+    } else if (!this.manufactYearTo && this.manufactYearFrom) {
+      this.searchManufactYearFrom = this.manufactYearFrom + 0;
+      this.searchManufactYearTo = this.manufactYearTo + Settings.SEARCH_VEHICLE_YEAR_GAP;
+      this.manufactYearTo = this.manufactYearFrom + Settings.SEARCH_VEHICLE_YEAR_GAP;
+      this.searchDirectionRight = true;
+      this.searchManufactYear = this.searchManufactYearFrom;
+    } else if (this.manufactYearTo && this.manufactYearFrom) {
+      if (this.manufactYearTo - this.manufactYearFrom > Settings.SEARCH_VEHICLE_YEAR_GAP) {
+        this.dialogService.showPopup('Maximum YEAR range should be less than ' + Settings.SEARCH_VEHICLE_YEAR_GAP);
+        return;
+      }
+      this.searchManufactYearFrom = this.manufactYearFrom + 0;
+      this.searchManufactYearTo = this.manufactYearTo + 0;
+      this.searchDirectionRight = false;
+      this.searchManufactYear = this.searchManufactYearTo;
+    } else {
+      this.searchManufactYear = null;
+    }
+
+
+
     this.dataService.resetVehicleSearch();
     this.vehicleList = this.dataService.getSearchVehicleList();
-    this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
+    this.sendSearchReq();
   }
 
   public onVehicleSelect(vehicle: Vehicle) {
@@ -67,9 +102,27 @@ export class SearchListComponent extends BaseDirective implements OnInit {
   }
 
   public onSearchNext(): void {
-    console.log('loading next');
     this.vehicleList = this.dataService.getSearchVehicleList();
-    this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory);
+    this.sendSearchReq();
+  }
+
+  private sendSearchReq(): void {
+    if (this.searchManufactYear) {
+      if (this.searchDirectionRight) {
+        this.searchManufactYear = this.searchManufactYearFrom++;
+      } else {
+        this.searchManufactYear = this.searchManufactYearTo--;
+      }
+    }
+    if (!this.searchManufactYear || (this.searchManufactYear <= this.manufactYearTo && this.searchManufactYear >= this.manufactYearFrom)) {
+      console.log(this.retryCount + 'th try: auto resend of year: ' + (this.searchManufactYear));
+      this.dataService.searchVehicles(this.searchManufactYear,  this.searchBrand, this.searchModel, this.searchCategory).then((isComplete: boolean) => {
+        if (this.searchManufactYear && !isComplete) {
+          this.retryCount ++;
+          this.sendSearchReq();
+        }
+      });
+    }
   }
 
   public displayFn(str?: string): string | undefined {

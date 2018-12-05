@@ -211,53 +211,66 @@ export class DataService {
     });
   }
 
-  public searchVehicles(year: number, brand: string, model: string, category: string): void {
+  public searchVehicles(year: number, brand: string, model: string, category: string): Promise<boolean> {
+
     if (!this.validateStatus()) {
-      return;
+      return new Promise(() => {});
     }
     if (this.isVehicleSearchInprogress || this.lastVisibleVehicleSearch === -1) {
-      return;
+      return new Promise(() => {});
     }
-    this.isVehicleSearchInprogress = true;
-    const that = this;
-    const searchedVehicles = [];
-    console.log('send request for search');
+
+    return new Promise((resolves, reject) => {
+      this.isVehicleSearchInprogress = true;
+      const that = this;
+      const searchedVehicles = [];
+      console.log('send request for search');
       let query =  this.fs.firestore.collection(Entity.vehicles).where
       ('status', '==', VehicleStatus.SELL);
 
-    if (model && model.length > 0) {
-      query = query.orderBy('model', 'desc');
-      query = query.where('model', '>=', model.toUpperCase());
-      query = query.where('modelStartChar', '==', model.toUpperCase().substr(0, 1));
-    }
-    if (year) {
-      query = query.where('manufactYear', '==', year);
-    }
-    if (brand) {
-      query = query.where('brand', '==', brand);
-    }
-    if (category) {
-      query = query.where('category', '==', category);
-    }
-    query = query.where('countryId', '==', Helper.user.countryId);
-    query = query.orderBy('time', 'desc');
-    if (that.lastVisibleVehicleSearch) {
-      query = query.startAfter(that.lastVisibleVehicleSearch);
-    }
-    query = query.limit(Settings.SEARCH_VEHICLE_FETCH_COUNT);
-    query.get()
+      if (model && model.length > 0) {
+        query = query.orderBy('model', 'desc');
+        query = query.where('model', '>=', model.toUpperCase());
+        query = query.where('modelStartChar', '==', model.toUpperCase().substr(0, 1));
+      }
+      if (year) {
+        query = query.where('manufactYear', '==', year);
+      }
+      if (brand) {
+        query = query.where('brand', '==', brand);
+      }
+      if (category) {
+        query = query.where('category', '==', category);
+      }
+      query = query.where('countryId', '==', Helper.user.countryId);
+      query = query.orderBy('time', 'desc');
+      if (that.lastVisibleVehicleSearch) {
+        query = query.startAfter(that.lastVisibleVehicleSearch);
+      }
+      query = query.limit(Settings.SEARCH_VEHICLE_FETCH_COUNT);
+      query.get()
         .then(function (querySnapshot) {
-          that.lastVisibleVehicleSearch = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
+
+         that.lastVisibleVehicleSearch = querySnapshot.docs[querySnapshot.docs.length - 1] || -1;
           querySnapshot.forEach(function (doc) {
             // doc.data() is never undefined for query doc snapshots
             that.vehicleSearchList.push(new Vehicle(doc.data()));
           });
           that.isVehicleSearchInprogress = false;
+
+          if (year && querySnapshot.docs.length < Settings.SEARCH_VEHICLE_FETCH_COUNT) {
+            console.log('LESS results fetched-----------try new request');
+            that.lastVisibleVehicleSearch = null;
+            resolves(false);
+          } else {
+            resolves(true);
+          }
         })
         .catch(function (error) {
           that.showNetworkError();
           console.log('Error getting documents: ', error);
         });
+    });
   }
 
   public requestNewsListForVehicle(vehicleID: string, isOnlyMyNews: boolean): void {

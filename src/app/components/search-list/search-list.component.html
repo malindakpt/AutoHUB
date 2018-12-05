@@ -19,8 +19,13 @@
         <input matInput placeholder="Model" [(ngModel)]="searchModel" name="model">
       </mat-form-field>
 
-      <mat-form-field class="m-5">
-        <input matInput placeholder="Manufactured Year" [(ngModel)]="searchManufactYear" name="manufactYear"
+      <mat-form-field class="m-5 year-input">
+        <input matInput placeholder="Year From" [(ngModel)]="manufactYearFrom" name="manufactYearFrom"
+               type="number">
+      </mat-form-field>
+
+      <mat-form-field class="m-5 year-input">
+        <input matInput placeholder="Year To" [(ngModel)]="manufactYearTo" name="manufactYearTo"
                type="number">
       </mat-form-field>
     </div>
