@@ -1,0 +1,10 @@
+<div class="bottom-menu"  *ngIf="Helper.user">
+    <a *ngFor="let item of menuOptions" [routerLink]="item.route">
+      <div><fa [name]="item.icon" size="lg"></fa></div>
+      <div><span class="text">{{item.disp}}</span></div>
+    </a>
+    <a (click)="logout()" class="logout">
+        <div *ngIf="Helper.user"><fa name="power-off" size="lg"></fa></div>
+        <div><span class="text">Logout</span></div>
+    </a>
+</div>

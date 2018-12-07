@@ -3,7 +3,7 @@
   <div *ngIf="!isSearchResult">
     <div class="flex-j-sb">
       <div>
-        <mat-form-field>
+        <mat-form-field *ngIf = "myVehicles.length > 0">
           <mat-select placeholder="Select Vehicle" [(ngModel)]='selectedVehicle' name='selectedVehicle'
                       (selectionChange)="onVehicleChange()">
             <mat-option *ngFor="let vehi of myVehicles" [value]="vehi">

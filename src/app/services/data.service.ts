@@ -61,6 +61,13 @@ export class DataService {
   public resetNews(): void {
     this.lastVisibleNews = {};
     this.newsList = new Array<News>();
+    const news = new News({
+      ownerName: 'Welcome to VehiLIFE, Select an activity type form above to discuss a topic. ',
+      desc: 'Click on PROFILE in menu bar to add your vehicle maintanance history',
+      ownerID: '110572676646417',
+      time: 1544159221436
+    });
+    this.newsList.push(news);
   }
 
   public getMyVehicles(): Promise<any> {

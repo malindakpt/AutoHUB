@@ -2,7 +2,11 @@
 
 :host {
   .container{
-    margin-top: 60px;
-    width: 100%;
+    position: fixed;
+    overflow-y: scroll;
+    top: 60px;
+    bottom: 45px;
+    right: 10px;
+    left: 10px;
   }
 }

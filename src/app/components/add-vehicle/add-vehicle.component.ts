@@ -120,8 +120,8 @@ export class AddVehicleComponent extends BaseDirective implements OnInit, OnChan
     } else if (!this.vehicle.model) {
       this.dialogService.showPopup('Model cannot be empty');
       return false;
-    } else if (!this.vehicle.chassisNo) {
-      this.dialogService.showPopup('Chassis No cannot be empty');
+    } else if (!this.vehicle.chassisNo && this.vehicle.chassisNo.length > 10) {
+      this.dialogService.showPopup('Invalid chassis number');
       return false;
     } else if (!this.vehicle.manufactYear || isNaN(this.vehicle.manufactYear)) {
       this.dialogService.showPopup('Invalid manufactured year');

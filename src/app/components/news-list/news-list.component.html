@@ -106,7 +106,7 @@
         </div>
       </div>
   </mat-card>
-  <mat-card *ngIf="news.isAd">
+  <mat-card *ngIf="news.isAd && Settings.ALLOW_ADS">
     <p>Advertisement</p>
   </mat-card>
 

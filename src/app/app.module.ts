@@ -63,6 +63,7 @@ import {DialogService} from './services/dialog.service';
 import {CanDeactivateGuard} from './services/save.settings.service';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { AdsenseModule } from 'ng2-adsense';
+import { BottomMenuPanelComponent } from './components-sub/bottom-menu-panel/bottom-menu-panel.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -155,6 +156,7 @@ export function getAuthServiceConfigs() {
     CountrySelectorComponent,
     DialogComponent,
     PrivacyPolicyComponent,
+    BottomMenuPanelComponent,
   ],
 
   providers: [
