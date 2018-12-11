@@ -3,6 +3,7 @@ import {NewsType} from '../enum/enums';
 
 export class News extends Entity {
   public vehicleID;
+  public vehicleRegNo;
   public odoMeter;
   public type: NewsType;
   public cat = 'NONE';

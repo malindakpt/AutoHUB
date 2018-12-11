@@ -21,7 +21,9 @@ export class Vehicle extends Entity {
     public time: number;
     public isActive = true;
     public description;
-  public countryId: number;
+    public countryId: number;
+    // meta data
+    public searchedByRegNo: boolean;
     // Entiy id is the chassis number
     constructor(obj: any) {
       super(obj);

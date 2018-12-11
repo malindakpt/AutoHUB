@@ -1,6 +1,6 @@
 <div>
   <div>
-    <app-add-news *ngIf="!isSearchResult" [resetCount]="resetCount" [widgetType]="addNewsType"></app-add-news>
+    <app-add-news *ngIf="!isSearchResult" [placeholder]="placeholder" [resetCount]="resetCount" [widgetType]="addNewsType" (saveComplete)="onSaveComplete(null, $event)"></app-add-news>
   </div>
 
   <div *ngIf="!isNewsView && !isSearchResult"  class="flex-j-end private-mode">
@@ -74,7 +74,7 @@
         {{ news.desc }}
       </div>
       <div *ngIf="Helper.user && news.ownerID === Helper.user.id" class="m-5">
-        <app-add-news *ngIf="news.showEdit" [news]="news" (closed)="news.showEdit = false" (saveComplete)="onEditComplete(news, $event)"></app-add-news>
+        <app-add-news *ngIf="news.showEdit" [news]="news" (closed)="news.showEdit = false" (saveComplete)="onSaveComplete(news, $event)"></app-add-news>
         <div class="flex-j-end pointer">
           <fa *ngIf="!news.showEdit" name="pencil" (click)="swapEditBtn(news)"></fa>
         </div>

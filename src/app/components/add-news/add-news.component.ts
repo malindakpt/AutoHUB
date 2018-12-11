@@ -16,6 +16,7 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
   @Input() news: News;
   @Input() resetCount: string;
   @Input() widgetType: NewsWidgetType;
+  @Input() placeholder = 'Post something to discuss with friends';
   @Output() closed = new EventEmitter();
   @Output() saveComplete = new EventEmitter();
   public myVehicles: Vehicle[] = [];
@@ -92,6 +93,7 @@ export class AddNewsComponent extends BaseDirective implements OnInit, OnChanges
 
   private bindNewsParams(): void {
     this.news.vehicleID = this.selectedVehicle.chassisNo;
+    this.news.vehicleRegNo = this.selectedVehicle.regNo;
     this.news.cat = this.selectedVehicle.category || 'NO-VEHI-CAT';
   }
 

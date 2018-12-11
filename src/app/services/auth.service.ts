@@ -23,7 +23,7 @@ export const users = [{
 export class AuthenticationService {
 
     public authStatus: Observable<any>;
-    public loginSubject: Subject<any>;
+    public loginSubject: BehaviorSubject<any>;
     public imageURL: string;
     public devAuthSubject;
     constructor(
@@ -31,48 +31,62 @@ export class AuthenticationService {
       private dialogService: DialogService,
       private router: Router) {
 
-      this.loginSubject = new Subject();
+      this.loginSubject = new BehaviorSubject({});
       if (environment.production) {
         this.authStatus = this.socialAuthService.authState;
       } else {
-        const userID = Helper.getItem('userID');
-        let user;
-        if (userID) {
-          user = users[Number(userID)];
-        } else {
-          user = users[0];
-          Helper.setItem('userID', '0');
-        }
-
-        this.devAuthSubject = new BehaviorSubject(user);
-        this.authStatus = this.devAuthSubject;
-        Helper.user = user;
-        console.log('Running in DEV mode');
-        this.router.navigate(['secure']);
+        this.devLogin();
       }
     }
 
     public login(): void {
+      if (environment.production) {
         const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (user: any) => {
               Helper.user = user;
               Helper.setItem(LocalStorageKeys.USER, user);
               this.loginSubject.next(user);
-              console.log('FB sign in data : ', user);
               this.imageURL = user.image;
-              this.dialogService.showPopup('Next time you will see the news which are specific to your country');
+              //this.dialogService.showPopup('Next time you will see the news which are specific to your country');
             }
         );
+      } else {
+        this.devLogin();
+      }
     }
 
     public logout(): void {
+      if (environment.production) {
         this.socialAuthService.signOut().then(
-            (userData) => {
-                Helper.user = null;
-                Helper.setItem(LocalStorageKeys.USER, null);
-                this.router.navigate(['secure']);
-            }
+          (userData) => {
+            this.router.navigate(['secure']);
+            Helper.user = null;
+            Helper.setItem(LocalStorageKeys.USER, null);  
+          }
         );
+      } else {
+        this.router.navigate(['secure']);
+        Helper.user = null;
+        Helper.setItem(LocalStorageKeys.USER, null);  
+      }
+    }
+
+    private devLogin(): void {
+      const userID = Helper.getItem('userID');
+      let user;
+      if (userID) {
+        user = users[Number(userID)];
+      } else {
+        user = users[0];
+        Helper.setItem('userID', '0');
+      }
+      Helper.setItem(LocalStorageKeys.USER, user);
+      this.devAuthSubject = new BehaviorSubject(user);
+      this.authStatus = this.devAuthSubject;
+      Helper.user = user;
+      this.loginSubject.next(user);
+      console.log('Running in DEV mode');
+      this.router.navigate(['secure']);
     }
 }

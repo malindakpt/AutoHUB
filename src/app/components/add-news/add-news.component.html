@@ -1,7 +1,7 @@
 <div *ngIf="Helper.user" class="flex-j-center">
   <form>
     <mat-form-field>
-      <mat-select placeholder="Select Activity Type To Add" [(ngModel)]='news.type' name='serviceType'>
+      <mat-select [placeholder]="placeholder" [(ngModel)]='news.type' name='serviceType'>
         <mat-option *ngFor="let type of serviceTypes" [value]="type.val">
           {{type.name}}
         </mat-option>

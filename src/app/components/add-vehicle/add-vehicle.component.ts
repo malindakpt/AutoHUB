@@ -53,7 +53,8 @@ export class AddVehicleComponent extends BaseDirective implements OnInit, OnChan
       this.isEdit = true;
       this.autoNews = new News({});
       this.autoNews.id = Helper.getUniqueID();
-      this.autoNews.vehicleID = this.vehicle.id;
+      this.autoNews.vehicleID = this.vehicle.chassisNo;
+      this.autoNews.vehicleRegNo = this.vehicle.regNo;
       this.autoNews.type = NewsType.NEWS;
       this.autoNews.time = Helper.getTime();
       this.autoNews.ownerID = Helper.user.id;

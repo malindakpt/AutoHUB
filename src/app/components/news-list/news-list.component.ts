@@ -25,6 +25,8 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
   @Input() vehicle: Vehicle;
   @Input() isSearchResult = false;
   @Input() isNewsView;
+  @Input() searchByRegNo;
+  @Input() placeholder = null;
   public newsTypes = NewsType;
   public resetCount;
   public addNewsType;
@@ -64,15 +66,25 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
         if (params.ref === 'isNewsView') {
           this.isNewsView = true;
         }
+        if(this.isNewsView) {
+          this.placeholder = 'Post something to discuss with friends';
+        } else {
+          this.placeholder = 'Select service type';
+        }
       }
       this.isShowLocalNews = Helper.getItem(LocalStorageKeys.SHOW_LOCAL_NEWS);
       this.loadNews();
     });
   }
 
-  onEditComplete(news1: News, news2: News): void {
-    news1 = news2;
+  public onSaveComplete(newsOld: News, newsEdited: News): void {
+    if (newsOld) {
+      newsOld = newsEdited;
+    } else {
+      this.newsArr.unshift(newsEdited);
+    }
   }
+
   ngOnInit() {
     this.isShowLocalNews = Helper.getItem(LocalStorageKeys.SHOW_LOCAL_NEWS);
   }
@@ -129,7 +141,11 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
     } else {
       if (this.vehicle && this.vehicle.id) {
         this.addNewsType = NewsWidgetType.SERVICE;
-        this.newsArr = this.dataService.getVehicleNewsList(this.vehicle.chassisNo, this.isShowOnlyMyNews);
+        if (this.vehicle.searchedByRegNo + '' == 'true') {
+          this.newsArr = this.dataService.getVehicleNewsList(true, this.vehicle.regNo, this.isShowOnlyMyNews && !this.isSearchResult);
+        } else {
+          this.newsArr = this.dataService.getVehicleNewsList(false, this.vehicle.chassisNo, this.isShowOnlyMyNews && !this.isSearchResult);
+        }
       } else {
         // Do nothing
       }

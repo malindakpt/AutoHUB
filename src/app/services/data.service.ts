@@ -61,9 +61,18 @@ export class DataService {
   public resetNews(): void {
     this.lastVisibleNews = {};
     this.newsList = new Array<News>();
-    const news = new News({
-      ownerName: 'Welcome to VehiLIFE, Select an activity type form above to discuss a topic. ',
-      desc: 'Click on PROFILE in menu bar to add your vehicle maintanance history',
+    let 
+    news = new News({
+      ownerName: 'Click on Profile to add your vehicle ',
+      desc: 'Add your vehicle\'s maintanance history, service records and any special events',
+      ownerID: '110572676646417',
+      time: 1544159221436
+    });
+    this.newsList.push(news);
+
+    news = new News({
+      ownerName: 'Select an activity type to create a post. ',
+      desc: 'Start discussions about popular topics and ask questions from the friends',
       ownerID: '110572676646417',
       time: 1544159221436
     });
@@ -96,11 +105,11 @@ export class DataService {
     return this.vehicleSearchList;
   }
 
-  public getVehicleNewsList(id: string, isOnlyMyNews: boolean): Array<News> {
+  public getVehicleNewsList(isSearchByRegNo: boolean, id: string, isOnlyMyNews: boolean): Array<News> {
     if (!this.vehicleNewsList) {
       this.vehicleNewsList = new Array<News>();
     }
-    this.requestNewsListForVehicle(id, isOnlyMyNews);
+    this.requestNewsListForVehicle(isSearchByRegNo, id, isOnlyMyNews);
     return this.vehicleNewsList;
   }
 
@@ -280,15 +289,20 @@ export class DataService {
     });
   }
 
-  public requestNewsListForVehicle(vehicleID: string, isOnlyMyNews: boolean): void {
+  public requestNewsListForVehicle(isSearchByRegNo: boolean, id: string, isOnlyMyNews: boolean): void {
     if (this.isVehicleNewsFetchInprogress || this.lastVisibleVehicleNews === -1) {
       return;
     }
     this.isVehicleNewsFetchInprogress = true;
     const that = this;
     let query = this.fs.firestore.collection(Entity.news)
-      .where('vehicleID', '==', vehicleID)
       .orderBy('time', 'desc');
+
+    if (isSearchByRegNo) {
+      query = query.where('vehicleRegNo', '==', id);
+    } else {
+      query = query.where('vehicleID', '==', id);
+    } 
 
     if (isOnlyMyNews) {
       if (Helper.user) {

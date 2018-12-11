@@ -75,6 +75,7 @@ export class SearchVehicleComponent extends BaseDirective implements OnInit {
   }
 
   public onVehicleSelect() {
+    this.vehicles[0].searchedByRegNo = this.searchType === 0;
     this.router.navigate(['/secure/profile/' + Helper.getTime()], {queryParams: this.vehicles[0]});
     this.dialogRef.close();
   }
