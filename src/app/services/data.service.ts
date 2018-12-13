@@ -62,9 +62,18 @@ export class DataService {
     this.lastVisibleNews = {};
     this.newsList = new Array<News>();
     let 
+
     news = new News({
-      ownerName: 'Click on Profile to add your vehicle ',
-      desc: 'Add your vehicle\'s maintanance history, service records and any special events',
+      ownerName: 'Login with your Facebook profile ',
+      desc: 'After you logged in, you can add, buy or sell your vehicles',
+      ownerID: '110572676646417',
+      time: 1544159221436
+    });
+    this.newsList.push(news);
+
+    news = new News({
+      ownerName: 'Click on Profile to add your vehicles',
+      desc: 'Add your vehicle\'s maintanance history, service records and any special events. Eg Replacing Timing belt, Tyre Replacing, Oil Changing, Interior Polishing, Part Painting, Gearbox oil changing, Replacing Break Pads etc.',
       ownerID: '110572676646417',
       time: 1544159221436
     });

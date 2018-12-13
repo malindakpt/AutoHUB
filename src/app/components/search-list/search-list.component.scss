@@ -3,9 +3,13 @@
 :host {
   @include center-container();
 
+  .search-list-container {
+    max-width: $max-width;
+    margin: auto;
+  }
+
   app-vehicle-profile{
     width: 100%;
-    @include box-border;
   }
   form {
     width: 100%;

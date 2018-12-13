@@ -1,3 +1,21 @@
-<p>
-  sell-details works!
-</p>
+<h2>Please give more information about vehicle for selling</h2>
+<p></p>
+
+<mat-form-field>
+  <textarea matInput placeholder="More information about vehicle" [(ngModel)]="vehicle.description" name="more"></textarea>
+</mat-form-field>
+
+<mat-form-field>
+  <input maxlength="10" matInput placeholder="Price" [(ngModel)]="vehicle.price" name="price">
+</mat-form-field>
+
+<mat-form-field>
+  <input maxlength="20" matInput placeholder="Location" [(ngModel)]="vehicle.location" name="location">
+</mat-form-field>
+
+<mat-form-field>
+  <input maxlength="12" matInput placeholder="Phone number" [(ngModel)]="vehicle.phone" name="phone">
+</mat-form-field>
+
+<button mat-raised-button color="primary" (click)="onConfirm()">OK</button>
+<button mat-raised-button color="accent" (click)="close()">Cancel</button>

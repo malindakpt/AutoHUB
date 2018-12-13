@@ -1,7 +1,7 @@
 import {Component, Injector, Input, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Vehicle} from '../../entities/vehicle';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {OwnershipTransferComponent} from '../ownership-transfer/ownership-transfer.component';
 import {Helper} from '../../util/helper';
@@ -10,6 +10,7 @@ import {VehicleStatus} from '../../enum/event.enum';
 import {BaseDirective} from '../../directives/base';
 import {DialogService} from '../../services/dialog.service';
 import {DialogType} from '../../enum/enums';
+import { SellDetailsComponent } from '../sell-details/sell-details.component';
 
 @Component({
   selector: 'app-vehicle-profile',
@@ -40,6 +41,7 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   constructor(
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private injector: Injector) {
     super(injector);
   }
@@ -85,20 +87,25 @@ export class VehicleProfileComponent extends BaseDirective implements OnInit, On
   ngOnDestroy(): void {
   }
 
+  public showMaintananceHistory(): void {
+    this.selectedVehicle.searchedByRegNo = true;
+    this.router.navigate(['/secure/profile/' + Helper.getTime()], {queryParams: this.selectedVehicle});
+  }
+
   public readyForSell(): void {
-    this.dialogService.showDialog(DialogType.TEXT_INPUT, 'Phone number required !',
-      'Add details about this vehicle and your contact details').then(data => {
-        console.log('try to sell ');
+    const dialogRef = this.dialog.open(SellDetailsComponent, {
+      width: '450px',
+      data: this.selectedVehicle
+    });
+    dialogRef.afterClosed().subscribe(data => {
         if (data) {
-          this.selectedVehicle.description = data;
           this.selectedVehicle.time = this.userState.getTime();
           this.selectedVehicle.status = VehicleStatus.SELL;
           this.dataService.saveEntity(Entity.vehicles, this.selectedVehicle, true);
         } else if (data === null) {
           this.dialogService.showPopup('Please add required information');
         }
-      }
-    );
+    });
   }
 
   public avoidSell(): void {

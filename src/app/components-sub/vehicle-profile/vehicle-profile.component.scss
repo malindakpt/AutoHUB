@@ -16,8 +16,11 @@
     text-align: right;
   }
   .profile-container {
+    max-width: $max-width;
+    margin: auto;
     margin-bottom: 10px;
     width: 100%;
+    
 
     .swiper-container {
       margin-top: 5px;
@@ -46,6 +49,8 @@
 
     .vehicle-summary {
       margin-bottom: 2px;
+      background-color: #f8f6f6;
+      padding: 10px;
     }
 
     .info {

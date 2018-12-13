@@ -19,15 +19,15 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input [disabled]="isEdit" matInput placeholder="Chassis No/ VIN" [(ngModel)]="vehicle.chassisNo" name="Chassis">
+      <input maxlength="30" matInput placeholder="Chassis No/ VIN" [(ngModel)]="vehicle.chassisNo" name="Chassis">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Manufactured Year" [(ngModel)]="vehicle.manufactYear" name="manufactYear">
+      <input maxlength="4" matInput placeholder="Manufactured Year" [(ngModel)]="vehicle.manufactYear" name="manufactYear">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Reg. No. Eg.AA-1234" [(ngModel)]="vehicle.regNo" name="regNo">
+      <input maxlength="10" matInput placeholder="Reg. No. Eg.AA-1234" [(ngModel)]="vehicle.regNo" name="regNo">
     </mat-form-field>
 
     <mat-form-field>
@@ -41,7 +41,7 @@
     <app-country-selector (selectCountry)="onSelectCountry($event)" [countryCode]="vehicle.manufactCountry"></app-country-selector>
 
     <mat-form-field>
-      <input matInput placeholder="Engine Model/CC" [(ngModel)]="vehicle.engine" name="engine">
+      <input maxlength="30" matInput placeholder="Engine Model/CC" [(ngModel)]="vehicle.engine" name="engine">
     </mat-form-field>
 
     <div class="img-container">

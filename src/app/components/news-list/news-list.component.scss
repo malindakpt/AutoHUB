@@ -14,6 +14,11 @@
       margin-right: 7px;
     }
 
+    mat-card {
+      max-width: $max-width;
+      margin: auto;
+    }
+
     .swiper-container {
       margin-top: 5px;
 
@@ -37,6 +42,7 @@
         }
       }
     }
+
     .description{
       margin-top: 10px;
       color: #868686;
@@ -44,6 +50,7 @@
         padding: 6px;
         background-color: #ebebeb;
         border-radius: 4px;
+        width: 20%;
         .title {
           color: #a20000;
           font-size: 0.8em;

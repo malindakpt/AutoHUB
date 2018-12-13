@@ -90,8 +90,6 @@ export class SearchListComponent extends BaseDirective implements OnInit {
       this.searchManufactYear = null;
     }
 
-
-
     this.dataService.resetVehicleSearch();
     this.vehicleList = this.dataService.getSearchVehicleList();
     this.sendSearchReq();

@@ -64,6 +64,7 @@ import {CanDeactivateGuard} from './services/save.settings.service';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { BottomMenuPanelComponent } from './components-sub/bottom-menu-panel/bottom-menu-panel.component';
+import { SellDetailsComponent } from './components-sub/sell-details/sell-details.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -157,6 +158,7 @@ export function getAuthServiceConfigs() {
     DialogComponent,
     PrivacyPolicyComponent,
     BottomMenuPanelComponent,
+    SellDetailsComponent,
   ],
 
   providers: [
@@ -188,7 +190,8 @@ export function getAuthServiceConfigs() {
     SettingsComponent,
     SearchVehicleComponent,
     OwnershipTransferComponent,
-    DialogComponent
+    DialogComponent,
+    SellDetailsComponent
   ],
   bootstrap: [
     AppComponent,

@@ -8,5 +8,9 @@
     bottom: 45px;
     right: 10px;
     left: 10px;
+
+    @include desktop-only {
+      bottom: 0px;
+    }
   }
 }

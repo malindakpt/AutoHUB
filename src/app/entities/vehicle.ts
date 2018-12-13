@@ -20,7 +20,12 @@ export class Vehicle extends Entity {
     public status: boolean;
     public time: number;
     public isActive = true;
+
     public description;
+    public phoneNo;
+    public location;
+    public price;
+    
     public countryId: number;
     // meta data
     public searchedByRegNo: boolean;

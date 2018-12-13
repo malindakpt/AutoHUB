@@ -2,6 +2,7 @@ $theme-color: #018786;
 $font-color: #ffffff;
 $owner-color: #005ff9;
 $phone-breakpoint: 740px;
+$max-width: 600px;
 
 @mixin mobile-only() {
   @media only screen and (max-width: $phone-breakpoint) {

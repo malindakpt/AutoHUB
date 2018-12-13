@@ -34,12 +34,12 @@ export class Helper {
   }
 
   public static getBrandStringFromID(id: number): string {
-    const arr = Settings.VEHICLE_BRANDS.filter( ele => ele.key === id);
+    const arr = Settings.VEHICLE_BRANDS.filter( ele => ele.key === Number(id));
     return arr && arr.length > 0 ? arr[0].val : '';
   }
 
   public static getCountryStringFromID(id: number): string {
-    const arr = Settings.COUNTRIES.filter( ele => ele.key === id);
+    const arr = Settings.COUNTRIES.filter( ele => ele.key === Number(id));
     return arr && arr.length > 0 ? arr[0].val : '';
   }
 

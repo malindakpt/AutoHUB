@@ -98,6 +98,14 @@
         <div>CHASSIS:</div>
         <div>{{ selectedVehicle.chassisNo }}</div>
       </div>
+      <div class="flex-j-start info">
+        <div>PRICE:</div>
+        <div>{{ selectedVehicle.price }}</div>
+      </div>
+      <div class="flex-j-start info">
+        <div>Contact:</div>
+        <div>{{ selectedVehicle.phone }}</div>
+      </div>
     </div>
     <div>
       <div class="flex-j-start info">
@@ -116,6 +124,10 @@
         <div>FUEL</div>
         <div>{{ selectedVehicle.fuelType }}</div>
       </div>
+      <div class="flex-j-start info">
+        <div>LOCATION:</div>
+        <div>{{ selectedVehicle.location }}</div>
+      </div>
     </div>
   </div>
 
@@ -130,7 +142,7 @@
         {{selectedVehicle.description}}
       </div>
       <div *ngIf="isSearchResult && !showNews">
-        <a [routerLink]="['/secure/profile/1']" [queryParams]="selectedVehicle">See maintenance history</a>
+        <a class="pointer blue-text" (click) = "showMaintananceHistory()">See maintenance history</a>
       </div>
     </div>
     <div class="flex-j-end show-more">
