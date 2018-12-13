@@ -1,7 +1,7 @@
 export class Settings {
   public static LOGIN_TIMEOUT = 3000;
   public static ALLOW_ADS = false;
-  public static NEWS_FETCH_COUNT = 10;
+  public static NEWS_FETCH_COUNT = 20;
   public static SEARCH_VEHICLE_FETCH_COUNT = 10;
   public static SEARCH_VEHICLE_YEAR_GAP = 5;
   public static AD_FREQ_NEWS = 1000;

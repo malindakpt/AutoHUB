@@ -65,27 +65,27 @@ export class DataService {
 
     news = new News({
       ownerName: 'Login with your Facebook profile ',
-      desc: 'After you logged in, you can add, buy or sell your vehicles',
+      desc: 'After you logged in, you can add, buy or sell your vehicles, add service records of your vehicle or discuss topics with your friends',
       ownerID: '110572676646417',
       time: 1544159221436
     });
     this.newsList.push(news);
 
-    news = new News({
-      ownerName: 'Click on Profile to add your vehicles',
-      desc: 'Add your vehicle\'s maintanance history, service records and any special events. Eg Replacing Timing belt, Tyre Replacing, Oil Changing, Interior Polishing, Part Painting, Gearbox oil changing, Replacing Break Pads etc.',
-      ownerID: '110572676646417',
-      time: 1544159221436
-    });
-    this.newsList.push(news);
+    // news = new News({
+    //   ownerName: 'Click on Profile to add your vehicles',
+    //   desc: 'Add your vehicle\'s maintanance history, service records and any special events. Eg Replacing Timing belt, Tyre Replacing, Oil Changing, Interior Polishing, Part Painting, Gearbox oil changing, Replacing Break Pads etc.',
+    //   ownerID: '110572676646417',
+    //   time: 1544159221436
+    // });
+    // this.newsList.push(news);
 
-    news = new News({
-      ownerName: 'Select an activity type to create a post. ',
-      desc: 'Start discussions about popular topics and ask questions from the friends',
-      ownerID: '110572676646417',
-      time: 1544159221436
-    });
-    this.newsList.push(news);
+    // news = new News({
+    //   ownerName: 'Select an activity type to create a post. ',
+    //   desc: 'Start discussions about popular topics and ask questions from the friends',
+    //   ownerID: '110572676646417',
+    //   time: 1544159221436
+    // });
+    // this.newsList.push(news);
   }
 
   public getMyVehicles(): Promise<any> {

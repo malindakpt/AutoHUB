@@ -9,6 +9,7 @@ export class News extends Entity {
   public cat = 'NONE';
   public cost;
   public place;
+  public topic: string;
   public desc;
   public time;
   public photos = ['', '', '', ''];

@@ -1,4 +1,4 @@
-import {Component, HostListener, Injector, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, HostListener, Injector, Input, OnChanges, OnInit, SimpleChanges, OnDestroy} from '@angular/core';
 import {News} from '../../entities/news';
 import {DataService} from '../../services/data.service';
 import * as moment from 'moment';
@@ -9,14 +9,15 @@ import {Helper} from '../../util/helper';
 import {ActivatedRoute} from '@angular/router';
 import {Settings} from '../../util/settings';
 import {BaseDirective} from '../../directives/base';
+import { AuthenticationService } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-news-list',
   templateUrl: './news-list.component.html',
   styleUrls: ['./news-list.component.scss']
 })
-export class NewsListComponent extends BaseDirective implements OnInit, OnChanges {
-
+export class NewsListComponent extends BaseDirective implements OnInit, OnChanges, OnDestroy {
   public swiperConfig = {
     loop: false,
     navigation: true
@@ -36,6 +37,7 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
   public lblGlobalNews = 'Global News';
   public lblPrivateHistory = 'Private History';
   public lblPublicHistory = 'Public History';
+  private subscription: Subscription;
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -50,6 +52,7 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
   constructor(
     public dataService: DataService,
     private activatedRoute: ActivatedRoute,
+    private authenticationService: AuthenticationService,
     private injector: Injector) {
     super(injector);
     this.dataService.resetNews();
@@ -92,6 +95,14 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
   ngOnChanges(changes: SimpleChanges): void {
     this.isShowLocalNews = Helper.getItem(LocalStorageKeys.SHOW_LOCAL_NEWS);
     this.loadNews();
+
+    // this.subscription = this.authenticationService.loginSubject.subscribe((dat: any) => {
+    //   this.loadNews();
+    // });
+  }
+
+  ngOnDestroy(): void {
+    // this.subscription.unsubscribe();
   }
 
   public swapEditBtn(news: News) {
@@ -138,13 +149,16 @@ export class NewsListComponent extends BaseDirective implements OnInit, OnChange
     if (this.isNewsView) {
       this.addNewsType = NewsWidgetType.NEWS;
       this.newsArr = this.dataService.getNewsList(this.isShowLocalNews);
+      console.log('News loaded as isNewsView');
     } else {
       if (this.vehicle && this.vehicle.id) {
         this.addNewsType = NewsWidgetType.SERVICE;
         if (this.vehicle.searchedByRegNo + '' == 'true') {
           this.newsArr = this.dataService.getVehicleNewsList(true, this.vehicle.regNo, this.isShowOnlyMyNews && !this.isSearchResult);
+          console.log('News loaded as regNo');
         } else {
           this.newsArr = this.dataService.getVehicleNewsList(false, this.vehicle.chassisNo, this.isShowOnlyMyNews && !this.isSearchResult);
+          console.log('News loaded as chassisNo');
         }
       } else {
         // Do nothing

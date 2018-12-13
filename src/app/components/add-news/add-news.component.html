@@ -25,6 +25,10 @@
         <input maxlength="8" matInput placeholder="Total Cost" [(ngModel)]='news.cost' name='cost'>
       </mat-form-field>
 
+      <mat-form-field *ngIf="news.type == newsTypes.NEWS">
+        <input matInput placeholder="Topic(Not mandetory)" [(ngModel)]='news.topic' name='topic'>
+      </mat-form-field>
+
       <mat-form-field>
         <textarea matInput placeholder="Activity Description" [(ngModel)]='news.desc' name='desc'></textarea>
       </mat-form-field>
