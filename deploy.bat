@@ -1,4 +1,4 @@
-cd ../F-erandaguna95-project &
+cd ../firebase &
 firebase deploy &
 cd ../AutoHUB
 
